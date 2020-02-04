@@ -11,7 +11,7 @@ let package = Package(
             targets: ["LeoQL"]),
     ],
     dependencies: [
-         .package(url: "https://github.com/nerdsupremacist/GraphQL.git", from: "master"),
+         .package(url: "https://github.com/nerdsupremacist/GraphQL.git", .branch("master")),
          .package(url: "https://github.com/wickwirew/Runtime.git", from: "2.1.1"),
     ],
     targets: [
