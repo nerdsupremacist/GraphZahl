@@ -2,7 +2,7 @@
 import Foundation
 import GraphQL
 
-enum ScalarType {
+public enum ScalarType {
     case string
     case float
     case int
@@ -10,7 +10,7 @@ enum ScalarType {
     case id
 }
 
-enum ScalarValue {
+public enum ScalarValue {
     case string(String)
     case number(Number)
     case bool(Bool)
@@ -27,38 +27,38 @@ enum ScalarValue {
     }
 }
 
-enum ID {
+public enum ID {
     case string(String)
     case int(Int)
 }
 
-enum ScalarTypeError: Error {
+public enum ScalarTypeError: Error {
     case unexpectedValue(ScalarValue, expected: ScalarType)
 }
 
 extension ScalarValue {
 
-    func string() throws -> String {
+    public func string() throws -> String {
         guard case .string(let string) = self else { throw ScalarTypeError.unexpectedValue(self, expected: .string) }
         return string
     }
 
-    func int() throws -> Int {
+    public func int() throws -> Int {
         guard case .number(let int) = self else { throw ScalarTypeError.unexpectedValue(self, expected: .int) }
         return int.intValue
     }
 
-    func float() throws -> Double {
+    public func float() throws -> Double {
         guard case .number(let float) = self else { throw ScalarTypeError.unexpectedValue(self, expected: .float) }
         return float.doubleValue
     }
 
-    func bool() throws -> Bool {
+    public func bool() throws -> Bool {
         guard case .bool(let bool) = self else { throw ScalarTypeError.unexpectedValue(self, expected: .bool) }
         return bool
     }
 
-    func id() throws -> ID {
+    public func id() throws -> ID {
         switch self {
         case .string(let string):
             return .string(string)
@@ -71,22 +71,22 @@ extension ScalarValue {
 
 }
 
-protocol Scalar: Resolvable {
+public protocol Scalar: Resolvable {
     init(scalar: ScalarValue) throws
     func encodeScalar() throws -> ScalarValue
 }
 
 extension String: Scalar {
 
-    init(scalar: ScalarValue) throws {
+    public init(scalar: ScalarValue) throws {
         self = try scalar.string()
     }
 
-    func encodeScalar() throws -> ScalarValue {
+    public func encodeScalar() throws -> ScalarValue {
         return .string(self)
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         context += GraphQLString
         return GraphQLNonNull(GraphQLString)
     }
@@ -95,15 +95,15 @@ extension String: Scalar {
 
 extension Int: Scalar {
 
-    init(scalar: ScalarValue) throws {
+    public init(scalar: ScalarValue) throws {
         self = try scalar.int()
     }
 
-    func encodeScalar() throws -> ScalarValue {
+    public func encodeScalar() throws -> ScalarValue {
         return .number(Number(self))
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         context += GraphQLInt
         return GraphQLNonNull(GraphQLInt)
     }
@@ -112,15 +112,15 @@ extension Int: Scalar {
 
 extension Float: Scalar {
 
-    init(scalar: ScalarValue) throws {
+    public init(scalar: ScalarValue) throws {
         self = Float(try scalar.float())
     }
 
-    func encodeScalar() throws -> ScalarValue {
+    public func encodeScalar() throws -> ScalarValue {
         return .number(Number(self))
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         context += GraphQLFloat
         return GraphQLNonNull(GraphQLFloat)
     }
@@ -129,15 +129,15 @@ extension Float: Scalar {
 
 extension Double: Scalar {
 
-    init(scalar: ScalarValue) throws {
+    public init(scalar: ScalarValue) throws {
         self = try scalar.float()
     }
 
-    func encodeScalar() throws -> ScalarValue {
+    public func encodeScalar() throws -> ScalarValue {
         return .number(Number(self))
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         context += GraphQLFloat
         return GraphQLNonNull(GraphQLFloat)
     }
@@ -146,15 +146,15 @@ extension Double: Scalar {
 
 extension Bool: Scalar {
 
-    init(scalar: ScalarValue) throws {
+    public init(scalar: ScalarValue) throws {
         self = try scalar.bool()
     }
 
-    func encodeScalar() throws -> ScalarValue {
+    public func encodeScalar() throws -> ScalarValue {
         return .bool(self)
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         context += GraphQLBoolean
         return GraphQLNonNull(GraphQLBoolean)
     }
@@ -163,7 +163,7 @@ extension Bool: Scalar {
 
 extension Scalar {
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = String(describing: Self.self)
         let type = try GraphQLScalarType(name: name) { value in
             guard let value = value as? Self else { fatalError() }

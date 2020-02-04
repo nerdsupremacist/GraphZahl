@@ -3,11 +3,13 @@ import Foundation
 import GraphQL
 import Runtime
 
-protocol Object : Resolvable { }
+public protocol Object : Resolvable { }
+
+extension Never : Object { }
 
 extension Object {
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = String(describing: Self.self)
 
         if let type = context.types[name] as? GraphQLNullableType {

@@ -1,14 +1,14 @@
 
 import GraphQL
 
-protocol Schema {
+public protocol Schema {
     associatedtype Query: Object
     associatedtype Mutation: Object
 }
 
 extension Schema {
     
-    internal func resolve() throws -> GraphQLSchema {
+    public static func resolve() throws -> GraphQLSchema {
         var context = Resolution.Context.empty
 
         let query = try Query.resolveObject(using: &context)

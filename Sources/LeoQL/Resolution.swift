@@ -2,9 +2,9 @@
 import Foundation
 import GraphQL
 
-enum Resolution {
+public enum Resolution {
     
-    struct Context {
+    public struct Context {
         let types: [String : GraphQLOutputType]
         
         private init(types: [String : GraphQLOutputType]) {
