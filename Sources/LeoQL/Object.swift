@@ -39,8 +39,8 @@ extension Object {
 
                 guard let type = propertyInfo.type as? Resolvable.Type else { return nil }
 
-                return GraphQLField(type: try type.resolve(using: &context)) { (object, args, other, info) -> Any? in
-                    return nil
+                return GraphQLField(type: try type.resolve(using: &context)) { object, _, _, _ in
+                    return try propertyInfo.get(from: object)
                 }
             }
 
