@@ -1,7 +1,7 @@
 
 import Foundation
+import GraphQL
 
 protocol Resolvable {
-    associatedtype Resolved
-    static func resolve(context: inout Resolution.Context) -> Resolved
+    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType
 }

@@ -15,12 +15,14 @@ enum Resolution {
 }
 
 extension Resolution.Context {
+
+    static let empty = Resolution.Context(types: [:])
     
-    static func + (lhs: Resolution.Context, rhs: GraphQLOutputType) -> Resolution.Context {
-        fatalError()
+    static func + <T : GraphQLOutputType & GraphQLNamedType>(lhs: Resolution.Context, rhs: T) -> Resolution.Context {
+        return Resolution.Context(types: lhs.types.merging([rhs.name : rhs]) { $1 })
     }
     
-    static func += (lhs: inout Resolution.Context, rhs: GraphQLOutputType) {
+    static func += <T : GraphQLOutputType & GraphQLNamedType>(lhs: inout Resolution.Context, rhs: T) {
         lhs = lhs + rhs
     }
     
