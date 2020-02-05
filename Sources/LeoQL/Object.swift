@@ -5,8 +5,6 @@ import Runtime
 
 public protocol Object : Resolvable { }
 
-extension Never : Object { }
-
 extension Object {
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
