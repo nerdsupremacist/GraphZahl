@@ -34,6 +34,7 @@ public enum ID {
 
 public enum ScalarTypeError: Error {
     case unexpectedValue(ScalarValue, expected: ScalarType)
+    case valueNotScalar(Map)
 }
 
 extension ScalarValue {
@@ -71,7 +72,7 @@ extension ScalarValue {
 
 }
 
-public protocol Scalar: Resolvable {
+public protocol Scalar: OutputResolvable, InputResolvable {
     init(scalar: ScalarValue) throws
     func encodeScalar() throws -> ScalarValue
 }
@@ -87,6 +88,11 @@ extension String: Scalar {
     }
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+        context += GraphQLString
+        return GraphQLNonNull(GraphQLString)
+    }
+
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLInputType {
         context += GraphQLString
         return GraphQLNonNull(GraphQLString)
     }
@@ -108,6 +114,11 @@ extension Int: Scalar {
         return GraphQLNonNull(GraphQLInt)
     }
 
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLInputType {
+        context += GraphQLInt
+        return GraphQLNonNull(GraphQLInt)
+    }
+
 }
 
 extension Float: Scalar {
@@ -121,6 +132,11 @@ extension Float: Scalar {
     }
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+        context += GraphQLFloat
+        return GraphQLNonNull(GraphQLFloat)
+    }
+
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLInputType {
         context += GraphQLFloat
         return GraphQLNonNull(GraphQLFloat)
     }
@@ -142,6 +158,11 @@ extension Double: Scalar {
         return GraphQLNonNull(GraphQLFloat)
     }
 
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLInputType {
+        context += GraphQLFloat
+        return GraphQLNonNull(GraphQLFloat)
+    }
+
 }
 
 extension Bool: Scalar {
@@ -159,6 +180,11 @@ extension Bool: Scalar {
         return GraphQLNonNull(GraphQLBoolean)
     }
 
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLInputType {
+        context += GraphQLBoolean
+        return GraphQLNonNull(GraphQLBoolean)
+    }
+
 }
 
 extension Scalar {
@@ -171,6 +197,41 @@ extension Scalar {
         }
         context += type
         return GraphQLNonNull(type)
+    }
+
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLInputType {
+        let name = String(describing: Self.self)
+        let type = try GraphQLScalarType(name: name) { value in
+            guard let value = value as? Self else { fatalError() }
+            return try value.encodeScalar().graphql()
+        }
+        context += type
+        return GraphQLNonNull(type)
+    }
+
+}
+
+extension Scalar {
+
+    public init(map: Map) throws {
+        try self.init(scalar: try ScalarValue(map: map))
+    }
+
+}
+
+extension ScalarValue {
+
+    init(map: Map) throws {
+        switch map {
+        case .null, .array, .dictionary:
+            throw ScalarTypeError.valueNotScalar(map)
+        case .bool(let bool):
+            self = .bool(bool)
+        case .number(let number):
+            self = .number(number)
+        case .string(let string):
+            self = .string(string)
+        }
     }
 
 }

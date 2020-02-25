@@ -7,8 +7,8 @@ public protocol RootType : Object {
     init(viewerContext: ViewerContext)
 }
 
-public struct EmptyRootType<ViewerContext> : RootType {
-    public init(viewerContext: ViewerContext) {
+public final class EmptyRootType<ViewerContext> : RootType {
+    required public init(viewerContext: ViewerContext) {
         // No-op
     }
 }

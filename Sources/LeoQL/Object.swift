@@ -3,7 +3,7 @@ import Foundation
 import GraphQL
 import Runtime
 
-public protocol Object : Resolvable { }
+public protocol Object : class, OutputResolvable { }
 
 extension Object {
 
@@ -35,14 +35,41 @@ extension Object {
                     }
                 }
 
-                guard let type = propertyInfo.type as? Resolvable.Type else { return nil }
+                guard let type = propertyInfo.type as? OutputResolvable.Type else { return nil }
 
                 return GraphQLField(type: try type.resolve(using: &context)) { object, _, _, _ in
                     return try propertyInfo.get(from: object)
                 }
             }
 
-        let type = try GraphQLObjectType(name: info.name, fields: properties)
+        let methodMap = Dictionary(uniqueKeysWithValues: info.methods.map { ($0.methodName, $0) })
+        let methods = try methodMap
+            .compactMapValues { method -> GraphQLField? in
+                guard let returnType = method.returnType as? OutputResolvable.Type else { return nil }
+
+                let mappedArguments = method.arguments.compactMap { argument in argument.name.map { ($0, argument) } }
+                let arguments = try Dictionary(uniqueKeysWithValues: mappedArguments)
+                    .compactMapValues { argument -> GraphQLArgument? in
+                        guard let argumentType = argument.type as? InputResolvable.Type else { return nil }
+                        return GraphQLArgument(type: try argumentType.resolve(using: &context))
+                    }
+
+                return GraphQLField(type: try returnType.resolve(using: &context),
+                                    args: arguments) { (object, args, other, info) -> Any? in
+
+                    let args = try args.dictionaryValue()
+                    let arguments = try method.arguments.compactMap { argument -> Any? in
+                        guard let name = argument.name,
+                            let argumentType = argument.type as? InputResolvable.Type else { return nil }
+
+                        return try args[name].map { try argumentType.init(map: $0) }
+                    }
+                    return method.call(receiver: object, arguments: arguments)
+                }
+            }
+
+        let fields = properties.merging(methods) { $1 }
+        let type = try GraphQLObjectType(name: info.name, fields: fields)
 
         context += type
 
@@ -51,5 +78,5 @@ extension Object {
 
 }
 
-
 extension GraphQLTypeReference: GraphQLNamedType { }
+
