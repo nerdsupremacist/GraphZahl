@@ -58,13 +58,13 @@ extension Object {
                                     args: arguments) { (object, args, other, info) -> Any? in
 
                     let args = try args.dictionaryValue()
-                    let arguments = try method.arguments.compactMap { argument -> Any? in
+                    let arguments = try method.arguments.map { argument -> Any? in
                         guard let name = argument.name,
                             let argumentType = argument.type as? InputResolvable.Type else { return nil }
 
                         return try args[name].map { try argumentType.init(map: $0) }
                     }
-                    return method.call(receiver: object, arguments: arguments)
+                    return method.call(receiver: object, arguments: arguments as [Any])
                 }
             }
 
