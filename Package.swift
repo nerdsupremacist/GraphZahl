@@ -6,23 +6,21 @@ import PackageDescription
 let package = Package(
     name: "LeoQL",
     products: [
-        .library(
-            name: "LeoQL",
-            targets: ["LeoQL"]),
+        .library(name: "LeoQL",
+                 targets: ["LeoQL"]),
 
-        .library(
-            name: "VaporLeo",
-            targets: ["VaporLeo"]),
+        .library(name: "VaporLeo",
+                 targets: ["VaporLeo"]),
 
-        .library(
-            name: "FluentLeo",
-            targets: ["FluentLeo"]),
+        .library(name: "FluentLeo",
+                 targets: ["FluentLeo"]),
     ],
     dependencies: [
          .package(url: "https://github.com/nerdsupremacist/GraphQL.git", .branch("master")),
          .package(url: "https://github.com/nerdsupremacist/Runtime.git", .branch("master")),
+
          .package(url: "https://github.com/vapor/vapor.git", from: "3.3.0"),
-         .package(url: "https://github.com/vapor/fluent-kit.git", from: "1.0.0"),
+         .package(url: "https://github.com/vapor/fluent", from: "3.2.1"),
     ],
     targets: [
         .target(
