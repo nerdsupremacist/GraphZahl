@@ -6,5 +6,5 @@ import NIO
 public protocol OutputResolvable {
     static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType
 
-    func resolve(eventLoop: EventLoopGroup) -> Future<Any?>
+    func resolve(source: Any, arguments: [String : Map], eventLoop: EventLoopGroup) -> Future<Any?>
 }

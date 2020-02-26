@@ -7,9 +7,8 @@ extension Array: OutputResolvable where Element: OutputResolvable {
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         return GraphQLNonNull(GraphQLList(try Element.resolve(using: &context)))
     }
-
-    public func resolve(eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
-        let futures = map { $0.resolve(eventLoop: eventLoop) }
+    public func resolve(source: Any, arguments: [String : Map], eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
+        let futures = map { $0.resolve(source: source, arguments: arguments, eventLoop: eventLoop) }
         return Future.whenAll(futures, eventLoop: eventLoop.next()).map { $0 as Any? }
     }
 }

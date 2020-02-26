@@ -9,8 +9,8 @@ extension EventLoopFuture: OutputResolvable where T: OutputResolvable {
         return try T.resolve(using: &context)
     }
 
-    public func resolve(eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
-        return flatMap { $0.resolve(eventLoop: eventLoop) }
+    public func resolve(source: Any, arguments: [String : Map], eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
+        return flatMap { $0.resolve(source: source, arguments: arguments, eventLoop: eventLoop) }
     }
 
 }

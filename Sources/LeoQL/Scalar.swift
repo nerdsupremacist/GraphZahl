@@ -218,7 +218,7 @@ extension Scalar {
         try self.init(scalar: try ScalarValue(map: map))
     }
 
-    public func resolve(eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
         return eventLoop.next().newSucceededFuture(result: self)
     }
 

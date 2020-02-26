@@ -30,11 +30,13 @@ extension Object {
         let propertyMap = Dictionary(uniqueKeysWithValues: info.properties.map { ($0.name, $0) })
         let properties: [String : GraphQLField] = try propertyMap
             .compactMapValues { propertyInfo in
-                guard let type = propertyInfo.type as? OutputResolvable.Type else { return nil }
+                guard let type = propertyInfo.type as? OutputResolvable.Type else {
+                    return nil
+                }
 
                 return GraphQLField(type: try type.resolve(using: &context)) { object, _, _, eventLoop, _ in
                     let result = try propertyInfo.get(from: object) as! OutputResolvable
-                    return result.resolve(eventLoop: eventLoop)
+                    return result.resolve(source: object, arguments: [:], eventLoop: eventLoop)
                 }
             }
 
@@ -66,7 +68,7 @@ extension Object {
                     // TODO: for some reason this breaks with arrays...
                     // this will break the server if we ever return [Future<T>]
                     if let result = result as? OutputResolvable {
-                        return result.resolve(eventLoop: eventLoop)
+                        return result.resolve(source: object, arguments: args, eventLoop: eventLoop)
                     }
                     return eventLoop.next().newSucceededFuture(result: result)
                 }
@@ -80,7 +82,7 @@ extension Object {
         return type
     }
 
-    public func resolve(eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
         return eventLoop.next().newSucceededFuture(result: self)
     }
 
