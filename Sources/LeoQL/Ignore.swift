@@ -2,7 +2,7 @@
 import Foundation
 
 @propertyWrapper
-public struct Ignore<T: OutputResolvable> {
+public struct Ignore<T> {
     public var wrappedValue: T
 
     public init(wrappedValue: T) {

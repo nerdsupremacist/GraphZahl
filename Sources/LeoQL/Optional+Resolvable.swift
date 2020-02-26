@@ -2,8 +2,21 @@
 import Foundation
 import GraphQL
 import NIO
+import Runtime
+
+extension Optional: Resolvable where Wrapped: Resolvable {
+
+    public static var typeName: String {
+        return Wrapped.typeName
+    }
+
+}
 
 extension Optional: OutputResolvable where Wrapped: OutputResolvable {
+
+    public static var additionalArguments: [String : InputResolvable.Type] {
+        return Wrapped.additionalArguments
+    }
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         guard let resolved = try Wrapped.resolve(using: &context) as? GraphQLNonNull else { fatalError() }
@@ -11,9 +24,9 @@ extension Optional: OutputResolvable where Wrapped: OutputResolvable {
         return type
     }
 
-    public func resolve(source: Any, arguments: [String : Map], eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
         guard let value = self else { return eventLoop.next().newSucceededFuture(result: nil) }
-        return value.resolve(source: source, arguments: arguments, eventLoop: eventLoop)
+        return try value.resolve(source: source, arguments: arguments, eventLoop: eventLoop)
     }
 
 }

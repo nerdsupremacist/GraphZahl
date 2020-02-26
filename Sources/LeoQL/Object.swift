@@ -8,10 +8,12 @@ public protocol Object : class, OutputResolvable { }
 
 extension Object {
 
-    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        let name = String(describing: Self.self)
+    public static var additionalArguments: [String : InputResolvable.Type] {
+        return [:]
+    }
 
-        if let type = context.types[name] as? GraphQLNullableType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+        if let type = context.types[typeName] as? GraphQLNullableType {
             return GraphQLNonNull(type)
         }
 
@@ -36,7 +38,7 @@ extension Object {
 
                 return GraphQLField(type: try type.resolve(using: &context)) { object, _, _, eventLoop, _ in
                     let result = try propertyInfo.get(from: object) as! OutputResolvable
-                    return result.resolve(source: object, arguments: [:], eventLoop: eventLoop)
+                    return try result.resolve(source: object, arguments: [:], eventLoop: eventLoop)
                 }
             }
 
@@ -68,7 +70,7 @@ extension Object {
                     // TODO: for some reason this breaks with arrays...
                     // this will break the server if we ever return [Future<T>]
                     if let result = result as? OutputResolvable {
-                        return result.resolve(source: object, arguments: args, eventLoop: eventLoop)
+                        return try result.resolve(source: object, arguments: args, eventLoop: eventLoop)
                     }
                     return eventLoop.next().newSucceededFuture(result: result)
                 }

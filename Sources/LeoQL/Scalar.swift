@@ -190,9 +190,12 @@ extension Bool: Scalar {
 
 extension Scalar {
 
+    public static var additionalArguments: [String : InputResolvable.Type] {
+        return [:]
+    }
+
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        let name = String(describing: Self.self)
-        let type = try GraphQLScalarType(name: name) { value in
+        let type = try GraphQLScalarType(name: typeName) { value in
             guard let value = value as? Self else { fatalError() }
             return try value.encodeScalar().graphql()
         }
@@ -201,8 +204,7 @@ extension Scalar {
     }
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLInputType {
-        let name = String(describing: Self.self)
-        let type = try GraphQLScalarType(name: name) { value in
+        let type = try GraphQLScalarType(name: typeName) { value in
             guard let value = value as? Self else { fatalError() }
             return try value.encodeScalar().graphql()
         }
