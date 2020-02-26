@@ -1,6 +1,7 @@
 
 import Foundation
 import GraphQL
+import NIO
 
 public enum ScalarType {
     case string
@@ -215,6 +216,10 @@ extension Scalar {
 
     public init(map: Map) throws {
         try self.init(scalar: try ScalarValue(map: map))
+    }
+
+    public func resolve(eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
+        return eventLoop.next().newSucceededFuture(result: self)
     }
 
 }

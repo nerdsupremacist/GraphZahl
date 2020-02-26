@@ -2,6 +2,7 @@
 import Foundation
 import GraphQL
 import Runtime
+import NIO
 
 public protocol Object : class, OutputResolvable { }
 
@@ -29,16 +30,11 @@ extension Object {
         let propertyMap = Dictionary(uniqueKeysWithValues: info.properties.map { ($0.name, $0) })
         let properties: [String : GraphQLField] = try propertyMap
             .compactMapValues { propertyInfo in
-                if propertyInfo.name == "id" {
-                    return GraphQLField(type: GraphQLID) { (object, args, other, info) -> Any? in
-                        return nil
-                    }
-                }
-
                 guard let type = propertyInfo.type as? OutputResolvable.Type else { return nil }
 
-                return GraphQLField(type: try type.resolve(using: &context)) { object, _, _, _ in
-                    return try propertyInfo.get(from: object)
+                return GraphQLField(type: try type.resolve(using: &context)) { object, _, _, eventLoop, _ in
+                    let result = try propertyInfo.get(from: object) as! OutputResolvable
+                    return result.resolve(eventLoop: eventLoop)
                 }
             }
 
@@ -54,8 +50,10 @@ extension Object {
                         return GraphQLArgument(type: try argumentType.resolve(using: &context))
                     }
 
+                guard arguments.count == method.arguments.count else { return nil }
+
                 return GraphQLField(type: try returnType.resolve(using: &context),
-                                    args: arguments) { (object, args, other, info) -> Any? in
+                                    args: arguments) { (object, args, other, eventLoop, info) -> Future<Any?> in
 
                     let args = try args.dictionaryValue()
                     let arguments = try method.arguments.map { argument -> Any? in
@@ -64,7 +62,11 @@ extension Object {
 
                         return try args[name].map { try argumentType.init(map: $0) }
                     }
-                    return method.call(receiver: object, arguments: arguments as [Any])
+                    let result = method.call(receiver: object, arguments: arguments as [Any])
+                    if let result = result as? OutputResolvable {
+                        return result.resolve(eventLoop: eventLoop)
+                    }
+                    return eventLoop.next().newSucceededFuture(result: result)
                 }
             }
 
@@ -74,6 +76,10 @@ extension Object {
         context += type
 
         return type
+    }
+
+    public func resolve(eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
+        return eventLoop.next().newSucceededFuture(result: self)
     }
 
 }

@@ -1,6 +1,6 @@
 
 import Foundation
-
+import NIO
 
 public protocol RootType : Object {
     associatedtype ViewerContext
@@ -8,6 +8,10 @@ public protocol RootType : Object {
 }
 
 public final class EmptyRootType<ViewerContext> : RootType {
+    public func resolve(eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
+        return eventLoop.next().newSucceededFuture(result: nil)
+    }
+
     required public init(viewerContext: ViewerContext) {
         // No-op
     }

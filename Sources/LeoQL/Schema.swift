@@ -10,7 +10,7 @@ public protocol Schema {
     associatedtype Mutation: MutationType where Mutation.ViewerContext == ViewerContext
 }
 
-private let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+private let defaultEventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 1)
 private var schemaCache = [String : GraphQLSchema]()
 
 extension Schema {
@@ -34,12 +34,15 @@ extension Schema {
                                  directives: [])
     }
 
-    public static func perform(request: String, viewerContext: ViewerContext) throws -> Future<GraphQLResult> {
+    public static func perform(request: String,
+                               viewerContext: ViewerContext,
+                               eventLoopGroup: EventLoopGroup? = nil) throws -> Future<GraphQLResult> {
+
         let schema = try schemaCache.getOrPut(String(describing: Self.self), default: try resolve())
         return try graphql(schema: schema,
                            request: request,
                            rootValue: Query(viewerContext: viewerContext),
-                           eventLoopGroup: eventLoopGroup)
+                           eventLoopGroup: eventLoopGroup ?? defaultEventLoopGroup)
     }
     
 }
