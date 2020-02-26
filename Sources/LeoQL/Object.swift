@@ -63,6 +63,8 @@ extension Object {
                         return try args[name].map { try argumentType.init(map: $0) }
                     }
                     let result = method.call(receiver: object, arguments: arguments as [Any])
+                    // TODO: for some reason this breaks with arrays...
+                    // this will break the server if we ever return [Future<T>]
                     if let result = result as? OutputResolvable {
                         return result.resolve(eventLoop: eventLoop)
                     }
