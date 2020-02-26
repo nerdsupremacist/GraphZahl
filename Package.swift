@@ -12,7 +12,7 @@ let package = Package(
     ],
     dependencies: [
          .package(url: "https://github.com/nerdsupremacist/GraphQL.git", .branch("master")),
-         .package(url: "https://github.com/wickwirew/Runtime.git", from: "2.1.1"),
+         .package(url: "https://github.com/nerdsupremacist/Runtime.git", .branch("master")),
     ],
     targets: [
         .target(
