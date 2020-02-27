@@ -13,7 +13,10 @@ extension Array: OutputResolvable where Element: OutputResolvable {
         return GraphQLNonNull(GraphQLList(try context.resolve(type: Element.self)))
     }
 
-    public func resolve(source: Any, arguments: [String : Map], eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any,
+                        arguments: [String : Map],
+                        eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+
         let futures = try map { try $0.resolve(source: source, arguments: arguments, eventLoop: eventLoop) }
         return Future.whenAll(futures, eventLoop: eventLoop.next()).map { $0 as Any? }
     }

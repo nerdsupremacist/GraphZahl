@@ -15,7 +15,10 @@ extension Optional: OutputResolvable where Wrapped: OutputResolvable {
         return type
     }
 
-    public func resolve(source: Any, arguments: [String : Map], eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any,
+                        arguments: [String : Map],
+                        eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+
         guard let value = self else { return eventLoop.next().newSucceededFuture(result: nil) }
         return try value.resolve(source: source, arguments: arguments, eventLoop: eventLoop)
     }

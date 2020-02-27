@@ -13,7 +13,10 @@ extension EventLoopFuture: OutputResolvable where T: OutputResolvable {
         return try context.resolve(type: T.self)
     }
 
-    public func resolve(source: Any, arguments: [String : Map], eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
+    public func resolve(source: Any,
+                        arguments: [String : Map],
+                        eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
+
         return flatMap { try $0.resolve(source: source, arguments: arguments, eventLoop: eventLoop) }
     }
 
