@@ -12,12 +12,8 @@ extension Int: Scalar {
         return .number(Number(self))
     }
 
-    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        return GraphQLNonNull(GraphQLInt)
+    public static func resolve() throws -> GraphQLScalarType {
+        return GraphQLInt
     }
-
-    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLInputType {
-        return GraphQLNonNull(GraphQLInt)
-    }
-
+    
 }

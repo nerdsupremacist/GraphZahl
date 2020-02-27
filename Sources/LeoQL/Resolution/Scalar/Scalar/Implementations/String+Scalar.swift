@@ -12,12 +12,8 @@ extension String: Scalar {
         return .string(self)
     }
 
-    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        return GraphQLNonNull(GraphQLString)
-    }
-
-    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLInputType {
-        return GraphQLNonNull(GraphQLString)
+    public static func resolve() throws -> GraphQLScalarType {
+        return GraphQLString
     }
 
 }

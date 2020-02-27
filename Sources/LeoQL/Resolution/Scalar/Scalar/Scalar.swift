@@ -1,16 +1,21 @@
 
 import Foundation
+import GraphQL
 
 public protocol Scalar: OutputResolvable, InputResolvable, ConcreteResolvable {
-    static var typeName: String { get }
+    static func resolve() throws -> GraphQLScalarType
+
     init(scalar: ScalarValue) throws
     func encodeScalar() throws -> ScalarValue
 }
 
 extension Scalar {
 
-    public static var typeName: String {
-        return String(describing: Self.self)
+    public static func resolve() throws -> GraphQLScalarType {
+        return try GraphQLScalarType(name: concreteTypeName) { value in
+            guard let value = value as? Self else { fatalError() }
+            return try value.encodeScalar().graphql()
+        }
     }
 
 }

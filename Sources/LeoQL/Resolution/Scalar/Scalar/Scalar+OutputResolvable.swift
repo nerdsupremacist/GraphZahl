@@ -10,12 +10,7 @@ extension Scalar {
     }
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        let type = try GraphQLScalarType(name: typeName) { value in
-            guard let value = value as? Self else { fatalError() }
-            return try value.encodeScalar().graphql()
-        }
-
-        return GraphQLNonNull(type)
+        return try GraphQLNonNull(resolve())
     }
 
     public func resolve(source: Any, arguments: [String : Map], eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
