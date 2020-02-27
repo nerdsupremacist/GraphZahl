@@ -15,7 +15,7 @@ extension OutputResolvable {
 
     static func additionalGraphqlArguments(using context: inout Resolution.Context) throws -> [String : GraphQLArgument] {
         return try additionalArguments
-            .mapValues { try $0.resolve(using: &context) }
+            .mapValues { try context.resolve(type: $0) }
             .mapValues { GraphQLArgument(type: $0) }
     }
 

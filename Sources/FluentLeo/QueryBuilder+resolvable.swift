@@ -20,7 +20,7 @@ extension QueryBuilder: OutputResolvable where Result: OutputResolvable {
     }
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        return try Connection<Database, Result>.resolve(using: &context)
+        return try context.resolve(type: Connection<Database, Result>.self)
     }
 
     public func resolve(source: Any,

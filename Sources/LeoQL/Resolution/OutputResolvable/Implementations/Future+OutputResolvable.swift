@@ -3,14 +3,6 @@ import Foundation
 import GraphQL
 import NIO
 
-extension EventLoopFuture: Resolvable where T: Resolvable {
-
-    public static var typeName: String {
-        return T.typeName
-    }
-
-}
-
 extension EventLoopFuture: OutputResolvable where T: OutputResolvable {
 
     public static var additionalArguments: [String : InputResolvable.Type] {
@@ -18,7 +10,7 @@ extension EventLoopFuture: OutputResolvable where T: OutputResolvable {
     }
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        return try T.resolve(using: &context)
+        return try context.resolve(type: T.self)
     }
 
     public func resolve(source: Any, arguments: [String : Map], eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
@@ -26,3 +18,4 @@ extension EventLoopFuture: OutputResolvable where T: OutputResolvable {
     }
 
 }
+

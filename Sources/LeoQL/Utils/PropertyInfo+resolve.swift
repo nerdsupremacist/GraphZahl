@@ -4,7 +4,6 @@ import Runtime
 import GraphQL
 import NIO
 
-
 extension PropertyInfo {
 
     func resolve(using context: inout Resolution.Context) throws -> GraphQLField? {
@@ -12,7 +11,7 @@ extension PropertyInfo {
 
         let arguments = try type.additionalGraphqlArguments(using: &context)
 
-        return GraphQLField(type: try type.resolve(using: &context),
+        return GraphQLField(type: try context.resolve(type: type),
                             args: arguments) { object, arguments, _, eventLoop, _ in
 
             let result = try self.get(from: object)

@@ -13,7 +13,7 @@ extension MethodInfo {
         let arguments = try Dictionary(uniqueKeysWithValues: mappedArguments)
             .compactMapValues { argument -> GraphQLArgument? in
                 guard let argumentType = argument.type as? InputResolvable.Type else { return nil }
-                return GraphQLArgument(type: try argumentType.resolve(using: &context))
+                return GraphQLArgument(type: try context.resolve(type: argumentType))
             }
 
         guard arguments.count == arguments.count else { return nil }
@@ -22,7 +22,7 @@ extension MethodInfo {
             .additionalGraphqlArguments(using: &context)
             .merging(arguments) { $1 }
 
-        return GraphQLField(type: try returnType.resolve(using: &context),
+        return GraphQLField(type: try context.resolve(type: returnType),
                             args: completeArguments) { (receiver, args, _, eventLoop, _) -> Future<Any?> in
 
             let args = try args.dictionaryValue()
