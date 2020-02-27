@@ -27,7 +27,6 @@ extension QueryBuilder: OutputResolvable where Result: OutputResolvable {
                         arguments: [String : Map],
                         eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
 
-
         let first = try arguments["first"]?.intValue()
         let after = try arguments["after"]?.stringValue()
         let last = try arguments["last"]?.intValue()
