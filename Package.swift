@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "LeoQL",
+    platforms: [
+       .macOS(.v10_15)
+    ],
     products: [
         .library(name: "LeoQL",
                  targets: ["LeoQL"]),
@@ -19,8 +22,8 @@ let package = Package(
          .package(url: "https://github.com/nerdsupremacist/GraphQL.git", .branch("master")),
          .package(url: "https://github.com/nerdsupremacist/Runtime.git", .branch("master")),
 
-         .package(url: "https://github.com/vapor/vapor.git", from: "3.3.0"),
-         .package(url: "https://github.com/vapor/fluent", from: "3.2.1"),
+         .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0-beta."),
+         .package(url: "https://github.com/vapor/fluent", from: "4.0.0-beta."),
     ],
     targets: [
         .target(

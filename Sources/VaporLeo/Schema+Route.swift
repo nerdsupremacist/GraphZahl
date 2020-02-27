@@ -2,34 +2,38 @@
 import Foundation
 import LeoQL
 import Vapor
+import GraphQL
 
 extension Schema {
 
-    static func route(at path: [PathComponentsRepresentable],
-                      viewerContext: @escaping (Request) throws -> EventLoopFuture<ViewerContext>) -> Route<Responder> {
+    static func route(at path: [PathComponent],
+                      viewerContext: @escaping (Request) throws -> EventLoopFuture<ViewerContext>) -> Route {
 
-        return Route(path: [.constant(HTTPMethod.POST.string)] + path.flatMap { $0.convertToPathComponents() },
-                     output: responder(viewerContext: viewerContext))
+        return Route(method: .POST,
+                     path: path,
+                     responder: responder(viewerContext: viewerContext),
+                     requestType: Query.self,
+                     responseType: GraphQLResult.self)
     }
 
-    public static func route(at path: PathComponentsRepresentable...,
-                      viewerContext: @escaping (Request) throws -> EventLoopFuture<ViewerContext>) -> Route<Responder> {
+    public static func route(at path: PathComponent...,
+                      viewerContext: @escaping (Request) throws -> EventLoopFuture<ViewerContext>) -> Route {
 
         return route(at: path, viewerContext: viewerContext)
     }
 
-    public static func route(at path: PathComponentsRepresentable...,
-                      viewerContext: @escaping (Request) throws -> ViewerContext) -> Route<Responder> {
+    public static func route(at path: PathComponent...,
+                      viewerContext: @escaping (Request) throws -> ViewerContext) -> Route {
 
-        return route(at: path) { $0.future(try viewerContext($0)) }
+        return route(at: path) { $0.eventLoop.future(try viewerContext($0)) }
     }
 
 }
 
 extension Schema where ViewerContext == Void {
 
-    public static func route(at path: PathComponentsRepresentable...) -> Route<Responder> {
-        return route(at: path) { $0.future(()) }
+    public static func route(at path: PathComponent...) -> Route {
+        return route(at: path) { $0.eventLoop.future(()) }
     }
 
 }

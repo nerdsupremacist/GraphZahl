@@ -3,20 +3,14 @@ import Foundation
 import Vapor
 import GraphQL
 
-extension GraphQLResult: ResponseEncodable, LosslessHTTPBodyRepresentable {
-    public func encode(for req: Request) throws -> EventLoopFuture<Response> {
-        let response = HTTPResponse(status: .ok,
-                                    headers: ["content-type" : "application/jsons"],
-                                    body: self)
-
-        return req.eventLoop.newSucceededFuture(result: Response(http: response, using: req.sharedContainer))
-    }
-
-    public func convertToHTTPBody() -> HTTPBody {
+extension GraphQLResult: ResponseEncodable {
+    public func encodeResponse(for request: Request) -> EventLoopFuture<Response> {
+        let response = Response()
         do {
-            return HTTPBody(data: try JSONEncoder().encode(self))
+            try response.content.encode(self, using: JSONEncoder())
         } catch {
-            return HTTPBody()
+            return request.eventLoop.makeFailedFuture(error)
         }
+        return request.eventLoop.makeSucceededFuture(response)
     }
 }

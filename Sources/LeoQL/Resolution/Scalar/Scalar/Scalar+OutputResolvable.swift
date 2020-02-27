@@ -14,7 +14,7 @@ extension Scalar {
     }
 
     public func resolve(source: Any, arguments: [String : Map], eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
-        return eventLoop.next().newSucceededFuture(result: self)
+        return eventLoop.next().makeSucceededFuture(self)
     }
 
 }

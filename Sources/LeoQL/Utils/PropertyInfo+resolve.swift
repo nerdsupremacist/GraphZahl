@@ -19,7 +19,7 @@ extension PropertyInfo {
                 let arguments = try arguments.dictionaryValue()
                 return try result.resolve(source: object, arguments: arguments, eventLoop: eventLoop)
             }
-            return eventLoop.next().newSucceededFuture(result: result)
+            return eventLoop.next().makeSucceededFuture(result)
         }
     }
 

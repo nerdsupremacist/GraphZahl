@@ -19,7 +19,7 @@ extension Optional: OutputResolvable where Wrapped: OutputResolvable {
                         arguments: [String : Map],
                         eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
 
-        guard let value = self else { return eventLoop.next().newSucceededFuture(result: nil) }
+        guard let value = self else { return eventLoop.next().makeSucceededFuture(nil) }
         return try value.resolve(source: source, arguments: arguments, eventLoop: eventLoop)
     }
 

@@ -3,14 +3,14 @@ import Foundation
 import GraphQL
 import NIO
 
-extension EventLoopFuture: OutputResolvable where T: OutputResolvable {
+extension EventLoopFuture: OutputResolvable where Value: OutputResolvable {
 
     public static var additionalArguments: [String : InputResolvable.Type] {
-        return T.additionalArguments
+        return Value.additionalArguments
     }
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        return try context.resolve(type: T.self)
+        return try context.resolve(type: Value.self)
     }
 
     public func resolve(source: Any,

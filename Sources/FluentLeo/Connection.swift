@@ -5,7 +5,7 @@ import LeoQL
 import Fluent
 import Runtime
 
-class Connection<Database: QuerySupporting, Node: OutputResolvable & ConcreteResolvable>: Object {
+class Connection<Node: Model & OutputResolvable & ConcreteResolvable>: Object {
     class Edge: Object {
         let node: Node?
         let cursor: String
@@ -32,7 +32,7 @@ class Connection<Database: QuerySupporting, Node: OutputResolvable & ConcreteRes
     let eventLoop: EventLoopGroup
 
     @Ignore
-    var query: QueryBuilder<Database, Node>
+    var query: QueryBuilder<Node>
 
     @Ignore
     var first: Int?
@@ -98,7 +98,7 @@ class Connection<Database: QuerySupporting, Node: OutputResolvable & ConcreteRes
         let query = self.query
         return range()
             .map { query.range($0) }
-            .then { $0.all() }
+            .flatMap { $0.all() }
             .map { $0.map { Edge(node: $0, cursor: "TODO") } }
     }
 
@@ -111,7 +111,7 @@ class Connection<Database: QuerySupporting, Node: OutputResolvable & ConcreteRes
     }
 
     init(eventLoop: EventLoopGroup,
-         query: QueryBuilder<Database, Node>,
+         query: QueryBuilder<Node>,
          first: Int?,
          after: String?,
          last: Int?,

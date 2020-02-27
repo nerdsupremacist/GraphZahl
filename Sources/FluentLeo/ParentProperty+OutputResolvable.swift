@@ -1,24 +1,27 @@
 
 import Foundation
+import Fluent
+import LeoQL
 import GraphQL
-import NIO
 
-extension Array: OutputResolvable where Element: OutputResolvable {
+extension ParentProperty: Resolvable where To: Resolvable { }
+
+extension ParentProperty: OutputResolvable where To: OutputResolvable {
 
     public static var additionalArguments: [String : InputResolvable.Type] {
-        return Element.additionalArguments
+        return To.additionalArguments
     }
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        return GraphQLNonNull(GraphQLList(try context.resolve(type: Element.self)))
+        return try context.resolve(type: To.self)
     }
 
     public func resolve(source: Any,
                         arguments: [String : Map],
                         eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
 
-        let futures = try map { try $0.resolve(source: source, arguments: arguments, eventLoop: eventLoop) }
-        return Future.whenAllSucceed(futures, on: eventLoop.next()).map { $0 as Any? }
+        return get(on: source as! Database)
+            .flatMap { try $0.resolve(source: source, arguments: arguments, eventLoop: eventLoop) }
     }
 
 }

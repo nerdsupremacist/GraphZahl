@@ -2,4 +2,4 @@
 import Foundation
 import NIO
 
-extension EventLoopFuture: Resolvable where T: Resolvable { }
+extension EventLoopFuture: Resolvable where Value: Resolvable { }

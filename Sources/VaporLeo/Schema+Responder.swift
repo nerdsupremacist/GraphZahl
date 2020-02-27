@@ -11,7 +11,7 @@ extension Schema {
     }
 
     public static func responder(viewerContext: @escaping (Request) throws -> ViewerContext) -> Responder {
-        return responder { $0.future(try viewerContext($0)) }
+        return responder { $0.eventLoop.future(try viewerContext($0)) }
     }
 
 }
@@ -27,16 +27,21 @@ extension Schema where ViewerContext == Void {
 private struct SchemaHTTPResponder<S: Schema>: Responder {
     let viewerContextFactory: (Request) throws -> EventLoopFuture<S.ViewerContext>
 
-    func respond(to request: Request) throws -> EventLoopFuture<Response> {
-        let query = try Query.decode(from: request)
+    func respond(to request: Request) -> EventLoopFuture<Response> {
+        return request
+            .eventLoop
+            .tryFuture { try reponse(to: request) }
+            .flatMap { $0 }
+    }
+
+    private func reponse(to request: Request) throws -> EventLoopFuture<Response> {
+        let query = try request.content.decode(Query.self)
         let viewerContext = try viewerContextFactory(request)
-        let result = query
-            .and(viewerContext)
-            .thenThrowing { item -> EventLoopFuture<GraphQLResult> in
-                let (query, viewerContext) = item
+        let result = viewerContext
+            .thenThrowing { viewerContext -> EventLoopFuture<GraphQLResult> in
                 return try S.perform(request: query.query, viewerContext: viewerContext)
             }
 
-        return result.thenThrowing { try $0.encode(for: request) }
+        return result.flatMap { $0.encodeResponse(status: .ok, for: request) }
     }
 }

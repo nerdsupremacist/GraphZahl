@@ -51,7 +51,7 @@ extension MethodInfo {
         if let result = result as? OutputResolvable {
             return try result.resolve(source: receiver, arguments: argumentMap, eventLoop: eventLoop)
         }
-        return eventLoop.next().newSucceededFuture(result: result)
+        return eventLoop.next().makeSucceededFuture(result)
     }
 
 }

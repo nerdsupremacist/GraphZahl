@@ -3,26 +3,33 @@ import LeoQL
 import GraphQL
 import Vapor
 
-extension Router {
+extension RoutesBuilder {
 
-    public func graphql<S: Schema>(path: PathComponentsRepresentable...,
+    public func graphql<S: Schema>(path: [PathComponent],
                                    use schema: S.Type,
                                    viewerContext: @escaping (Request) throws -> EventLoopFuture<S.ViewerContext>) {
 
-        register(route: S.route(at: path, viewerContext: viewerContext))
+        add(S.route(at: path, viewerContext: viewerContext))
     }
 
-    public func graphql<S: Schema>(path: PathComponentsRepresentable...,
+    public func graphql<S: Schema>(path: PathComponent...,
+                                   use schema: S.Type,
+                                   viewerContext: @escaping (Request) throws -> EventLoopFuture<S.ViewerContext>) {
+
+        graphql(path: path, use: schema, viewerContext: viewerContext)
+    }
+
+    public func graphql<S: Schema>(path: PathComponent...,
                                    use schema: S.Type,
                                    viewerContext: @escaping (Request) throws -> S.ViewerContext) {
 
-        register(route: S.route(at: path, viewerContext: viewerContext))
+        graphql(path: path, use: schema) { $0.eventLoop.makeSucceededFuture(try viewerContext($0)) }
     }
 
-    public func graphql<S: Schema>(path: PathComponentsRepresentable...,
+    public func graphql<S: Schema>(path: PathComponent...,
                                    use schema: S.Type) where S.ViewerContext == Void {
 
-        register(route: S.route(at: path))
+        graphql(path: path, use: schema) { $0.eventLoop.makeSucceededFuture(()) }
     }
 
 }

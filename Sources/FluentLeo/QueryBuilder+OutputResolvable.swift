@@ -5,16 +5,16 @@ import LeoQL
 import Fluent
 import Runtime
 
-extension QueryBuilder: Resolvable where Result: Resolvable { }
+extension QueryBuilder: Resolvable where Model: Resolvable { }
 
-extension QueryBuilder: OutputResolvable where Result: OutputResolvable & ConcreteResolvable {
+extension QueryBuilder: OutputResolvable where Model: OutputResolvable & ConcreteResolvable {
 
     public static var additionalArguments: [String : InputResolvable.Type] {
-        return Connection<Database, Result>.additionalArguments
+        return Connection<Model>.additionalArguments
     }
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        return try context.resolve(type: Connection<Database, Result>.self)
+        return try context.resolve(type: Connection<Model>.self)
     }
 
     public func resolve(source: Any,
