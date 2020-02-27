@@ -13,12 +13,10 @@ extension String: Scalar {
     }
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        context.append(output: GraphQLString)
         return GraphQLNonNull(GraphQLString)
     }
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLInputType {
-        context.append(input: GraphQLString)
         return GraphQLNonNull(GraphQLString)
     }
 

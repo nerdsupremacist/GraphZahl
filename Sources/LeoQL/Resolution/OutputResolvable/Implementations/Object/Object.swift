@@ -1,4 +1,5 @@
 
 import Foundation
 
-public protocol Object : class, OutputResolvable { }
+public protocol Object : class, OutputResolvable, ConcreteResolvable { }
+

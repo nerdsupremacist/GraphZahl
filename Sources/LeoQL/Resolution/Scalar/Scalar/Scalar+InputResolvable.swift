@@ -10,8 +10,6 @@ extension Scalar {
             return try value.encodeScalar().graphql()
         }
 
-        context.append(input: type)
-
         return GraphQLNonNull(type)
     }
 

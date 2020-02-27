@@ -15,8 +15,6 @@ extension Scalar {
             return try value.encodeScalar().graphql()
         }
 
-        context.append(output: type)
-
         return GraphQLNonNull(type)
     }
 

@@ -8,7 +8,7 @@ extension Object {
     static func resolveObject(using context: inout Resolution.Context) throws -> GraphQLObjectType {
         let info = try typeInfo(of: Self.self)
         
-        context += GraphQLTypeReference(info.name)
+        context.append(output: GraphQLNonNull(GraphQLTypeReference(concreteTypeName)), as: concreteTypeName)
 
         let propertyMap = Dictionary(uniqueKeysWithValues: info.properties.map { ($0.name, $0) })
         let properties = try propertyMap.compactMapValues { try $0.resolve(using: &context) }
@@ -17,9 +17,7 @@ extension Object {
         let methods = try methodMap.compactMapValues { try $0.resolve(using: &context) }
 
         let fields = properties.merging(methods) { $1 }
-        let type = try GraphQLObjectType(name: info.name, fields: fields)
-
-        context += type
+        let type = try GraphQLObjectType(name: concreteTypeName, fields: fields)
 
         return type
     }

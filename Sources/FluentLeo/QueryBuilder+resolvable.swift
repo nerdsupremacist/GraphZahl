@@ -5,15 +5,9 @@ import LeoQL
 import Fluent
 import Runtime
 
-extension QueryBuilder: Resolvable where Result: Resolvable {
+extension QueryBuilder: Resolvable where Result: Resolvable { }
 
-    public static var typeName: String {
-        return "\(Result.typeName)Connection"
-    }
-
-}
-
-extension QueryBuilder: OutputResolvable where Result: OutputResolvable {
+extension QueryBuilder: OutputResolvable where Result: OutputResolvable & ConcreteResolvable {
 
     public static var additionalArguments: [String : InputResolvable.Type] {
         return Connection<Database, Result>.additionalArguments

@@ -4,6 +4,8 @@ import GraphQL
 
 extension Bool: Scalar {
 
+    public static let concreteTypeName = "Boolean"
+
     public init(scalar: ScalarValue) throws {
         self = try scalar.bool()
     }
@@ -13,12 +15,10 @@ extension Bool: Scalar {
     }
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        context.append(output: GraphQLBoolean, as: "Bool")
         return GraphQLNonNull(GraphQLBoolean)
     }
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLInputType {
-        context.append(input: GraphQLBoolean, as: "Bool")
         return GraphQLNonNull(GraphQLBoolean)
     }
 

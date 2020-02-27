@@ -5,7 +5,7 @@ import LeoQL
 import Fluent
 import Runtime
 
-class Connection<Database: QuerySupporting, Node: OutputResolvable>: Object {
+class Connection<Database: QuerySupporting, Node: OutputResolvable & ConcreteResolvable>: Object {
     class Edge: Object {
         let node: Node?
         let cursor: String
@@ -25,8 +25,8 @@ class Connection<Database: QuerySupporting, Node: OutputResolvable>: Object {
         ]
     }
 
-    static var typeName: String {
-        return "\(Node.typeName)Connection"
+    static var concreteTypeName: String {
+        return "\(Node.concreteTypeName)Connection"
     }
 
     let eventLoop: EventLoopGroup
