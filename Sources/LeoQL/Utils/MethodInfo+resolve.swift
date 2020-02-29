@@ -44,7 +44,7 @@ extension MethodInfo {
 
             return try argumentMap[name].map { try argumentType.init(map: $0) }
         }
-        let result = self.call(receiver: receiver, arguments: arguments as [Any])
+        let result = try self.call(receiver: receiver, arguments: arguments as [Any])
         
         // TODO: for some reason this breaks with arrays...
         // this will break the server if we ever return [Future<T>]
