@@ -156,13 +156,17 @@ extension Connection: OutputResolvable {
 
 extension Connection.Edge: ConcreteResolvable {
 
-    static var additionalArguments: [String : InputResolvable.Type] {
-        return Node?.additionalArguments
+    static var concreteTypeName: String {
+        return "\(Node.concreteTypeName)Edge"
     }
 
 }
 
 extension Connection.Edge: OutputResolvable {
+
+    static var additionalArguments: [String : InputResolvable.Type] {
+        return Node?.additionalArguments
+    }
 
     static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         context.append(output: GraphQLNonNull(GraphQLTypeReference(concreteTypeName)), as: concreteTypeName)
