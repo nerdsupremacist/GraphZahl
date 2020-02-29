@@ -4,9 +4,10 @@ import NIO
 import LeoQL
 import Fluent
 import Runtime
+import GraphQL
 
-class Connection<Node: Model & OutputResolvable & ConcreteResolvable>: Object {
-    class Edge: Object {
+class Connection<Node: Model & OutputResolvable & ConcreteResolvable> {
+    struct Edge {
         let node: Node?
         let cursor: String
 
@@ -16,40 +17,16 @@ class Connection<Node: Model & OutputResolvable & ConcreteResolvable>: Object {
         }
     }
 
-    static var additionalArguments: [String : InputResolvable.Type] {
-        return [
-            "first" : Int?.self,
-            "after" : String?.self,
-            "last" : Int?.self,
-            "before" : String?.self,
-        ]
-    }
-
-    static var concreteTypeName: String {
-        return "\(Node.concreteTypeName)Connection"
-    }
-
     let eventLoop: EventLoopGroup
 
-    @Ignore
-    var query: QueryBuilder<Node>
+    let query: QueryBuilder<Node>
 
-    @Ignore
-    var first: Int?
+    let first: Int?
+    let after: String?
+    let last: Int?
+    let before: String?
 
-    @Ignore
-    var after: String?
-
-    @Ignore
-    var last: Int?
-
-    @Ignore
-    var before: String?
-
-    @Ignore
     var cachedCount: EventLoopFuture<Int>?
-
-    @Ignore
     var cachedRange: EventLoopFuture<Range<Int>>?
 
     func range() -> EventLoopFuture<Range<Int>> {
@@ -124,4 +101,88 @@ class Connection<Node: Model & OutputResolvable & ConcreteResolvable>: Object {
         self.last = last
         self.before = before
     }
+}
+
+extension Connection: ConcreteResolvable {
+
+    static var concreteTypeName: String {
+        return "\(Node.concreteTypeName)Connection"
+    }
+
+}
+
+extension Connection: OutputResolvable {
+
+    static var additionalArguments: [String : InputResolvable.Type] {
+        return [
+            "first" : Int?.self,
+            "after" : String?.self,
+            "last" : Int?.self,
+            "before" : String?.self,
+        ]
+    }
+
+    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+        let fields = [
+            "pageInfo" : GraphQLField(type: try context.resolve(type: PageInfo.self)) { (receiver, args, _, eventLoop, _) -> Future<Any?> in
+                return (receiver as! Connection<Node>)
+                    .pageInfo()
+                    .resolve(source: receiver, arguments: try args.dictionaryValue(), eventLoop: eventLoop)
+            },
+            "edges" : GraphQLField(type: try context.resolve(type: [Edge?]?.self)) { (receiver, args, _, eventLoop, _) -> Future<Any?> in
+                return (receiver as! Connection<Node>)
+                    .edges()
+                    .resolve(source: receiver, arguments: try args.dictionaryValue(), eventLoop: eventLoop)
+            },
+            "totalCount" : GraphQLField(type: try context.resolve(type: Int.self)) { (receiver, args, _, eventLoop, _) -> Future<Any?> in
+                return (receiver as! Connection<Node>)
+                    .totalCount()
+                    .resolve(source: receiver, arguments: try args.dictionaryValue(), eventLoop: eventLoop)
+            },
+        ]
+
+        return GraphQLNonNull(
+            try GraphQLObjectType(name: concreteTypeName, fields: fields)
+        )
+    }
+
+    func resolve(source: Any, arguments: [String : Map], eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+        return eventLoop.future(self)
+    }
+
+}
+
+extension Connection.Edge: ConcreteResolvable {
+
+    static var additionalArguments: [String : InputResolvable.Type] {
+        return Node?.additionalArguments
+    }
+
+}
+
+extension Connection.Edge: OutputResolvable {
+
+    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+        let fields = [
+            "node" : GraphQLField(type: try context.resolve(type: Optional<Node>.self)) { (receiver, args, _, eventLoop, _) -> Future<Any?> in
+                return try (receiver as! Connection<Node>.Edge)
+                    .node
+                    .resolve(source: receiver, arguments: try args.dictionaryValue(), eventLoop: eventLoop)
+            },
+            "cursor" : GraphQLField(type: try context.resolve(type: String.self)) { (receiver, args, _, eventLoop, _) -> Future<Any?> in
+                return (receiver as! Connection<Node>.Edge)
+                    .cursor
+                    .resolve(source: receiver, arguments: try args.dictionaryValue(), eventLoop: eventLoop)
+            },
+        ]
+
+        return GraphQLNonNull(
+            try GraphQLObjectType(name: concreteTypeName, fields: fields)
+        )
+    }
+
+    func resolve(source: Any, arguments: [String : Map], eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+        return eventLoop.future(self)
+    }
+
 }
