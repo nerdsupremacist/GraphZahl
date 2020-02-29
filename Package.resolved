@@ -48,7 +48,7 @@
       },
       {
         "package": "fluent",
-        "repositoryURL": "https://github.com/vapor/fluent",
+        "repositoryURL": "https://github.com/vapor/fluent.git",
         "state": {
           "branch": null,
           "revision": "ba878e2ead4d83f5f100f2bc798c1269aac94364",
@@ -60,8 +60,8 @@
         "repositoryURL": "https://github.com/vapor/fluent-kit.git",
         "state": {
           "branch": null,
-          "revision": "b3600e548db84eb16a5d958f2051f6dd21e42476",
-          "version": "1.0.0-beta.5"
+          "revision": "d4990a5c2709a703876ae2d6f1bb941ad7f9b708",
+          "version": "1.0.0-rc.1"
         }
       },
       {
@@ -87,8 +87,8 @@
         "repositoryURL": "https://github.com/vapor/routing-kit.git",
         "state": {
           "branch": null,
-          "revision": "6a8a1636ad26494b03f3c72d74a420fc3a44949c",
-          "version": "4.0.0-beta.3"
+          "revision": "9eccd8152a66db98c188e74242c686971a007211",
+          "version": "4.0.0-beta.3.1"
         }
       },
       {
@@ -105,8 +105,8 @@
         "repositoryURL": "https://github.com/vapor/sql-kit.git",
         "state": {
           "branch": null,
-          "revision": "b560d6d2b8a2bdbd9afaedee0acf5fb06ea1bb64",
-          "version": "3.0.0-beta.6.8"
+          "revision": "948eae1d52c8b4ddaf86c540ac4412474f0331e9",
+          "version": "3.0.0-rc.1"
         }
       },
       {
@@ -186,8 +186,8 @@
         "repositoryURL": "https://github.com/vapor/vapor.git",
         "state": {
           "branch": null,
-          "revision": "5651d7e55ca87c5be1f5a991aa722b8393ae6de2",
-          "version": "4.0.0-beta.4.1"
+          "revision": "638dc5853bce8d830bb7e8cc12294242f5f9dd84",
+          "version": "4.0.0-beta.4.2"
         }
       },
       {

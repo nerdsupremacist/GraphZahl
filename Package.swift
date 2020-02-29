@@ -22,8 +22,9 @@ let package = Package(
          .package(url: "https://github.com/nerdsupremacist/GraphQL.git", .branch("master")),
          .package(url: "https://github.com/nerdsupremacist/Runtime.git", .branch("master")),
 
-         .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0-beta."),
-         .package(url: "https://github.com/vapor/fluent", from: "4.0.0-beta."),
+         .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0-beta.4.2"),
+         .package(url: "https://github.com/vapor/fluent.git", from: "4.0.0-beta.3"),
+         .package(url: "https://github.com/vapor/fluent-kit.git", from: "1.0.0-beta.5"),
     ],
     targets: [
         .target(
