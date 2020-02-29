@@ -28,6 +28,15 @@ private struct SchemaHTTPResponder<S: Schema>: Responder {
     let viewerContextFactory: (Request) throws -> EventLoopFuture<S.ViewerContext>
 
     func respond(to request: Request) -> EventLoopFuture<Response> {
+        if request.body.data == nil {
+            return request.body.collect().thenThrowing { _ in
+                return self.response(to: request)
+            }
+        }
+        return response(to: request)
+    }
+
+    private func response(to request: Request) -> EventLoopFuture<Response> {
         return request
             .eventLoop
             .tryFuture { try reponse(to: request) }
