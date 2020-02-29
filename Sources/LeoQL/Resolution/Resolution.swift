@@ -18,19 +18,19 @@ public enum Resolution {
 
 extension Resolution.Context {
 
-    func appending(output: GraphQLOutputType, as name: String) -> Resolution.Context {
+    public func appending(output: GraphQLOutputType, as name: String) -> Resolution.Context {
         return Resolution.Context(inputs: inputs, outputs: outputs.merging([name : output]) { $1 })
     }
 
-    func appending(input: GraphQLInputType, as name: String) -> Resolution.Context {
+    public func appending(input: GraphQLInputType, as name: String) -> Resolution.Context {
         return Resolution.Context(inputs: inputs.merging([name : input]) { $1 }, outputs: outputs)
     }
 
-    mutating func append(output: GraphQLOutputType, as name: String) {
+    public mutating func append(output: GraphQLOutputType, as name: String) {
         self = appending(output: output, as: name)
     }
 
-    mutating func append(input: GraphQLInputType, as name: String) {
+    public mutating func append(input: GraphQLInputType, as name: String) {
         self = appending(input: input, as: name)
     }
 
