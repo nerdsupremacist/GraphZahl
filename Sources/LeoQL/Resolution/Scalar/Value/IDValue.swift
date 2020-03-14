@@ -1,7 +1,7 @@
 
 import Foundation
 
-public enum ID {
+public enum IDValue {
     case string(String)
     case int(Int)
 }

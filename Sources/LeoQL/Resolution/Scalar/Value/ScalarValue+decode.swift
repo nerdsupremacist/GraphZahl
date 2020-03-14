@@ -23,7 +23,7 @@ extension ScalarValue {
         return bool
     }
 
-    public func id() throws -> ID {
+    public func id() throws -> IDValue {
         switch self {
         case .string(let string):
             return .string(string)
