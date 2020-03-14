@@ -1,0 +1,82 @@
+
+import Runtime
+
+%{
+    import itertools
+
+    allowedArguments = 5
+
+    sizesDict = { 1 : "Bool", 4: "Float", 8: "Int", 16: "String" }
+    sizes = sizesDict.keys()
+}%
+
+extension MethodInfo {
+
+    func call(receiver: AnyObject, arguments: [Any]) throws -> Any {
+        assert(arguments.count == self.arguments.count, "Argument count must correspond to original argument count")
+
+        switch arguments.count {
+        % for numberOfArguments in range(0, allowedArguments + 1):
+        case ${numberOfArguments}:
+            return try callWith${numberOfArguments}(receiver: receiver, arguments: arguments)
+        % end
+        default:
+            fatalError("Calls with more than 10 arguments are not allowed")
+        }
+    }
+
+}
+
+extension MethodInfo {
+
+    private func callWith0(receiver: AnyObject, arguments: [Any]) throws -> Any {
+        let function = unsafeBitCast(address, to: (@convention(c) () -> Any).self)
+        return function()
+    }
+
+    % for numberOfArguments in range(1, allowedArguments + 1):
+    private func callWith${numberOfArguments}(receiver: AnyObject, arguments: [Any]) throws -> Any {
+        switch (
+            receiver
+            % for index in range(numberOfArguments):
+            , try size(of: self.arguments[${index}].type)
+            % end
+        ) {
+
+        % for permutation in itertools.product(sizes, repeat=numberOfArguments):
+
+        case (
+            _
+            % for size in permutation:
+            , ${size}
+            % end
+        ):
+            %{ types = ", ".join([sizesDict[x] for x in permutation]) }%
+            let function = unsafeBitCast(address, to: (@convention(c) (${types}) -> Any).self)
+
+            % for index, size in enumerate(permutation):
+            let arg${index} = safeishCast(arguments[${index}], to: ${ sizesDict[size] }.self)
+            % end
+
+            %{ argumentString = ",".join(["arg" + str(i) for i in range(numberOfArguments)]) }%
+            return function(${argumentString})
+
+        % end
+
+        default:
+            fatalError()
+        }
+    }
+    % end
+
+}
+
+extension MethodInfo {
+
+    static let maximumNumberOfArgumentsWithReflection = ${allowedArguments}
+
+}
+
+private func safeishCast<T>(_ value: Any, to type: T.Type) -> T {
+    return withUnsafePointer(to: value) { UnsafeRawPointer($0).load(as: type) }
+}

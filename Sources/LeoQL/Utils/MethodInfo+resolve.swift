@@ -18,6 +18,16 @@ extension MethodInfo {
 
         guard arguments.count == arguments.count else { return nil }
 
+        guard arguments.count <= MethodInfo.maximumNumberOfArgumentsWithReflection else {
+            // Print a warning in such cases to make sure the developers catch it
+            print("Warning: Method \(receiverType).\(methodName) is technically abstractable to GraphQL but it has too many arguments.")
+            print("    Currently we don't support more than \(MethodInfo.maximumNumberOfArgumentsWithReflection) arguments when using reflection.")
+            print("    This is due to the limitations on reflection in swift. We had to draw a line regarding the number of arguments somewhere.")
+            print("    If this is really necessary please contact the mantainers to increase this limit.")
+
+            return nil
+        }
+
         let completeArguments = try returnType
             .additionalGraphqlArguments(using: &context)
             .merging(arguments) { $1 }
@@ -26,7 +36,7 @@ extension MethodInfo {
                             args: completeArguments) { (receiver, args, _, eventLoop, _) -> Future<Any?> in
 
             let args = try args.dictionaryValue()
-            return try self.call(receiver: receiver, argumentMap: args, eventLoop: eventLoop)
+            return try self.call(receiver: receiver as AnyObject, argumentMap: args, eventLoop: eventLoop)
         }
     }
 
@@ -34,7 +44,7 @@ extension MethodInfo {
 
 extension MethodInfo {
 
-    fileprivate func call(receiver: Any,
+    fileprivate func call(receiver: AnyObject,
                           argumentMap: [String : Map],
                           eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
 

@@ -17,8 +17,7 @@ extension EventLoopFuture: OutputResolvable where Value: OutputResolvable {
                         arguments: [String : Map],
                         eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
 
-        return flatMap { try $0.resolve(source: source, arguments: arguments, eventLoop: eventLoop) }
+        return flatMapThrowing { try $0.resolve(source: source, arguments: arguments, eventLoop: eventLoop) }.flatMap { $0 }
     }
 
 }
-

@@ -21,7 +21,8 @@ extension ParentProperty: OutputResolvable where To: OutputResolvable {
                         eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
 
         return get(on: source as! Database)
-            .flatMap { try $0.resolve(source: source, arguments: arguments, eventLoop: eventLoop) }
+            .flatMapThrowing { try $0.resolve(source: source, arguments: arguments, eventLoop: eventLoop) }
+            .flatMap { $0 }
     }
 
 }

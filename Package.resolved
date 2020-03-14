@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/vapor/async-kit.git",
         "state": {
           "branch": null,
-          "revision": "42edd5d6b52afc0678f85d4a67aa79e0be79fba5",
-          "version": "1.0.0-beta.2.6"
+          "revision": "094dad1142e4e272a328ab44edd39730f246fb3e",
+          "version": "1.0.0-rc.1"
         }
       },
       {
@@ -24,17 +24,17 @@
         "repositoryURL": "https://github.com/vapor/console-kit.git",
         "state": {
           "branch": null,
-          "revision": "a10418160fd4d2af183b0a754a93373734d6ba80",
-          "version": "4.0.0-beta.2.3"
+          "revision": "de99d83c9f3c298371002729cc0601e4b5d9e0c9",
+          "version": "4.0.0-rc.1"
         }
       },
       {
         "package": "CRuntime",
-        "repositoryURL": "https://github.com/wickwirew/CRuntime.git",
+        "repositoryURL": "https://github.com/nerdsupremacist/CRuntime.git",
         "state": {
-          "branch": null,
-          "revision": "95f911318d8c885f6fc05e971471f94adfd39405",
-          "version": "2.1.2"
+          "branch": "master",
+          "revision": "1ad0c05e0d2bc83546df2c7883eb33dbc3678d4c",
+          "version": null
         }
       },
       {
@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/vapor/fluent.git",
         "state": {
           "branch": null,
-          "revision": "ba878e2ead4d83f5f100f2bc798c1269aac94364",
-          "version": "4.0.0-beta.3"
+          "revision": "3eafdfe53c7d945c87769ec443e8ea5528ab9e32",
+          "version": "4.0.0-rc.1"
         }
       },
       {
@@ -60,8 +60,8 @@
         "repositoryURL": "https://github.com/vapor/fluent-kit.git",
         "state": {
           "branch": null,
-          "revision": "d4990a5c2709a703876ae2d6f1bb941ad7f9b708",
-          "version": "1.0.0-rc.1"
+          "revision": "395f983bd33c7bbfae439011452cfd16badb5425",
+          "version": "1.0.0-rc.1.9"
         }
       },
       {
@@ -69,17 +69,8 @@
         "repositoryURL": "https://github.com/nerdsupremacist/GraphQL.git",
         "state": {
           "branch": "master",
-          "revision": "847bdb71fb6e152da960420697244a18c96972e8",
+          "revision": "d4213633506dfc766a7d8f343772052b1ecf847d",
           "version": null
-        }
-      },
-      {
-        "package": "multipart-kit",
-        "repositoryURL": "https://github.com/vapor/multipart-kit.git",
-        "state": {
-          "branch": null,
-          "revision": "b41a49b5756ac3fbf8f2b07228a7e75f9b60731a",
-          "version": "4.0.0-beta.2"
         }
       },
       {
@@ -87,8 +78,8 @@
         "repositoryURL": "https://github.com/vapor/routing-kit.git",
         "state": {
           "branch": null,
-          "revision": "9eccd8152a66db98c188e74242c686971a007211",
-          "version": "4.0.0-beta.3.1"
+          "revision": "dbc3eafdbe243e9a46eeb6fd7d99266bee52f89f",
+          "version": "4.0.0-rc.1"
         }
       },
       {
@@ -96,7 +87,7 @@
         "repositoryURL": "https://github.com/nerdsupremacist/Runtime.git",
         "state": {
           "branch": "master",
-          "revision": "259318ddf4d876c16914585601629e1fdc3d1a25",
+          "revision": "2ea0db74c555f225a790e2750a3a45e57214e441",
           "version": null
         }
       },
@@ -105,13 +96,13 @@
         "repositoryURL": "https://github.com/vapor/sql-kit.git",
         "state": {
           "branch": null,
-          "revision": "948eae1d52c8b4ddaf86c540ac4412474f0331e9",
-          "version": "3.0.0-rc.1"
+          "revision": "64c2af0321cd6445982d6873d100cc62e16afcf7",
+          "version": "3.0.0-rc.1.2"
         }
       },
       {
         "package": "swift-backtrace",
-        "repositoryURL": "https://github.com/ianpartridge/swift-backtrace.git",
+        "repositoryURL": "https://github.com/swift-server/swift-backtrace.git",
         "state": {
           "branch": null,
           "revision": "eaf2cef011c0c23d1701aa60b364def8015dc3c7",
@@ -141,8 +132,8 @@
         "repositoryURL": "https://github.com/apple/swift-metrics.git",
         "state": {
           "branch": null,
-          "revision": "09b72f68ed9b01b614c12855fc7e22876b97a97e",
-          "version": "1.2.1"
+          "revision": "708b960b4605abb20bc55d65abf6bad607252200",
+          "version": "2.0.0"
         }
       },
       {
@@ -186,8 +177,8 @@
         "repositoryURL": "https://github.com/vapor/vapor.git",
         "state": {
           "branch": null,
-          "revision": "638dc5853bce8d830bb7e8cc12294242f5f9dd84",
-          "version": "4.0.0-beta.4.2"
+          "revision": "6954c471dc6b405dcafde2fa026b37ff5b07b08f",
+          "version": "4.0.0-rc.3.4"
         }
       },
       {
@@ -195,8 +186,8 @@
         "repositoryURL": "https://github.com/vapor/websocket-kit.git",
         "state": {
           "branch": null,
-          "revision": "670e757f21cc8f1f76a04baac72f72ea1590e18d",
-          "version": "2.0.0-beta.2.5"
+          "revision": "aac462481bcd3039d5db9a0fbe7f4e47eefe2295",
+          "version": "2.0.0-rc.1"
         }
       }
     ]
