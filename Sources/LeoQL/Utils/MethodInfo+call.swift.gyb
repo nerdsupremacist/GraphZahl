@@ -1,3 +1,4 @@
+// This file was automatically generated and should not be edited.
 
 import Runtime
 import CContext
@@ -17,12 +18,12 @@ extension MethodInfo {
         assert(arguments.count == self.arguments.count, "Argument count must correspond to original argument count")
 
         switch arguments.count {
-        % for numberOfArguments in range(0, allowedArguments + 1):
+        % for numberOfArguments in range(allowedArguments + 1):
         case ${numberOfArguments}:
             return try callWith${numberOfArguments}(receiver: receiver, arguments: arguments)
         % end
         default:
-            fatalError("Calls with more than 10 arguments are not allowed")
+            fatalError("Calls with more than \(MethodInfo.maximumNumberOfArgumentsWithReflection) arguments are not allowed")
         }
     }
 
@@ -30,27 +31,17 @@ extension MethodInfo {
 
 extension MethodInfo {
 
-    private func callWith0(receiver: AnyObject, arguments: [Any]) throws -> Any {
-        let function = unsafeBitCast(address, to: (@convention(c) () -> Any).self)
-
-        let selfPointer = Unmanaged.passUnretained(self).toOpaque()
-        let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
-        set_self_pointer(receiverPointer)
-        defer { set_self_pointer(selfPointer) }
-
-        return function()
-    }
-
-    % for numberOfArguments in range(1, allowedArguments + 1):
+    % for numberOfArguments in range(allowedArguments + 1):
     private func callWith${numberOfArguments}(receiver: AnyObject, arguments: [Any]) throws -> Any {
         switch (
             receiver
             % for index in range(numberOfArguments):
             , try size(of: self.arguments[${index}].type)
             % end
+            , try size(of: returnType)
         ) {
 
-        % for permutation in itertools.product(sizes, repeat=numberOfArguments):
+        % for permutation in itertools.product(sizes, repeat=numberOfArguments + 1):
 
         case (
             _
@@ -58,10 +49,12 @@ extension MethodInfo {
             , ${size}
             % end
         ):
-            %{ types = ", ".join([sizesDict[x] for x in permutation]) }%
-            let function = unsafeBitCast(address, to: (@convention(c) (${types}) -> Any).self)
+            %{ arguments = permutation[:-1] }%
+            %{ returnType = sizesDict[permutation[-1]] }%
+            %{ types = ", ".join([sizesDict[x] for x in arguments]) }%
+            let function = unsafeBitCast(address, to: (@convention(c) (${types}) -> ${returnType}).self)
 
-            % for index, size in enumerate(permutation):
+            % for index, size in enumerate(arguments):
             let arg${index} = arguments[${index}] as! ${ sizesDict[size] }
             % end
 
@@ -86,8 +79,4 @@ extension MethodInfo {
 
     static let maximumNumberOfArgumentsWithReflection = ${allowedArguments}
 
-}
-
-private func safeishCast<T>(_ value: Any, to type: T.Type) -> T {
-    return withUnsafePointer(to: value) { UnsafeRawPointer($0).load(as: type) }
 }
