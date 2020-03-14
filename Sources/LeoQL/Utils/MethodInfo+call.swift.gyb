@@ -1,5 +1,6 @@
 
 import Runtime
+import CContext
 
 %{
     import itertools
@@ -31,6 +32,12 @@ extension MethodInfo {
 
     private func callWith0(receiver: AnyObject, arguments: [Any]) throws -> Any {
         let function = unsafeBitCast(address, to: (@convention(c) () -> Any).self)
+
+        let selfPointer = Unmanaged.passUnretained(self).toOpaque()
+        let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
+        set_self_pointer(receiverPointer)
+        defer { set_self_pointer(selfPointer) }
+
         return function()
     }
 
@@ -55,9 +62,13 @@ extension MethodInfo {
             let function = unsafeBitCast(address, to: (@convention(c) (${types}) -> Any).self)
 
             % for index, size in enumerate(permutation):
-            let arg${index} = safeishCast(arguments[${index}], to: ${ sizesDict[size] }.self)
+            let arg${index} = arguments[${index}] as! ${ sizesDict[size] }
             % end
 
+            let selfPointer = Unmanaged.passUnretained(self).toOpaque()
+            let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
+            set_self_pointer(receiverPointer)
+            defer { set_self_pointer(selfPointer) }
             %{ argumentString = ",".join(["arg" + str(i) for i in range(numberOfArguments)]) }%
             return function(${argumentString})
 

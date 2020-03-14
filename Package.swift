@@ -17,6 +17,9 @@ let package = Package(
 
         .library(name: "FluentLeo",
                  targets: ["FluentLeo"]),
+
+        .library(name: "CContext", targets: ["CContext"])
+        
     ],
     dependencies: [
          .package(url: "https://github.com/nerdsupremacist/GraphQL.git", .branch("master")),
@@ -29,7 +32,7 @@ let package = Package(
     targets: [
         .target(
             name: "LeoQL",
-            dependencies: ["GraphQL", "Runtime"]
+            dependencies: ["GraphQL", "Runtime", "CContext"]
         ),
         .target(
             name: "VaporLeo",
@@ -39,5 +42,7 @@ let package = Package(
             name: "FluentLeo",
             dependencies: ["VaporLeo", "Fluent"]
         ),
+
+        .systemLibrary(name: "CContext"),
     ]
 )
