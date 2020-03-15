@@ -55,7 +55,7 @@ extension MethodInfo {
             let function = unsafeBitCast(address, to: (@convention(c) (${types}) -> ${returnType}).self)
 
             % for index, size in enumerate(arguments):
-            let arg${index} = arguments[${index}] as! ${ sizesDict[size] }
+            let arg${index} = safeishCast(value: arguments[${index}], to: ${ sizesDict[size] }.self)
             % end
 
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
@@ -79,4 +79,8 @@ extension MethodInfo {
 
     static let maximumNumberOfArgumentsWithReflection = ${allowedArguments}
 
+}
+
+private func safeishCast<T>(value: Any, to type: T.Type) -> T {
+    return withUnsafeBytes(of: value) { $0.baseAddress!.load(as: type) }
 }
