@@ -10,7 +10,7 @@ extension Object {
         
         context.append(output: GraphQLNonNull(GraphQLTypeReference(concreteTypeName)), as: concreteTypeName)
 
-        let propertyMap = Dictionary(uniqueKeysWithValues: info.properties.map { ($0.name, $0) })
+        let propertyMap = Dictionary(uniqueKeysWithValues: info.properties.map { ($0.name.deleting(prefix: "_"), $0) })
         let properties = try propertyMap.compactMapValues { try $0.resolve(using: &context) }
 
         let methodMap = Dictionary(uniqueKeysWithValues: info.methods.map { ($0.methodName, $0) })
