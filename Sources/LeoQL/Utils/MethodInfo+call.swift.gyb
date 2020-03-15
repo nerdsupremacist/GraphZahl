@@ -6,7 +6,7 @@ import CContext
 %{
     import itertools
 
-    allowedArguments = 5
+    allowedArguments = 3
 
     sizesDict = { 0 : "AnyObject", 1 : "Bool", 4 : "Float", 8 : "Int", 16 : "String" }
     sizes = sizesDict.keys()
