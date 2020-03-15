@@ -8,7 +8,7 @@ import CContext
 
     allowedArguments = 5
 
-    sizesDict = { 1 : "Bool", 4: "Float", 8: "Int", 16: "String" }
+    sizesDict = { 0 : "AnyObject", 1 : "Bool", 4 : "Float", 8 : "Int", 16 : "String" }
     sizes = sizesDict.keys()
 }%
 
@@ -36,9 +36,9 @@ extension MethodInfo {
         switch (
             receiver
             % for index in range(numberOfArguments):
-            , try size(of: self.arguments[${index}].type)
+            , try sizeEstimation(of: self.arguments[${index}].type)
             % end
-            , try size(of: returnType)
+            , try sizeEstimation(of: returnType)
         ) {
 
         % for permutation in itertools.product(sizes, repeat=numberOfArguments + 1):
@@ -79,6 +79,16 @@ extension MethodInfo {
 
     static let maximumNumberOfArgumentsWithReflection = ${allowedArguments}
 
+}
+
+private func sizeEstimation(of type: Any.Type): Int {
+    let info = typeInfo(of: type)
+    switch info.kind {
+    case .class:
+        return 0
+    default:
+        return info.size
+    }
 }
 
 private func safeishCast<T>(value: Any, to type: T.Type) -> T {
