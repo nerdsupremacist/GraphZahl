@@ -81,7 +81,7 @@ extension MethodInfo {
 
 }
 
-private func sizeEstimation(of type: Any.Type): Int {
+private func sizeEstimation(of type: Any.Type) -> Int {
     let info = typeInfo(of: type)
     switch info.kind {
     case .class:
