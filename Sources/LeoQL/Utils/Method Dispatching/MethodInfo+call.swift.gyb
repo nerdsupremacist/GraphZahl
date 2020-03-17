@@ -75,8 +75,8 @@ extension MethodInfo {
                 % end
             ) {
 
-            %{ argumentCombinations = combos(allowedArgumentMap, numberOfArguments) }%
-            %{ resultCombinations = combos(allowedResultMap, numberOfResults) }%
+            %{ argumentCombinations = list(combos(allowedArgumentMap, numberOfArguments)) }%
+            %{ resultCombinations = list(combos(allowedResultMap, numberOfResults)) }%
             % for arguments in argumentCombinations:
                 % for results in resultCombinations:
 
