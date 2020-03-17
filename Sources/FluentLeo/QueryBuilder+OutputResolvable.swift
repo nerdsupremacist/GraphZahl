@@ -21,10 +21,10 @@ extension QueryBuilder: OutputResolvable where Model: OutputResolvable & Concret
                         arguments: [String : Map],
                         eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
 
-        let first = try arguments["first"]?.intValue()
-        let after = try arguments["after"]?.stringValue()
-        let last = try arguments["last"]?.intValue()
-        let before = try arguments["before"]?.stringValue()
+        let first = try arguments["first"]?.intValue(converting: true)
+        let after = try arguments["after"]?.stringValue(converting: true)
+        let last = try arguments["last"]?.intValue(converting: true)
+        let before = try arguments["before"]?.stringValue(converting: true)
 
         let connection = Connection(eventLoop: eventLoop,
                                     query: self,
