@@ -60,8 +60,8 @@
         "repositoryURL": "https://github.com/vapor/fluent-kit.git",
         "state": {
           "branch": null,
-          "revision": "395f983bd33c7bbfae439011452cfd16badb5425",
-          "version": "1.0.0-rc.1.9"
+          "revision": "a15e8c5e288279221739d38a72cc7cbfce2efc75",
+          "version": "1.0.0-rc.1.10"
         }
       },
       {
@@ -87,7 +87,7 @@
         "repositoryURL": "https://github.com/nerdsupremacist/Runtime.git",
         "state": {
           "branch": "master",
-          "revision": "5653b763594e0d6e3c2f6d8b56f1016b5b03df71",
+          "revision": "7a4542048a3df8e4bb3e04f231b990ec0ccb3abf",
           "version": null
         }
       },
@@ -177,8 +177,8 @@
         "repositoryURL": "https://github.com/vapor/vapor.git",
         "state": {
           "branch": null,
-          "revision": "6954c471dc6b405dcafde2fa026b37ff5b07b08f",
-          "version": "4.0.0-rc.3.4"
+          "revision": "57398ebf41376c0e4953e661e03b3c01224bea21",
+          "version": "4.0.0-rc.3.5"
         }
       },
       {
