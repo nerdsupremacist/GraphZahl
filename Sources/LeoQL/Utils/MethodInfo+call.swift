@@ -60,6 +60,19 @@ extension MethodInfo {
             ) {
 
 
+            case (
+                _
+            ):
+                let function = unsafeBitCast(address, to: (@convention(c) () -> AnyObject).self)
+
+
+                let selfPointer = Unmanaged.passUnretained(self).toOpaque()
+                let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
+                set_self_pointer(receiverPointer)
+                defer { set_self_pointer(selfPointer) }
+                return function()
+
+
             default:
                 fatalError()
             }
@@ -68,6 +81,19 @@ extension MethodInfo {
             switch (
                 receiver
             ) {
+
+
+            case (
+                _
+            ):
+                let function = unsafeBitCast(address, to: (@convention(c) () -> String).self)
+
+
+                let selfPointer = Unmanaged.passUnretained(self).toOpaque()
+                let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
+                set_self_pointer(receiverPointer)
+                defer { set_self_pointer(selfPointer) }
+                return function()
 
 
             default:
@@ -80,6 +106,19 @@ extension MethodInfo {
             ) {
 
 
+            case (
+                _
+            ):
+                let function = unsafeBitCast(address, to: (@convention(c) () -> Int).self)
+
+
+                let selfPointer = Unmanaged.passUnretained(self).toOpaque()
+                let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
+                set_self_pointer(receiverPointer)
+                defer { set_self_pointer(selfPointer) }
+                return function()
+
+
             default:
                 fatalError()
             }
@@ -88,6 +127,19 @@ extension MethodInfo {
             switch (
                 receiver
             ) {
+
+
+            case (
+                _
+            ):
+                let function = unsafeBitCast(address, to: (@convention(c) () -> Double).self)
+
+
+                let selfPointer = Unmanaged.passUnretained(self).toOpaque()
+                let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
+                set_self_pointer(receiverPointer)
+                defer { set_self_pointer(selfPointer) }
+                return function()
 
 
             default:
@@ -100,6 +152,19 @@ extension MethodInfo {
             ) {
 
 
+            case (
+                _
+            ):
+                let function = unsafeBitCast(address, to: (@convention(c) () -> Bool).self)
+
+
+                let selfPointer = Unmanaged.passUnretained(self).toOpaque()
+                let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
+                set_self_pointer(receiverPointer)
+                defer { set_self_pointer(selfPointer) }
+                return function()
+
+
             default:
                 fatalError()
             }
@@ -108,6 +173,19 @@ extension MethodInfo {
             switch (
                 receiver
             ) {
+
+
+            case (
+                _
+            ):
+                let function = unsafeBitCast(address, to: (@convention(c) () -> Void).self)
+
+
+                let selfPointer = Unmanaged.passUnretained(self).toOpaque()
+                let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
+                set_self_pointer(receiverPointer)
+                defer { set_self_pointer(selfPointer) }
+                return function()
 
 
             default:

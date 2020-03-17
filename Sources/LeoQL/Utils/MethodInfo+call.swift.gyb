@@ -25,6 +25,8 @@ import CContext
 
 
     def combos(elements, length):
+        if length == 0:
+            return [[]]
         elements = list(elements.items())
         return _combos(elements, 0, length)
 
