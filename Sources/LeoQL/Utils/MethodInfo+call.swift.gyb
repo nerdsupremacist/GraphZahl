@@ -76,11 +76,15 @@ extension MethodInfo {
             %{ types = ", ".join([allowedTypes[x] for x in arguments]) }%
             let function = unsafeBitCast(address, to: (@convention(c) (${types}) -> Any).self)
 
+            % for index, type in enumerate(arguments):
+            let arg${index}Casted = arg${index}.value
+            % end
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            %{ argumentString = ", ".join(["arg" + str(i) + ".value"  for i in range(numberOfArguments)]) }%
+            %{ argumentString = ", ".join(["arg" + str(i) + "Casted"  for i in range(numberOfArguments)]) }%
             return function(${argumentString})
 
         % end

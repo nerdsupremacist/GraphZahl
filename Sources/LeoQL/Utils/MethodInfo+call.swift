@@ -74,11 +74,13 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int) -> Any).self)
 
+            let arg0Casted = arg0.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value)
+            return function(arg0Casted)
 
 
         case (
@@ -87,11 +89,13 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value)
+            return function(arg0Casted)
 
 
         default:
@@ -113,11 +117,14 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value)
+            return function(arg0Casted, arg1Casted)
 
 
         case (
@@ -127,11 +134,14 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value)
+            return function(arg0Casted, arg1Casted)
 
 
         case (
@@ -141,11 +151,14 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value)
+            return function(arg0Casted, arg1Casted)
 
 
         default:
@@ -169,11 +182,15 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value)
+            return function(arg0Casted, arg1Casted, arg2Casted)
 
 
         case (
@@ -184,11 +201,15 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value)
+            return function(arg0Casted, arg1Casted, arg2Casted)
 
 
         case (
@@ -199,11 +220,15 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value)
+            return function(arg0Casted, arg1Casted, arg2Casted)
 
 
         case (
@@ -214,11 +239,15 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value)
+            return function(arg0Casted, arg1Casted, arg2Casted)
 
 
         default:
@@ -244,11 +273,16 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted)
 
 
         case (
@@ -260,11 +294,16 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted)
 
 
         case (
@@ -276,11 +315,16 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted)
 
 
         case (
@@ -292,11 +336,16 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted)
 
 
         case (
@@ -308,11 +357,16 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted)
 
 
         default:
@@ -340,11 +394,17 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Int) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted)
 
 
         case (
@@ -357,11 +417,17 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted)
 
 
         case (
@@ -374,11 +440,17 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted)
 
 
         case (
@@ -391,11 +463,17 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted)
 
 
         case (
@@ -408,11 +486,17 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted)
 
 
         case (
@@ -425,11 +509,17 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted)
 
 
         default:
@@ -459,11 +549,18 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Int, Int) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted)
 
 
         case (
@@ -477,11 +574,18 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Int, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted)
 
 
         case (
@@ -495,11 +599,18 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted)
 
 
         case (
@@ -513,11 +624,18 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted)
 
 
         case (
@@ -531,11 +649,18 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted)
 
 
         case (
@@ -549,11 +674,18 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted)
 
 
         case (
@@ -567,11 +699,18 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Double, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted)
 
 
         default:
@@ -603,11 +742,19 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Int, Int, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted)
 
 
         case (
@@ -622,11 +769,19 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Int, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted)
 
 
         case (
@@ -641,11 +796,19 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted)
 
 
         case (
@@ -660,11 +823,19 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted)
 
 
         case (
@@ -679,11 +850,19 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted)
 
 
         case (
@@ -698,11 +877,19 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Double, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted)
 
 
         case (
@@ -717,11 +904,19 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Double, Double, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted)
 
 
         default:
@@ -755,11 +950,20 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Int, Int, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted)
 
 
         case (
@@ -775,11 +979,20 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Int, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted)
 
 
         case (
@@ -795,11 +1008,20 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted)
 
 
         case (
@@ -815,11 +1037,20 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted)
 
 
         case (
@@ -835,11 +1066,20 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Double, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted)
 
 
         case (
@@ -855,11 +1095,20 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Double, Double, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted)
 
 
         case (
@@ -875,11 +1124,20 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Double, Double, Double, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted)
 
 
         default:
@@ -915,11 +1173,21 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Int, Int, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+            let arg8Casted = arg8.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value, arg8.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted, arg8Casted)
 
 
         case (
@@ -936,11 +1204,21 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Int, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+            let arg8Casted = arg8.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value, arg8.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted, arg8Casted)
 
 
         case (
@@ -957,11 +1235,21 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+            let arg8Casted = arg8.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value, arg8.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted, arg8Casted)
 
 
         case (
@@ -978,11 +1266,21 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Double, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+            let arg8Casted = arg8.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value, arg8.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted, arg8Casted)
 
 
         case (
@@ -999,11 +1297,21 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Double, Double, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+            let arg8Casted = arg8.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value, arg8.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted, arg8Casted)
 
 
         case (
@@ -1020,11 +1328,21 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Double, Double, Double, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+            let arg8Casted = arg8.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value, arg8.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted, arg8Casted)
 
 
         default:
@@ -1062,11 +1380,22 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Int, Int, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+            let arg8Casted = arg8.value
+            let arg9Casted = arg9.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value, arg8.value, arg9.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted, arg8Casted, arg9Casted)
 
 
         case (
@@ -1084,11 +1413,22 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Int, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+            let arg8Casted = arg8.value
+            let arg9Casted = arg9.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value, arg8.value, arg9.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted, arg8Casted, arg9Casted)
 
 
         case (
@@ -1106,11 +1446,22 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Double, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+            let arg8Casted = arg8.value
+            let arg9Casted = arg9.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value, arg8.value, arg9.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted, arg8Casted, arg9Casted)
 
 
         case (
@@ -1128,11 +1479,22 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Double, Double, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+            let arg8Casted = arg8.value
+            let arg9Casted = arg9.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value, arg8.value, arg9.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted, arg8Casted, arg9Casted)
 
 
         case (
@@ -1150,11 +1512,22 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Double, Double, Double, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+            let arg8Casted = arg8.value
+            let arg9Casted = arg9.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value, arg8.value, arg9.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted, arg8Casted, arg9Casted)
 
 
         default:
@@ -1194,11 +1567,23 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Int, Int, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+            let arg8Casted = arg8.value
+            let arg9Casted = arg9.value
+            let arg10Casted = arg10.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value, arg8.value, arg9.value, arg10.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted, arg8Casted, arg9Casted, arg10Casted)
 
 
         case (
@@ -1217,11 +1602,23 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Int, Double, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+            let arg8Casted = arg8.value
+            let arg9Casted = arg9.value
+            let arg10Casted = arg10.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value, arg8.value, arg9.value, arg10.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted, arg8Casted, arg9Casted, arg10Casted)
 
 
         case (
@@ -1240,11 +1637,23 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Double, Double, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+            let arg8Casted = arg8.value
+            let arg9Casted = arg9.value
+            let arg10Casted = arg10.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value, arg8.value, arg9.value, arg10.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted, arg8Casted, arg9Casted, arg10Casted)
 
 
         case (
@@ -1263,11 +1672,23 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Double, Double, Double, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+            let arg8Casted = arg8.value
+            let arg9Casted = arg9.value
+            let arg10Casted = arg10.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value, arg8.value, arg9.value, arg10.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted, arg8Casted, arg9Casted, arg10Casted)
 
 
         default:
@@ -1309,11 +1730,24 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Int, Int, Double, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+            let arg8Casted = arg8.value
+            let arg9Casted = arg9.value
+            let arg10Casted = arg10.value
+            let arg11Casted = arg11.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value, arg8.value, arg9.value, arg10.value, arg11.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted, arg8Casted, arg9Casted, arg10Casted, arg11Casted)
 
 
         case (
@@ -1333,11 +1767,24 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Int, Double, Double, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+            let arg8Casted = arg8.value
+            let arg9Casted = arg9.value
+            let arg10Casted = arg10.value
+            let arg11Casted = arg11.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value, arg8.value, arg9.value, arg10.value, arg11.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted, arg8Casted, arg9Casted, arg10Casted, arg11Casted)
 
 
         case (
@@ -1357,11 +1804,24 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Double, Double, Double, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+            let arg8Casted = arg8.value
+            let arg9Casted = arg9.value
+            let arg10Casted = arg10.value
+            let arg11Casted = arg11.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value, arg8.value, arg9.value, arg10.value, arg11.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted, arg8Casted, arg9Casted, arg10Casted, arg11Casted)
 
 
         default:
@@ -1405,11 +1865,25 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Int, Int, Double, Double, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+            let arg8Casted = arg8.value
+            let arg9Casted = arg9.value
+            let arg10Casted = arg10.value
+            let arg11Casted = arg11.value
+            let arg12Casted = arg12.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value, arg8.value, arg9.value, arg10.value, arg11.value, arg12.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted, arg8Casted, arg9Casted, arg10Casted, arg11Casted, arg12Casted)
 
 
         case (
@@ -1430,11 +1904,25 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Int, Double, Double, Double, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+            let arg8Casted = arg8.value
+            let arg9Casted = arg9.value
+            let arg10Casted = arg10.value
+            let arg11Casted = arg11.value
+            let arg12Casted = arg12.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value, arg8.value, arg9.value, arg10.value, arg11.value, arg12.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted, arg8Casted, arg9Casted, arg10Casted, arg11Casted, arg12Casted)
 
 
         default:
@@ -1480,11 +1968,26 @@ extension MethodInfo {
         ):
             let function = unsafeBitCast(address, to: (@convention(c) (Int, Int, Int, Int, Int, Int, Double, Double, Double, Double, Double, Double, Double, Double) -> Any).self)
 
+            let arg0Casted = arg0.value
+            let arg1Casted = arg1.value
+            let arg2Casted = arg2.value
+            let arg3Casted = arg3.value
+            let arg4Casted = arg4.value
+            let arg5Casted = arg5.value
+            let arg6Casted = arg6.value
+            let arg7Casted = arg7.value
+            let arg8Casted = arg8.value
+            let arg9Casted = arg9.value
+            let arg10Casted = arg10.value
+            let arg11Casted = arg11.value
+            let arg12Casted = arg12.value
+            let arg13Casted = arg13.value
+
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            return function(arg0.value, arg1.value, arg2.value, arg3.value, arg4.value, arg5.value, arg6.value, arg7.value, arg8.value, arg9.value, arg10.value, arg11.value, arg12.value, arg13.value)
+            return function(arg0Casted, arg1Casted, arg2Casted, arg3Casted, arg4Casted, arg5Casted, arg6Casted, arg7Casted, arg8Casted, arg9Casted, arg10Casted, arg11Casted, arg12Casted, arg13Casted)
 
 
         default:
