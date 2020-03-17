@@ -1,3 +1,5 @@
+// This file was automatically generated and should not be edited.
+
 #ifndef selfcontext_h
 #define selfcontext_h
 
