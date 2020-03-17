@@ -94,9 +94,9 @@ extension Sequence where Element == FunctionArgument {
     func ordered() -> [FunctionArgument] {
         return sorted { lhs, rhs in
             switch (lhs, rhs) {
-            case (.int, .int), (.float, .float), (.int, .float):
+            case (.int, .float):
                 return true
-            case (.float, .int):
+            case (.int, .int), (.float, .float), (.float, .int):
                 return false
             }
         }
