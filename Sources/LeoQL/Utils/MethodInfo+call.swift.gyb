@@ -31,11 +31,11 @@ import CContext
         return _combos(elements, 0, length)
 
     allowedArguments = 14
+    allowedResults = 8
 
-    allowedTypes = { "int" : "Int", "float" : "Double"  }
+    allowedTypes = { "int" : "Int", "float" : "Double" }
     allowedArgumentMap = { "int" : 6, "float" : 8 }
-
-    allowedReturnTypes = [ "AnyObject", "String", "Int", "Double", "Bool", "Void" ]
+    allowedResultMap = { "int" : 4, "float" : 4 }
 }%
 
 extension MethodInfo {
@@ -44,11 +44,14 @@ extension MethodInfo {
         assert(arguments.count == self.arguments.count, "Argument count must correspond to original argument count")
 
         let arguments = try zip(arguments, self.arguments).flatMap { try resolveArguments(for: $0.0, using: $0.1.type) }.ordered()
+        let resultDecoder = try resolveDecoder(for: returnType)
 
-        switch arguments.count {
+        switch (arguments.count, resultDecoder.results.count) {
         % for numberOfArguments in range(allowedArguments + 1):
-        case ${numberOfArguments}:
-            return try callWith${numberOfArguments}(receiver: receiver, arguments: arguments)
+        % for numberOfResults in range(allowedResults + 1):
+        case (${numberOfArguments}, ${numberOfResults}):
+            return try callWith${numberOfArguments}ArgumentsTo${numberOfResults}(receiver: receiver, arguments: arguments, decoder: resultDecoder)
+        % end
         % end
         default:
             fatalError("Calls with more than \(MethodInfo.maximumNumberOfArgumentsWithReflection) arguments are not allowed")
@@ -60,53 +63,69 @@ extension MethodInfo {
 extension MethodInfo {
 
     % for numberOfArguments in range(allowedArguments + 1):
-    private func callWith${numberOfArguments}(receiver: AnyObject, arguments: [FunctionArgument]) throws -> Any {
-        let returnType = try estimatedType(of: self.returnType)
-
-        % for returnType in allowedReturnTypes:
-        if returnType == ${returnType}.self {
+        % for numberOfResults in range(allowedResults + 1):
+        private func callWith${numberOfArguments}ArgumentsTo${numberOfResults}(receiver: AnyObject, arguments: [FunctionArgument], decoder: FunctionResultDecoder) throws -> Any {
             switch (
                 receiver
                 % for index in range(numberOfArguments):
                 , arguments[${index}]
                 % end
+                % for index in range(numberOfResults):
+                , decoder.results[${index}]
+                % end
             ) {
 
-            %{ combinations = combos(allowedArgumentMap, numberOfArguments) }%
-            % for arguments in combinations:
+            %{ argumentCombinations = combos(allowedArgumentMap, numberOfArguments) }%
+            %{ resultCombinations = combos(allowedResultMap, numberOfResults) }%
+            % for arguments in argumentCombinations:
+                % for results in resultCombinations:
 
-            case (
-                _
-                % for index, type in enumerate(arguments):
-                , .${type}(let arg${index})
+                case (
+                    _
+                    % for index, type in enumerate(arguments):
+                    , .${type}(let arg${index})
+                    % end
+                    % for index, type in enumerate(results):
+                    , .${type}(let res${index})
+                    % end
+                ):
+                    %{ types = ", ".join([allowedTypes[x] for x in arguments]) }%
+                    % if numberOfResults != 0:
+                    %{ result_prefix = "_".join(results) }%
+                    let function = unsafeBitCast(address, to: (@convention(c) (${types}) -> (${result_prefix}_function_result)).self)
+                    % else:
+                    let function = unsafeBitCast(address, to: (@convention(c) (${types}) -> (Void)).self)
+                    % end
+
+                    % for index, type in enumerate(arguments):
+                    let arg${index}Casted = arg${index}.value
+                    % end
+
+                    let selfPointer = Unmanaged.passUnretained(self).toOpaque()
+                    let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
+                    set_self_pointer(receiverPointer)
+
+                    %{ argumentString = ", ".join(["arg" + str(i) + "Casted"  for i in range(numberOfArguments)]) }%
+                    % if numberOfResults != 0:
+                    let result = function(${argumentString})
+                    % else:
+                    function(${argumentString})
+                    % end
+
+                    set_self_pointer(selfPointer)
+                    % for index in range(numberOfResults):
+                    res${index}.decode(result.res${index})
+                    % end
+                    return try decoder.decode()
+
                 % end
-            ):
-                %{ types = ", ".join([allowedTypes[x] for x in arguments]) }%
-                let function = unsafeBitCast(address, to: (@convention(c) (${types}) -> ${returnType}).self)
-
-                % for index, type in enumerate(arguments):
-                let arg${index}Casted = arg${index}.value
-                % end
-
-                let selfPointer = Unmanaged.passUnretained(self).toOpaque()
-                let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
-                set_self_pointer(receiverPointer)
-                defer { set_self_pointer(selfPointer) }
-                %{ argumentString = ", ".join(["arg" + str(i) + "Casted"  for i in range(numberOfArguments)]) }%
-                return function(${argumentString})
-
             % end
 
-            % if numberOfArguments != 1:
             default:
                 fatalError()
-            % end
             }
         }
         % end
-
-        fatalError()
-    }
     % end
 
 }

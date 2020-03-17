@@ -1,0 +1,54 @@
+#ifndef selfcontext_h
+#define selfcontext_h
+
+%{
+    def _combos(elements, start_idx, length):
+        # ignore elements before start_idx
+        for i in range(start_idx, len(elements)):
+            elem, count = elements[i]
+            if count == 0:
+                continue
+            # base case: only one element needed
+            if length == 1:
+                yield (elem,)
+            else:
+                # need more than one elem: mutate the list and recurse
+                elements[i] = (elem, count - 1)
+                # when we recurse, we ignore elements before this one
+                # this ensures we find combinations, not permutations
+                for combo in _combos(elements, i, length - 1):
+                    yield (elem,) + combo
+                # fix the list
+                elements[i] = (elem, count)
+
+
+    def combos(elements, length):
+        if length == 0:
+            return [[]]
+        elements = list(elements.items())
+        return _combos(elements, 0, length)
+
+    allowedResults = 8
+
+    allowedTypes = { "int" : "long", "float" : "double" }
+    allowedResultMap = { "int" : 4, "float" : 4 }
+}%
+
+void set_self_pointer(void *pointer) {
+    __asm__("movq %rdi, %r13");
+}
+
+% for numberOfResults in range(1, allowedResults + 1):
+% for combination in combos(allowedResultMap, numberOfResults):
+
+%{ name = "_".join(combination) }%
+struct ${name}_function_result {
+    % for index, item in enumerate(combination):
+    ${allowedTypes[item]} res${index};
+    % end
+};
+
+% end
+% end
+
+#endif

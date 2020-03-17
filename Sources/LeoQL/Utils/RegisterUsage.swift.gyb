@@ -1,0 +1,214 @@
+
+import Foundation
+import CContext
+import Runtime
+%{ int_types = ["Bool", "Int8", "Int16", "Int32", "Int"] }%
+%{ float_types = ["Float", "Double"] }%
+
+enum IntArgument {
+    % for swiftType in int_types:
+    case ${swiftType.lower()}(${swiftType})
+    % end
+    case pointer(UnsafeMutableRawPointer)
+
+    var value: Int {
+        switch self {
+        % for swiftType in int_types:
+        case .${swiftType.lower()}(let value):
+            return Int(from: value)
+        % end
+        case .pointer(let value):
+            return Int(from: value)
+        }
+    }
+}
+
+enum IntResult {
+    % for swiftType in int_types:
+    case ${swiftType.lower()}(UnsafeMutablePointer<${swiftType}>)
+    % end
+    case pointer(UnsafeMutablePointer<UnsafeMutableRawPointer>)
+
+    func decode(_ int: Int) {
+        switch self {
+        % for swiftType in int_types:
+        case .${swiftType.lower()}(let pointer):
+            % if swiftType == "Bool":
+            pointer.pointee = int != 0
+            % else:
+            pointer.pointee = ${swiftType}(int)
+            % end
+        % end
+        case .pointer(let pointer):
+            pointer.pointee = UnsafeMutableRawPointer(bitPattern: int)!
+        }
+    }
+}
+
+enum FloatArgument {
+    % for swiftType in float_types:
+    case ${swiftType.lower()}(${swiftType})
+    % end
+
+    var value: Double {
+        switch self {
+        % for swiftType in float_types:
+        case .${swiftType.lower()}(let value):
+            return Double(from: value)
+        % end
+        }
+    }
+}
+
+enum FloatResult {
+    % for swiftType in float_types:
+    case ${swiftType.lower()}(UnsafeMutablePointer<${swiftType}>)
+    % end
+
+    func decode(_ double: Double) {
+        switch self {
+        % for swiftType in float_types:
+        case .${swiftType.lower()}(let pointer):
+            pointer.pointee = ${swiftType}(double)
+        % end
+        }
+    }
+}
+
+enum FunctionArgument {
+    case int(IntArgument)
+    case float(FloatArgument)
+}
+
+enum FunctionResult {
+    case int(IntResult)
+    case float(FloatResult)
+}
+
+struct FunctionResultDecoder {
+    let type: Any.Type
+    let pointer: UnsafeRawBufferPointer
+    let results: [FunctionResult]
+
+    func decode() throws -> Any {
+        if (type == Void.self) {
+            return ()
+        }
+
+        var instance = try createInstance(of: type)
+        withUnsafeMutableBytes(of: &instance) { bytes in
+            bytes.copyMemory(from: pointer)
+        }
+        return instance
+    }
+}
+
+func resolveArguments(for value: Any, using type: Any.Type) throws -> [FunctionArgument] {
+    % for swiftType in int_types:
+    if type == ${swiftType}.self {
+        return [.int(.${swiftType.lower()}(value as! ${swiftType}))]
+    }
+    % end
+    % for swiftType in float_types:
+    if type == ${swiftType}.self {
+        return [.float(.${swiftType.lower()}(value as! ${swiftType}))]
+    }
+    % end
+
+    // Special cases
+    if type == String.self {
+        let bytes = withUnsafeBytes(of: value as! String) { $0.bindMemory(to: Int.self) }
+        return Array(bytes).map { .int(.int($0)) }
+    }
+
+    let info = try typeInfo(of: type)
+    switch info.kind {
+    case .class:
+        return [.int(.pointer(Unmanaged.passUnretained(value as AnyObject).toOpaque()))]
+    case .optional:
+        let actualType = info.genericTypes.first!
+        return try resolveArguments(for: value, using: actualType)
+    default:
+        return try info.properties.flatMap { try resolveArguments(for: $0.get(from: value), using: $0.type) }
+    }
+}
+
+func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws -> ([FunctionResult], Int) {
+    % for swiftType in int_types:
+    if type == ${swiftType}.self {
+        return ([.int(.${swiftType.lower()}(pointer.assumingMemoryBound(to: ${swiftType}.self)))], MemoryLayout<${swiftType}>.size)
+    }
+    % end
+    % for swiftType in float_types:
+    if type == ${swiftType}.self {
+        return ([.float(.${swiftType.lower()}(pointer.assumingMemoryBound(to: ${swiftType}.self)))], MemoryLayout<${swiftType}>.size)
+    }
+    % end
+
+    // Special cases
+    if type == String.self {
+        return (
+            [
+                .int(.int(pointer.assumingMemoryBound(to: Int.self))),
+                .int(.int(pointer.advanced(by: MemoryLayout<Int>.size).assumingMemoryBound(to: Int.self))),
+            ],
+            MemoryLayout<String>.size
+        )
+    }
+
+    let info = try typeInfo(of: type)
+    switch info.kind {
+    case .class:
+        return ([.int(.pointer(pointer.assumingMemoryBound(to: UnsafeMutableRawPointer.self)))], MemoryLayout<UnsafeMutableRawPointer>.size)
+    default:
+        return try info.properties.reduce(([], 0)) { accumulator, property in
+            let (results, offset) = try resolveResults(for: property.type, pointer: pointer.advanced(by: accumulator.1))
+            return (accumulator.0 + results, accumulator.1 + offset)
+        }
+    }
+}
+
+func resolveDecoder(for type: Any.Type) throws -> FunctionResultDecoder {
+    let info = try typeInfo(of: type)
+
+    let pointer = UnsafeMutableRawBufferPointer.allocate(byteCount: info.size, alignment: info.alignment)
+    let (results, offset) = try resolveResults(for: type, pointer: pointer.baseAddress!)
+    assert(offset == info.size)
+
+    return FunctionResultDecoder(type: type, pointer: UnsafeRawBufferPointer(pointer), results: results)
+}
+
+extension Sequence where Element == FunctionArgument {
+
+    func ordered() -> [FunctionArgument] {
+        return sorted { lhs, rhs in
+            switch (lhs, rhs) {
+            case (.int, .float):
+                return true
+            case (.int, .int), (.float, .float), (.float, .int):
+                return false
+            }
+        }
+    }
+
+}
+
+extension Int {
+
+    fileprivate init<T>(from transformable: T) {
+        let pointer = UnsafeMutableRawPointer.allocate(byteCount: MemoryLayout<Int>.size, alignment: MemoryLayout<Int>.alignment)
+        pointer.storeBytes(of: transformable, as: T.self)
+        self = pointer.load(as: Int.self)
+    }
+
+}
+
+extension Double {
+
+    fileprivate init<T>(from transformable: T) {
+        let pointer = UnsafeMutableRawPointer.allocate(byteCount: MemoryLayout<Double>.size, alignment: MemoryLayout<Double>.alignment)
+        pointer.storeBytes(of: transformable, as: T.self)
+        self = pointer.load(as: Double.self)
+    }
+
+}
