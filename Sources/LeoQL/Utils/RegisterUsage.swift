@@ -95,12 +95,17 @@ enum FunctionResult {
 
 struct FunctionResultDecoder {
     let type: Any.Type
+    let isClass: Bool
     let pointer: UnsafeRawBufferPointer
     let results: [FunctionResult]
 
     func decode() throws -> Any {
         if (type == Void.self) {
             return ()
+        }
+
+        if (isClass) {
+            return Unmanaged<AnyObject>.fromOpaque(pointer.load(as: UnsafeRawPointer.self)).takeRetainedValue()
         }
 
         var instance = try createInstance(of: type)
@@ -205,7 +210,7 @@ func resolveDecoder(for type: Any.Type) throws -> FunctionResultDecoder {
     let (results, offset) = try resolveResults(for: type, pointer: pointer.baseAddress!)
     assert(offset == info.size)
 
-    return FunctionResultDecoder(type: type, pointer: UnsafeRawBufferPointer(pointer), results: results)
+    return FunctionResultDecoder(type: type, isClass: info.kind == .class, pointer: UnsafeRawBufferPointer(pointer), results: results)
 }
 
 extension Sequence where Element == FunctionArgument {
