@@ -4,18 +4,42 @@ import Runtime
 import CContext
 
 %{
-    import itertools
+    def _combos(elements, start_idx, length):
+        # ignore elements before start_idx
+        for i in range(start_idx, len(elements)):
+            elem, count = elements[i]
+            if count == 0:
+                continue
+            # base case: only one element needed
+            if length == 1:
+                yield (elem,)
+            else:
+                # need more than one elem: mutate the list and recurse
+                elements[i] = (elem, count - 1)
+                # when we recurse, we ignore elements before this one
+                # this ensures we find combinations, not permutations
+                for combo in _combos(elements, i, length - 1):
+                    yield (elem,) + combo
+                # fix the list
+                elements[i] = (elem, count)
 
-    allowedArguments = 3
 
-    sizesDict = { 0 : "AnyObject", 1 : "Bool", 4 : "Float", 8 : "Int", 16 : "String" }
-    sizes = sizesDict.keys()
+    def combos(elements, length):
+        elements = list(elements.items())
+        return _combos(elements, 0, length)
+
+    allowedArguments = 14
+
+    allowedTypes = { "int" : "Int", "float" : "Double"  }
+    allowedArgumentMap = { "int" : 6, "float" : 8 }
 }%
 
 extension MethodInfo {
 
     func call(receiver: AnyObject, arguments: [Any]) throws -> Any {
         assert(arguments.count == self.arguments.count, "Argument count must correspond to original argument count")
+
+        let arguments = try zip(arguments, self.arguments).flatMap { try resolveArguments(for: $0.0, using: $0.1.type) }.ordered()
 
         switch arguments.count {
         % for numberOfArguments in range(allowedArguments + 1):
@@ -32,37 +56,31 @@ extension MethodInfo {
 extension MethodInfo {
 
     % for numberOfArguments in range(allowedArguments + 1):
-    private func callWith${numberOfArguments}(receiver: AnyObject, arguments: [Any]) throws -> Any {
+    private func callWith${numberOfArguments}(receiver: AnyObject, arguments: [FunctionArgument]) throws -> Any {
         switch (
             receiver
             % for index in range(numberOfArguments):
-            , try sizeEstimation(of: self.arguments[${index}].type)
+            , arguments[${index}]
             % end
-            , try sizeEstimation(of: returnType)
         ) {
 
-        % for permutation in itertools.product(sizes, repeat=numberOfArguments + 1):
+        %{ combinations = combos(allowedArgumentMap, numberOfArguments) }%
+        % for arguments in combinations:
 
         case (
             _
-            % for size in permutation:
-            , ${size}
+            % for index, type in enumerate(arguments):
+            , .${type}(let arg${index})
             % end
         ):
-            %{ arguments = permutation[:-1] }%
-            %{ returnType = sizesDict[permutation[-1]] }%
-            %{ types = ", ".join([sizesDict[x] for x in arguments]) }%
-            let function = unsafeBitCast(address, to: (@convention(c) (${types}) -> ${returnType}).self)
-
-            % for index, size in enumerate(arguments):
-            let arg${index} = safeishCast(value: arguments[${index}], to: ${ sizesDict[size] }.self)
-            % end
+            %{ types = ", ".join([allowedTypes[x] for x in arguments]) }%
+            let function = unsafeBitCast(address, to: (@convention(c) (${types}) -> Any).self)
 
             let selfPointer = Unmanaged.passUnretained(self).toOpaque()
             let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
             set_self_pointer(receiverPointer)
             defer { set_self_pointer(selfPointer) }
-            %{ argumentString = ",".join(["arg" + str(i) for i in range(numberOfArguments)]) }%
+            %{ argumentString = ", ".join(["arg" + str(i) + ".value"  for i in range(numberOfArguments)]) }%
             return function(${argumentString})
 
         % end
@@ -79,18 +97,4 @@ extension MethodInfo {
 
     static let maximumNumberOfArgumentsWithReflection = ${allowedArguments}
 
-}
-
-private func sizeEstimation(of type: Any.Type) throws -> Int {
-    let info = try typeInfo(of: type)
-    switch info.kind {
-    case .class:
-        return 0
-    default:
-        return info.size
-    }
-}
-
-private func safeishCast<T>(value: Any, to type: T.Type) -> T {
-    return withUnsafeBytes(of: value) { $0.baseAddress!.load(as: type) }
 }
