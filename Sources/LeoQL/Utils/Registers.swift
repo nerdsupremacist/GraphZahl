@@ -71,6 +71,12 @@ func resolveArguments(for value: Any, using type: Any.Type) throws -> [FunctionA
         return [.float(.double(value as! Double))]
     }
 
+    // Special cases
+    if type == String.self {
+        let bytes = withUnsafeBytes(of: value as! String) { $0.bindMemory(to: Int.self) }
+        return Array(bytes).map { .int(.int($0)) }
+    }
+
     let info = try typeInfo(of: type)
     switch info.kind {
     case .class:
