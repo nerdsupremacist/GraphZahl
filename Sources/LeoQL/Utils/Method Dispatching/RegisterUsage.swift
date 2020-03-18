@@ -147,6 +147,12 @@ func resolveArguments(for value: Any, using type: Any.Type) throws -> [FunctionA
     }
 
     let info = try typeInfo(of: type)
+
+    // More special cases
+    if info.mangledName == "Array" {
+        return [.int(.pointer(unsafeBitCast(value as! NSArray, to: UnsafeMutableRawPointer.self)))]
+    }
+
     switch info.kind {
     case .class:
         return [.int(.pointer(Unmanaged.passUnretained(value as AnyObject).toOpaque()))]
@@ -193,6 +199,12 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
     }
 
     let info = try typeInfo(of: type)
+
+    // More special cases
+    if info.mangledName == "Array" {
+         return ([.int(.pointer(pointer.assumingMemoryBound(to: UnsafeMutableRawPointer.self)))], MemoryLayout<UnsafeMutableRawPointer>.size)
+    }
+
     switch info.kind {
     case .class:
         return ([.int(.pointer(pointer.assumingMemoryBound(to: UnsafeMutableRawPointer.self)))], MemoryLayout<UnsafeMutableRawPointer>.size)
