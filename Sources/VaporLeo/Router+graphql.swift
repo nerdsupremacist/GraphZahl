@@ -55,7 +55,7 @@ extension RoutesBuilder {
         let html = """
             <html>
               <head>
-                <title>Simple GraphiQL Example</title>
+                <title>GraphiQL</title>
                 <link href="https://unpkg.com/graphiql/graphiql.min.css" rel="stylesheet" />
               </head>
               <body style="margin: 0;">
@@ -98,8 +98,7 @@ extension RoutesBuilder {
 
 }
 
-
-struct GraphiQLResponse: ResponseEncodable {
+private struct GraphiQLResponse: ResponseEncodable {
     let html: String
 
     func encodeResponse(for request: Request) -> EventLoopFuture<Response> {
