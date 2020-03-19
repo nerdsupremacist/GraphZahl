@@ -150,8 +150,7 @@ func resolveArguments(for value: Any, using type: Any.Type) throws -> [FunctionA
 
     // More special cases
     if info.mangledName == "Array" {
-        let bytes = withUnsafeBytes(of: value as! NSArray) { $0.bindMemory(to: Int.self) }
-        return Array(bytes).map { .int(.int($0)) }
+        return [.int(.pointer(Unmanaged.passUnretained(value as AnyObject).toOpaque()))]
     }
 
     switch info.kind {
