@@ -2,7 +2,8 @@
 import GraphQL
 import NIO
 
-public protocol Schema {
+public protocol GraphQLSchema {
+    typealias Result = GraphQLResult
     typealias None = EmptyRootType<ViewerContext>
 
     associatedtype ViewerContext

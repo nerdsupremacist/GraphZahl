@@ -2,7 +2,7 @@
 import Foundation
 import GraphQL
 
-extension Bool: Scalar {
+extension Bool: GraphQLScalar {
 
     public static let concreteTypeName = "Boolean"
 

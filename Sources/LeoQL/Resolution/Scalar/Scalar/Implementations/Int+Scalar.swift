@@ -2,7 +2,7 @@
 import Foundation
 import GraphQL
 
-extension Int: Scalar {
+extension Int: GraphQLScalar {
 
     public init(scalar: ScalarValue) throws {
         self = try scalar.int()

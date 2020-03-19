@@ -3,7 +3,7 @@ import Foundation
 import GraphQL
 import NIO
 
-public final class EmptyRootType<ViewerContext> : RootType {
+public final class EmptyRootType<ViewerContext> : GraphQLRootType {
     public func resolve(source: Any, arguments: [String : Map], eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
         return eventLoop.next().makeSucceededFuture(nil)
     }

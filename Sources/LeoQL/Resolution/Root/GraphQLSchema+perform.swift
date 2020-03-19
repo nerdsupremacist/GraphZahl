@@ -4,9 +4,9 @@ import GraphQL
 import NIO
 
 private let defaultEventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-private var schemaCache = [String : GraphQLSchema]()
+private var schemaCache = [String : GraphQL.GraphQLSchema]()
 
-extension Schema {
+extension GraphQLSchema {
 
     public static func perform(request: String,
                                viewerContext: ViewerContext,
@@ -21,7 +21,7 @@ extension Schema {
 
 }
 
-extension Schema where ViewerContext == Void {
+extension GraphQLSchema where ViewerContext == Void {
 
     public static func perform(request: String) throws -> Future<GraphQLResult> {
         return try perform(request: request, viewerContext: ())

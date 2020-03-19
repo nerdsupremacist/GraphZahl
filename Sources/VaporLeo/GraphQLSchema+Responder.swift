@@ -1,10 +1,9 @@
 
 import Foundation
 import LeoQL
-import GraphQL
 import Vapor
 
-extension Schema {
+extension GraphQLSchema {
 
     public static func responder(viewerContext: @escaping (Request) throws -> EventLoopFuture<ViewerContext>) -> Responder {
         return SchemaHTTPResponder<Self>(viewerContextFactory: viewerContext)
@@ -16,7 +15,7 @@ extension Schema {
 
 }
 
-extension Schema where ViewerContext == Void {
+extension GraphQLSchema where ViewerContext == Void {
 
     public static func responder() -> Responder {
         return responder { _ in () }
@@ -24,7 +23,7 @@ extension Schema where ViewerContext == Void {
 
 }
 
-private struct SchemaHTTPResponder<S: Schema>: Responder {
+private struct SchemaHTTPResponder<S: GraphQLSchema>: Responder {
     let viewerContextFactory: (Request) throws -> EventLoopFuture<S.ViewerContext>
 
     func respond(to request: Request) -> EventLoopFuture<Response> {
@@ -47,7 +46,7 @@ private struct SchemaHTTPResponder<S: Schema>: Responder {
         let query = try request.content.decode(Query.self)
         let viewerContext = try viewerContextFactory(request)
         let result = viewerContext
-            .thenThrowing { viewerContext -> EventLoopFuture<GraphQLResult> in
+            .thenThrowing { viewerContext -> EventLoopFuture<S.Result> in
                 return try S.perform(request: query.query, viewerContext: viewerContext)
             }
 

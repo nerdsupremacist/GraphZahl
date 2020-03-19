@@ -2,14 +2,14 @@
 import Foundation
 import GraphQL
 
-public protocol Scalar: OutputResolvable, InputResolvable, ConcreteResolvable {
+public protocol GraphQLScalar: OutputResolvable, InputResolvable, ConcreteResolvable {
     static func resolve() throws -> GraphQLScalarType
 
     init(scalar: ScalarValue) throws
     func encodeScalar() throws -> ScalarValue
 }
 
-extension Scalar {
+extension GraphQLScalar {
 
     public static func resolve() throws -> GraphQLScalarType {
         return try GraphQLScalarType(name: concreteTypeName) { value in

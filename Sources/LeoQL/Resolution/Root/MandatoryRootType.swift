@@ -1,4 +1,4 @@
 
 import Foundation
 
-public protocol MandatoryRootType : RootType { }
+public protocol MandatoryRootType : GraphQLRootType { }

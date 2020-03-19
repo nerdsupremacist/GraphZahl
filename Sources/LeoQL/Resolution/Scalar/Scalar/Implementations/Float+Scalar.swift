@@ -2,7 +2,7 @@
 import Foundation
 import GraphQL
 
-extension Float: Scalar {
+extension Float: GraphQLScalar {
 
     public init(scalar: ScalarValue) throws {
         self = Float(try scalar.float())

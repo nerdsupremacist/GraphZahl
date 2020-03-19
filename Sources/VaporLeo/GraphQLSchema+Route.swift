@@ -2,9 +2,8 @@
 import Foundation
 import LeoQL
 import Vapor
-import GraphQL
 
-extension Schema {
+extension GraphQLSchema {
 
     static func route(at path: [PathComponent],
                       viewerContext: @escaping (Request) throws -> EventLoopFuture<ViewerContext>) -> Route {
@@ -13,7 +12,7 @@ extension Schema {
                      path: path,
                      responder: responder(viewerContext: viewerContext),
                      requestType: Query.self,
-                     responseType: GraphQLResult.self)
+                     responseType: Self.Result.self)
     }
 
     public static func route(at path: PathComponent...,
@@ -30,7 +29,7 @@ extension Schema {
 
 }
 
-extension Schema where ViewerContext == Void {
+extension GraphQLSchema where ViewerContext == Void {
 
     public static func route(at path: PathComponent...) -> Route {
         return route(at: path) { $0.eventLoop.future(()) }

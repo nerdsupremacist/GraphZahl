@@ -1,12 +1,12 @@
 
 import Foundation
 
-public protocol RootType : Object {
+public protocol GraphQLRootType : Object {
     associatedtype ViewerContext
     init(viewerContext: ViewerContext)
 }
 
-extension RootType {
+extension GraphQLRootType {
 
     public static func object(from source: Any) -> AnyObject {
         if let viewerContext = source as? ViewerContext {

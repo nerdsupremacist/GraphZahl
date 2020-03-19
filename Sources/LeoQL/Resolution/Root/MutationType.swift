@@ -1,4 +1,4 @@
 
 import Foundation
 
-public typealias MutationType = RootType
+public typealias MutationType = GraphQLRootType

@@ -4,6 +4,6 @@ import GraphQL
 
 public enum ScalarTypeError: Error {
     case unexpectedValue(ScalarValue, expected: ScalarType)
-    case valueFailedInnerTypeConstraints(ScalarValue, forType: Scalar.Type)
+    case valueFailedInnerTypeConstraints(ScalarValue, forType: GraphQLScalar.Type)
     case valueNotScalar(Map)
 }
