@@ -15,13 +15,12 @@ class CallingTests: XCTestCase {
         let info = try typeInfo(of: MyClass.self)
         let instance = MyClass()
         let method = info.methods.first { $0.methodName == "doit" }!
-        let cases: [MyEnum] = [.second, .first, .second]
-        let string = try method.call(receiver: instance, arguments: [cases]) as! String
-        XCTAssertEqual(string, "secondfirstsecond")
+        let string = try method.call(receiver: instance, arguments: [MyEnum.allCases]) as! String
+        XCTAssertEqual(string, "firstsecond")
     }
 }
 
-enum MyEnum: String {
+enum MyEnum: String, CaseIterable {
     case first
     case second
 }
