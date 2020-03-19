@@ -54,9 +54,9 @@ extension MethodInfo {
                           argumentMap: [String : Map],
                           eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
 
-        let arguments = try self.arguments.map { argument -> Any? in
+        let arguments = try self.arguments.map { argument -> Any in
             guard let name = argument.name,
-                let argumentType = argument.type as? InputResolvable.Type else { return nil }
+                let argumentType = argument.type as? InputResolvable.Type else { fatalError() }
 
             if let value = argumentMap[name] {
                 return try argumentType.init(map: value)
@@ -66,10 +66,9 @@ extension MethodInfo {
                 return try argument.defaultValue()!
             }
 
-            return nil
+            return NSNull()
         } as [Any]
         let result = try self.call(receiver: receiver, arguments: arguments)
-        _ = arguments
         
         // TODO: for some reason this breaks with arrays...
         // this will break the server if we ever return [Future<T>]
