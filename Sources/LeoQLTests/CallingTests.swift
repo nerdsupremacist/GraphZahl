@@ -59,6 +59,10 @@ enum MyEnum: String, CaseIterable, GraphQLEnum {
 }
 
 class MyClass: GraphQLObject {
+    func optionals(string: String?) -> String? {
+        return string.map { "hello, \($0)" }
+    }
+
     func doit(cases: [MyEnum] = MyEnum.mostCases) -> String {
         return cases.map(\.rawValue).joined()
     }

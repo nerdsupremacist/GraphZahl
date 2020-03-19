@@ -41,15 +41,15 @@ enum IntResult {
     func decode(_ int: Int) {
         switch self {
         case .bool(let pointer):
-            pointer.pointee = int != 0
+            pointer.pointee = withUnsafeBytes(of: int) { $0.baseAddress!.load(as: Bool.self) }
         case .int8(let pointer):
-            pointer.pointee = Int8(int)
+            pointer.pointee = withUnsafeBytes(of: int) { $0.baseAddress!.load(as: Int8.self) }
         case .int16(let pointer):
-            pointer.pointee = Int16(int)
+            pointer.pointee = withUnsafeBytes(of: int) { $0.baseAddress!.load(as: Int16.self) }
         case .int32(let pointer):
-            pointer.pointee = Int32(int)
+            pointer.pointee = withUnsafeBytes(of: int) { $0.baseAddress!.load(as: Int32.self) }
         case .int(let pointer):
-            pointer.pointee = Int(int)
+            pointer.pointee = withUnsafeBytes(of: int) { $0.baseAddress!.load(as: Int.self) }
         case .pointer(let pointer):
             pointer.pointee = UnsafeMutableRawPointer(bitPattern: int)!
         }
@@ -97,12 +97,17 @@ enum FunctionResult {
 struct FunctionResultDecoder {
     let type: Any.Type
     let isClass: Bool
+    let isOptional: Bool
     let pointer: UnsafeRawBufferPointer
     let results: [FunctionResult]
 
     func decode() throws -> Any {
         if (type == Void.self) {
             return ()
+        }
+
+        if (isOptional && pointer.last != 0) {
+            return NSNull()
         }
 
         if (isClass) {
@@ -117,31 +122,55 @@ struct FunctionResultDecoder {
     }
 }
 
-func resolveArguments(for value: Any, using type: Any.Type) throws -> [FunctionArgument] {
+func resolveArguments(for value: Any, using type: Any.Type, isNil: Bool = false) throws -> [FunctionArgument] {
     if type == Bool.self {
+        if isNil {
+            return [.int(.int(0))]
+        }
         return [.int(.bool(value as! Bool))]
     }
     if type == Int8.self {
+        if isNil {
+            return [.int(.int(0))]
+        }
         return [.int(.int8(value as! Int8))]
     }
     if type == Int16.self {
+        if isNil {
+            return [.int(.int(0))]
+        }
         return [.int(.int16(value as! Int16))]
     }
     if type == Int32.self {
+        if isNil {
+            return [.int(.int(0))]
+        }
         return [.int(.int32(value as! Int32))]
     }
     if type == Int.self {
+        if isNil {
+            return [.int(.int(0))]
+        }
         return [.int(.int(value as! Int))]
     }
     if type == Float.self {
+        if isNil {
+            return [.float(.double(0))]
+        }
         return [.float(.float(value as! Float))]
     }
     if type == Double.self {
+        if isNil {
+            return [.float(.double(0))]
+        }
         return [.float(.double(value as! Double))]
     }
 
     // Special cases
     if type == String.self {
+        if isNil {
+            return [.int(.int(0)), .int(.int(0))]
+        }
         let bytes = withUnsafeBytes(of: value as! String) { $0.bindMemory(to: Int.self) }
         return Array(bytes).map { .int(.int($0)) }
     }
@@ -150,18 +179,25 @@ func resolveArguments(for value: Any, using type: Any.Type) throws -> [FunctionA
 
     // More special cases
     if info.mangledName == "Array" {
+        if isNil {
+            return [.int(.int(0))]
+        }
         let int = withUnsafeBytes(of: value) { $0.bindMemory(to: Int.self).baseAddress!.pointee }
         return [.int(.int(int))]
     }
 
     switch info.kind {
     case .class:
+        if isNil {
+            return [.int(.int(0))]
+        }
         return [.int(.pointer(Unmanaged.passUnretained(value as AnyObject).toOpaque()))]
     case .optional:
         let actualType = info.genericTypes.first!
-        return try resolveArguments(for: value, using: actualType)
+        let isNil = try isNil || isValueNil(value: value, type: actualType)
+        return try resolveArguments(for: value, using: actualType, isNil: isNil) + [.int(.int8(isNil ? 1 : 0))]
     default:
-        return try info.properties.flatMap { try resolveArguments(for: $0.get(from: value), using: $0.type) }
+        return try info.properties.flatMap { try resolveArguments(for: isNil ? 0 : $0.get(from: value), using: $0.type, isNil: isNil) }
     }
 }
 
@@ -209,6 +245,10 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
     switch info.kind {
     case .class:
         return ([.int(.pointer(pointer.assumingMemoryBound(to: UnsafeMutableRawPointer.self)))], MemoryLayout<UnsafeMutableRawPointer>.size)
+    case .optional:
+        let actualType = info.genericTypes.first!
+        let (result, offset) = try resolveResults(for: actualType, pointer: pointer)
+        return (result + [.int(.int8(pointer.advanced(by: offset).assumingMemoryBound(to: Int8.self)))], offset + 1)
     default:
         return try info.properties.reduce(([], 0)) { accumulator, property in
             let (results, offset) = try resolveResults(for: property.type, pointer: pointer.advanced(by: accumulator.1))
@@ -220,11 +260,17 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
 func resolveDecoder(for type: Any.Type) throws -> FunctionResultDecoder {
     let info = try typeInfo(of: type)
 
-    let pointer = UnsafeMutableRawBufferPointer.allocate(byteCount: info.size, alignment: info.alignment)
+    let isOptional = info.kind == .optional
+    let size = isOptional ? info.size + 1 : info.size
+    let pointer = UnsafeMutableRawBufferPointer.allocate(byteCount: size, alignment: info.alignment)
     let (results, offset) = try resolveResults(for: type, pointer: pointer.baseAddress!)
-    assert(offset == info.size)
+    assert(offset == size)
 
-    return FunctionResultDecoder(type: type, isClass: info.kind == .class, pointer: UnsafeRawBufferPointer(pointer), results: results)
+    return FunctionResultDecoder(type: isOptional ? info.genericTypes.first! : type,
+                                 isClass: info.kind == .class,
+                                 isOptional: isOptional,
+                                 pointer: UnsafeRawBufferPointer(pointer),
+                                 results: results)
 }
 
 extension Sequence where Element == FunctionArgument {
@@ -260,4 +306,22 @@ extension Double {
         self = pointer.load(as: Double.self)
     }
 
+}
+
+private func isValueNil(value: Any, type: Any.Type) throws -> Bool {
+    if value is NSNull && type != NSNull.self {
+        return true
+    }
+
+    let info = try typeInfo(of: type)
+
+    let bytes = withUnsafeBytes(of: value) { $0.baseAddress!.assumingMemoryBound(to: Int8.self) }
+
+    // Check that every value is zero
+    guard UnsafeBufferPointer<Int8>(start: bytes, count: info.size).allSatisfy({ $0 == 0 }) else { return false }
+
+    // Check that the byte at the end is not zero
+    guard bytes.advanced(by: info.size).pointee != 0 else { return false }
+
+    return true
 }
