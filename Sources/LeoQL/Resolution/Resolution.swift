@@ -5,12 +5,10 @@ import GraphQL
 public enum Resolution {
     
     public struct Context {
-        let inputs: [String : GraphQLInputType]
-        let outputs: [String : GraphQLOutputType]
+        let resolved: [String : GraphQLType]
 
-        private init(inputs: [String : GraphQLInputType], outputs: [String : GraphQLOutputType]) {
-            self.inputs = inputs
-            self.outputs = outputs
+        private init(resolved: [String : GraphQLType]) {
+            self.resolved = resolved
         }
     }
     
@@ -18,20 +16,12 @@ public enum Resolution {
 
 extension Resolution.Context {
 
-    public func appending(output: GraphQLOutputType, as name: String) -> Resolution.Context {
-        return Resolution.Context(inputs: inputs, outputs: outputs.merging([name : output]) { $1 })
+    public func appending(type: GraphQLType, as name: String) -> Resolution.Context {
+        return Resolution.Context(resolved: resolved.merging([name : type]) { $1 })
     }
 
-    public func appending(input: GraphQLInputType, as name: String) -> Resolution.Context {
-        return Resolution.Context(inputs: inputs.merging([name : input]) { $1 }, outputs: outputs)
-    }
-
-    public mutating func append(output: GraphQLOutputType, as name: String) {
-        self = appending(output: output, as: name)
-    }
-
-    public mutating func append(input: GraphQLInputType, as name: String) {
-        self = appending(input: input, as: name)
+    public mutating func append(type: GraphQLType, as name: String) {
+        self = appending(type: type, as: name)
     }
 
 }
@@ -39,24 +29,24 @@ extension Resolution.Context {
 extension Resolution.Context {
 
     public mutating func resolve(type: OutputResolvable.Type) throws -> GraphQLOutputType {
-        if let type = type.typeName.flatMap({ outputs[$0] }) {
+        if let type = type.typeName.flatMap({ resolved[$0] }) as? GraphQLOutputType {
             return type
         }
         let outputType = try type.resolve(using: &self)
         if let typeName = type.typeName {
-            append(output: outputType, as: typeName)
+            append(type: outputType, as: typeName)
         }
         return outputType
     }
 
     public mutating func resolve(type: InputResolvable.Type) throws -> GraphQLInputType {
-        if let type = type.typeName.flatMap({ inputs[$0] }) {
+        if let type = type.typeName.flatMap({ resolved[$0] }) as? GraphQLInputType {
             return type
         }
 
         let inputType = try type.resolve(using: &self)
         if let typeName = type.typeName {
-            append(input: inputType, as: typeName)
+            append(type: inputType, as: typeName)
         }
         return inputType
     }
@@ -65,6 +55,6 @@ extension Resolution.Context {
 
 extension Resolution.Context {
 
-    static let empty = Resolution.Context(inputs: [:], outputs: [:])
+    static let empty = Resolution.Context(resolved: [:])
 
 }

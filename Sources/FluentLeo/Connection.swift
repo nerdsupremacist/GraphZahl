@@ -123,7 +123,7 @@ extension Connection: OutputResolvable {
     }
 
     static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        context.append(output: GraphQLNonNull(GraphQLTypeReference(concreteTypeName)), as: concreteTypeName)
+        context.append(type: GraphQLNonNull(GraphQLTypeReference(concreteTypeName)), as: concreteTypeName)
 
         let fields = [
             "pageInfo" : GraphQLField(type: try context.resolve(type: PageInfo.self)) { (receiver, args, _, eventLoop, _) -> Future<Any?> in
@@ -169,7 +169,7 @@ extension Connection.Edge: OutputResolvable {
     }
 
     static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        context.append(output: GraphQLNonNull(GraphQLTypeReference(concreteTypeName)), as: concreteTypeName)
+        context.append(type: GraphQLNonNull(GraphQLTypeReference(concreteTypeName)), as: concreteTypeName)
 
         let fields = [
             "node" : GraphQLField(type: try context.resolve(type: Optional<Node>.self)) { (receiver, args, _, eventLoop, _) -> Future<Any?> in
