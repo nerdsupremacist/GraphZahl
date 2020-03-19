@@ -3,7 +3,7 @@ import Foundation
 import GraphQL
 import NIO
 
-public protocol GraphQLEnum: OutputResolvable, InputResolvable, ConcreteResolvable, CaseIterable, RawRepresentable where RawValue == String { }
+public protocol GraphQLEnum: GraphQLScalar, CaseIterable, RawRepresentable where RawValue == String { }
 
 extension GraphQLEnum {
 
