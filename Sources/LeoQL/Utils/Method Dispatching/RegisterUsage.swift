@@ -150,9 +150,7 @@ func resolveArguments(for value: Any, using type: Any.Type) throws -> [FunctionA
 
     // More special cases
     if info.mangledName == "Array" {
-        let pointer = UnsafeMutablePointer<UnsafeMutableRawPointer>.allocate(capacity: 1)
-        pointer.pointee = Unmanaged.passUnretained(value as AnyObject).toOpaque()
-        return [.int(.pointer(UnsafeMutableRawPointer(pointer)))]
+        return [.int(.pointer(unsafeBitCast(value as! NSArray, to: UnsafeMutableRawPointer.self)))]
     }
 
     switch info.kind {
