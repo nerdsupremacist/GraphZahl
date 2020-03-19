@@ -15,9 +15,9 @@ class CallingTests: XCTestCase {
         let info = try typeInfo(of: MyClass.self)
         let instance = MyClass()
         let method = info.methods.first { $0.methodName == "doit" }!
-        let cases: [MyEnum] = [.second]
+        let cases: [MyEnum] = [.second, .first, .second]
         let string = try method.call(receiver: instance, arguments: [cases]) as! String
-        XCTAssertEqual(string, "second")
+        XCTAssertEqual(string, "secondfirstsecond")
     }
 }
 
@@ -27,8 +27,7 @@ enum MyEnum: String {
 }
 
 class MyClass {
-    func doit(string: String = "Hello World") -> String {
-        return string
-//        return cases.map(\.rawValue).joined()
+    func doit(cases: [MyEnum]) -> String {
+        return cases.map(\.rawValue).joined()
     }
 }

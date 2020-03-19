@@ -150,7 +150,8 @@ func resolveArguments(for value: Any, using type: Any.Type) throws -> [FunctionA
 
     // More special cases
     if info.mangledName == "Array" {
-        return [.int(.pointer(unsafeBitCast(value as! NSArray, to: UnsafeMutableRawPointer.self)))]
+        let int = withUnsafeBytes(of: value) { $0.bindMemory(to: Int.self).baseAddress!.pointee }
+        return [.int(.int(int))]
     }
 
     switch info.kind {
