@@ -15,7 +15,7 @@ extension Schema {
         let schema = try schemaCache.getOrPut(String(describing: Self.self), default: try resolve())
         return try graphql(schema: schema,
                            request: request,
-                           rootValue: Query(viewerContext: viewerContext),
+                           rootValue: viewerContext,
                            eventLoopGroup: eventLoopGroup ?? defaultEventLoopGroup)
     }
 

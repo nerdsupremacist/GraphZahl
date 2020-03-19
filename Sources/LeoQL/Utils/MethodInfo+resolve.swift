@@ -6,7 +6,7 @@ import NIO
 
 extension MethodInfo {
 
-    func resolve(using context: inout Resolution.Context) throws -> GraphQLField? {
+    func resolve(for receiverType: Object.Type, using context: inout Resolution.Context) throws -> GraphQLField? {
         guard let returnType = returnType as? OutputResolvable.Type else { return nil }
 
         let mappedArguments = arguments.compactMap { argument in argument.name.map { ($0, argument) } }
@@ -33,10 +33,10 @@ extension MethodInfo {
             .merging(arguments) { $1 }
 
         return GraphQLField(type: try context.resolve(type: returnType),
-                            args: completeArguments) { (receiver, args, _, eventLoop, _) -> Future<Any?> in
+                            args: completeArguments) { (source, args, _, eventLoop, _) -> Future<Any?> in
 
             let args = try args.dictionaryValue()
-            return try self.call(receiver: receiver as AnyObject, argumentMap: args, eventLoop: eventLoop)
+            return try self.call(receiver: receiverType.object(from: source), argumentMap: args, eventLoop: eventLoop)
         }
     }
 

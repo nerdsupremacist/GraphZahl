@@ -6,14 +6,15 @@ import NIO
 
 extension PropertyInfo {
 
-    func resolve(using context: inout Resolution.Context) throws -> GraphQLField? {
+    func resolve(for receiverType: Object.Type, using context: inout Resolution.Context) throws -> GraphQLField? {
         guard let type = type as? OutputResolvable.Type else { return nil }
 
         let arguments = try type.additionalGraphqlArguments(using: &context)
 
         return GraphQLField(type: try context.resolve(type: type),
-                            args: arguments) { object, arguments, _, eventLoop, _ in
+                            args: arguments) { source, arguments, _, eventLoop, _ in
 
+            let object = receiverType.object(from: source)
             let result = try self.get(from: object)
             if let result = result as? OutputResolvable {
                 let arguments = try arguments.dictionaryValue()
