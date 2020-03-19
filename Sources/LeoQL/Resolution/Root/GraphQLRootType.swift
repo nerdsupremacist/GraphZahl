@@ -1,7 +1,7 @@
 
 import Foundation
 
-public protocol GraphQLRootType : Object {
+public protocol GraphQLRootType : GraphQLObject {
     associatedtype ViewerContext
     init(viewerContext: ViewerContext)
 }

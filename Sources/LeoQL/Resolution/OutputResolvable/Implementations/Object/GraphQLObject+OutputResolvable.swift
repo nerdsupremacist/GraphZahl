@@ -3,7 +3,7 @@ import Foundation
 import GraphQL
 import NIO
 
-extension Object {
+extension GraphQLObject {
 
     public static var additionalArguments: [String : InputResolvable.Type] {
         return [:]

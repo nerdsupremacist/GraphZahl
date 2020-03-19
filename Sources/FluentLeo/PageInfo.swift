@@ -2,7 +2,7 @@
 import Foundation
 import LeoQL
 
-class PageInfo: Object {
+class PageInfo: GraphQLObject {
     let hasNextPage: Bool
     let hasPreviousPage: Bool
 

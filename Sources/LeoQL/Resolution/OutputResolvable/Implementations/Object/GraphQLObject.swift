@@ -1,11 +1,11 @@
 
 import Foundation
 
-public protocol Object : class, OutputResolvable, ConcreteResolvable {
+public protocol GraphQLObject : class, OutputResolvable, ConcreteResolvable {
     static func object(from source: Any) -> AnyObject
 }
 
-extension Object {
+extension GraphQLObject {
 
     public static func object(from source: Any) -> AnyObject {
         return source as AnyObject

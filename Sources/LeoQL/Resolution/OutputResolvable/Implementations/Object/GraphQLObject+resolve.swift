@@ -3,7 +3,7 @@ import Foundation
 import GraphQL
 import Runtime
 
-extension Object {
+extension GraphQLObject {
 
     static func resolveObject(using context: inout Resolution.Context) throws -> GraphQLObjectType {
         let info = try typeInfo(of: Self.self)

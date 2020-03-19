@@ -6,7 +6,7 @@ import NIO
 
 extension MethodInfo {
 
-    func resolve(for receiverType: Object.Type, using context: inout Resolution.Context) throws -> GraphQLField? {
+    func resolve(for receiverType: GraphQLObject.Type, using context: inout Resolution.Context) throws -> GraphQLField? {
         guard let returnType = returnType as? OutputResolvable.Type else { return nil }
 
         let mappedArguments = arguments.compactMap { argument in argument.name.map { ($0, argument) } }
