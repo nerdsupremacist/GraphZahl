@@ -13,7 +13,13 @@ extension MethodInfo {
         let arguments = try Dictionary(uniqueKeysWithValues: mappedArguments)
             .compactMapValues { argument -> GraphQLArgument? in
                 guard let argumentType = argument.type as? InputResolvable.Type else { return nil }
-                return GraphQLArgument(type: try context.resolve(type: argumentType))
+
+                let type = try context.resolve(type: argumentType)
+                if let type = type as? GraphQLNonNull, argument.defaultAddress != nil {
+                    return GraphQLArgument(type: type.ofType as! GraphQLInputType)
+                }
+
+                return GraphQLArgument(type: type)
             }
 
         guard arguments.count == arguments.count else { return nil }
@@ -52,7 +58,10 @@ extension MethodInfo {
             guard let name = argument.name,
                 let argumentType = argument.type as? InputResolvable.Type else { return nil }
 
-            return try argumentMap[name].map { try argumentType.init(map: $0) }
+            if let value =  argumentMap[name] {
+                return try argumentType.init(map: value)
+            }
+            return try argument.defaultValue()
         }
         let result = try self.call(receiver: receiver, arguments: arguments as [Any])
         

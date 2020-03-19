@@ -1,0 +1,94 @@
+// This file was automatically generated and should not be edited.
+
+import Runtime
+import CContext
+
+%{
+    def _combos(elements, start_idx, length):
+        # ignore elements before start_idx
+        for i in range(start_idx, len(elements)):
+            elem, count = elements[i]
+            if count == 0:
+                continue
+            # base case: only one element needed
+            if length == 1:
+                yield (elem,)
+            else:
+                # need more than one elem: mutate the list and recurse
+                elements[i] = (elem, count - 1)
+                # when we recurse, we ignore elements before this one
+                # this ensures we find combinations, not permutations
+                for combo in _combos(elements, i, length - 1):
+                    yield (elem,) + combo
+                # fix the list
+                elements[i] = (elem, count)
+
+
+    def combos(elements, length):
+        if length == 0:
+            return [[]]
+        elements = list(elements.items())
+        return _combos(elements, 0, length)
+
+    allowedResults = 8
+
+    allowedTypes = { "int" : "Int", "float" : "Double" }
+    allowedResultMap = { "int" : 4, "float" : 4 }
+}%
+
+extension MethodInfo.Argument {
+
+    func defaultValue() throws -> Any? {
+        guard let address = defaultAddress else { return nil }
+
+        let resultDecoder = try resolveDecoder(for: type)
+
+        switch resultDecoder.results.count {
+        % for numberOfResults in range(1, allowedResults + 1):
+        case ${numberOfResults}:
+            return try defaultWith${numberOfResults}(address: address, decoder: resultDecoder)
+        % end
+        default:
+            fatalError("Calls with more than \(MethodInfo.maximumNumberOfArgumentsWithReflection) arguments are not allowed")
+        }
+    }
+
+}
+
+extension MethodInfo.Argument {
+
+        % for numberOfResults in range(1, allowedResults + 1):
+        private func defaultWith${numberOfResults}(address: UnsafeRawPointer, decoder: FunctionResultDecoder) throws -> Any {
+            switch (
+                address
+                % for index in range(numberOfResults):
+                , decoder.results[${index}]
+                % end
+            ) {
+
+            %{ resultCombinations = list(combos(allowedResultMap, numberOfResults)) }%
+            % for results in resultCombinations:
+
+                case (
+                    _
+                    % for index, type in enumerate(results):
+                    , .${type}(let res${index})
+                    % end
+                ):
+                    %{ result_prefix = "_".join(results) }%
+                    let function = unsafeBitCast(address, to: (@convention(thin) () -> (${result_prefix}_function_result)).self)
+                    let result = function()
+
+                    % for index in range(numberOfResults):
+                    res${index}.decode(result.res${index})
+                    % end
+                    return try decoder.decode()
+            % end
+
+            default:
+                fatalError()
+            }
+        }
+        % end
+
+}

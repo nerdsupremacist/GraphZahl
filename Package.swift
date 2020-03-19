@@ -43,6 +43,8 @@ let package = Package(
             dependencies: ["VaporLeo", "Fluent"]
         ),
 
+        .testTarget(name: "LeoQLTests", dependencies: ["LeoQL"]),
+
         .systemLibrary(name: "CContext"),
     ]
 )
