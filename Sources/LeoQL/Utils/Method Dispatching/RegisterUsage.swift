@@ -152,7 +152,7 @@ func resolveArguments(for value: Any, using type: Any.Type) throws -> [FunctionA
     if info.mangledName == "Array" {
         return try info
             .properties
-            .map { .int(.pointer(Unmanaged.passUnretained($0.get(from: value) as AnyObject).toOpaque())) }
+            .map { .int(.pointer(Unmanaged.passUnretained(try $0.get(from: value) as AnyObject).toOpaque())) }
     }
 
     switch info.kind {
