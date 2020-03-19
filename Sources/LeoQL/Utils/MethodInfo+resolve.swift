@@ -58,10 +58,15 @@ extension MethodInfo {
             guard let name = argument.name,
                 let argumentType = argument.type as? InputResolvable.Type else { return nil }
 
-            if let value =  argumentMap[name] {
+            if let value = argumentMap[name] {
                 return try argumentType.init(map: value)
             }
-            return try argument.defaultValue()
+
+            if argument.defaultAddress != nil {
+                return try argument.defaultValue()!
+            }
+
+            return nil
         } as [Any]
         let result = try self.call(receiver: receiver, arguments: arguments)
         _ = arguments
