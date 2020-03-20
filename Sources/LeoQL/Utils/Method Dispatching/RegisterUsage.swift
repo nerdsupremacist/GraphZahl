@@ -261,7 +261,7 @@ func resolveDecoder(for type: Any.Type) throws -> FunctionResultDecoder {
     let info = try typeInfo(of: type)
 
     let isOptional = info.kind == .optional
-    let size = isOptional ? info.size + 1 : info.size
+    let size = isOptional && isPrimitive(type: info.genericTypes.first!) ? info.size + 1 : info.size
     let pointer = UnsafeMutableRawBufferPointer.allocate(byteCount: size, alignment: info.alignment)
     let (results, offset) = try resolveResults(for: type, pointer: pointer.baseAddress!)
     assert(offset == size)
@@ -306,6 +306,32 @@ extension Double {
         self = pointer.load(as: Double.self)
     }
 
+}
+
+private func isPrimitive(type: Any.Type) -> Bool {
+    if type == Bool.self {
+        return true
+    }
+    if type == Int8.self {
+        return true
+    }
+    if type == Int16.self {
+        return true
+    }
+    if type == Int32.self {
+        return true
+    }
+    if type == Int.self {
+        return true
+    }
+    if type == Float.self {
+        return true
+    }
+    if type == Double.self {
+        return true
+    }
+
+    return false
 }
 
 private func isValueNil(value: Any, type: Any.Type) throws -> Bool {
