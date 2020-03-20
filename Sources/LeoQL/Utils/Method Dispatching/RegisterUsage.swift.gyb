@@ -138,10 +138,11 @@ func resolveArguments(for value: Any, using type: Any.Type, isNil: Bool = false)
     }
     if type == UUID.self {
         if isNil {
-            return [.int(.int(0)), .int(.int(0))]
+            return [.int(.int(0))]
         }
-        let bytes = withUnsafeBytes(of: value as! UUID) { $0.bindMemory(to: Int.self) }
-        return Array(bytes).map { .int(.int($0)) }
+        let pointer = UnsafeMutableRawPointer.allocate(byteCount: MemoryLayout<UUID>.size, alignment: MemoryLayout<UUID>.size)
+        pointer.storeBytes(of: value as! UUID, as: UUID.self)
+        return [.int(.pointer(pointer))]
     }
 
     let info = try typeInfo(of: type)
@@ -183,7 +184,7 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
     % end
 
     // Special cases
-    if type == String.self || type == UUID.self {
+    if type == String.self {
         return (
             [
                 .int(.int(pointer.assumingMemoryBound(to: Int.self))),
@@ -191,6 +192,9 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
             ],
             MemoryLayout<String>.size
         )
+    }
+    if type == UUID.self {
+        return ([.int(.pointer(pointer.assumingMemoryBound(to: UnsafeMutableRawPointer.self)))], MemoryLayout<UnsafeMutableRawPointer>.size)
     }
 
     let info = try typeInfo(of: type)

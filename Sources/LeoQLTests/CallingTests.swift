@@ -13,6 +13,16 @@ class CallingTests: XCTestCase {
         ]
     }
 
+    func testUUID() throws {
+        let info = try typeInfo(of: MyClass.self)
+        let instance = MyClass()
+        let method = info.methods.first { $0.methodName == "uuid" }!
+        let uuid = UUID()
+        let arguments = [uuid] as [Any]
+        let string = try method.call(receiver: instance, arguments: arguments) as! String
+        XCTAssertEqual(string, uuid.uuidString)
+    }
+
     func testArray() throws {
         let info = try typeInfo(of: MyClass.self)
         let instance = MyClass()
@@ -59,8 +69,8 @@ enum MyEnum: String, CaseIterable, GraphQLEnum {
 }
 
 class MyClass: GraphQLObject {
-    func optionals(string: String?) -> String? {
-        return string.map { "hello, \($0)" }
+    func uuid(uuid: UUID) -> String {
+        return uuid.uuidString
     }
 
     func doit(cases: [MyEnum] = MyEnum.mostCases) -> String {
