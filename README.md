@@ -163,7 +163,7 @@ They have what we call an associated `ViewerContext` and need an initializer wit
 
 For example a Todo App might look like this:
 
-```
+```swift
 enum TodoApp: GraphQLSchema {
     typealias ViewerContext = LoggedInUser?
 
@@ -185,7 +185,7 @@ enum TodoApp: GraphQLSchema {
 
 If you don't need a Viewer Context just set it to `Void`:
 
-```
+```swift
 enum HelloWorld: GraphQLSchema {
     typealias ViewerContext = Void
 
