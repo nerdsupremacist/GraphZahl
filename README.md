@@ -286,7 +286,7 @@ And you can even add GraphiQL:
 app.routes.graphql(path: "api", "graphql", use: HelloWorld.self, includeGraphiQL: true)
 ```
 
-### Fluent Support (Warning: Still very buggy)
+### Fluent Support
 
 To use Fluent Types and Models in your API, you can use [graphzahl-fluent-support](https://github.com/nerdsupremacist/graphzahl-fluent-support):
 
