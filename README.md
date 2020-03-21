@@ -38,9 +38,7 @@ let result = HelloWorld.perform(request: "...")
 And you can even connect it to GraphiQL and test it:
 
 ![graphiql](demo/helloworld.png)
-*left: a query for data*
-*middle: the returned json from our API*
-*right: our server API reference*
+*left: a query for data* **|** *middle: the returned json from our API*  **|** *right: our server API reference*
 
 **Let's break that down!**
 
@@ -126,9 +124,7 @@ class MyObject: GraphQLObject {
 And we can see it appear in our API:
 
 ![](demo/object.png)
-*left: a query for the data of MyObject*
-*middle: the returned json from our API*
-*right: the type definition of MyObject*
+*left: a query for the data of MyObject*  **|** *middle: the returned json from our API*  **|** *right: the type definition of MyObject*
 
 Your object can also return nested objects:
 
