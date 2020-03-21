@@ -324,6 +324,11 @@ It adds support for:
 - FieldProperty
 - IDProperty
 
+## Known Issues
+
+- Due to issues with combinatorics the amount of arguments for a method has been limited
+- Calling methods hasn't been tested against every argument and return type combination possible. If you encounter any crashes or failures, please open an issue
+
 ## Contributions
 Contributions are welcome and encouraged!
 
