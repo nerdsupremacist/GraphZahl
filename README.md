@@ -335,6 +335,8 @@ Contributions are welcome and encouraged!
 GraphZahl works best when coupled with [Graphaello](https://github.com/nerdsupremacist/Graphaello) on the Client Side. Graphaello enables you to use GraphQL directly from your SwiftUI Views.
 
 ## Learn
+GraphZahl is named after Count von Count from Sesame Street but in German "Graf Zahl".
+
 GraphZahl uses [GraphQLSwift](https://github.com/GraphQLSwift/GraphQL), [Runtime](https://github.com/wickwirew/Runtime) and [Swift NIO](https://www.github.com/apple/swift-nio) under the Hood.
 If you are looking for an alternative check out [Graphiti](https://github.com/GraphQLSwift/Graphiti), which is more verbose and complex to use, but offers you more control and better performance.
 
