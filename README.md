@@ -290,7 +290,7 @@ And you can even add GraphiQL:
 app.routes.graphql(path: "api", "graphql", use: HelloWorld.self, includeGraphiQL: true)
 ```
 
-### Fluent Support
+### Fluent Support (Warning: Still very buggy)
 
 To use Fluent Types and Models in your API, you can use [graphzahl-fluent-support](https://github.com/nerdsupremacist/graphzahl-fluent-support):
 
@@ -318,11 +318,11 @@ enum API: GraphQLSchema {
 It adds support for:
 
 - QueryBuilder<T>
-- ParentProperty
-- ChildrenProperty
-- SiblingProperty
-- FieldProperty
-- IDProperty
+- @Parent
+- @Children
+- @Siblings
+- @Field
+- @ID
 
 ## Known Issues
 
