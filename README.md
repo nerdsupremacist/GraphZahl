@@ -63,10 +63,10 @@ import PackageDescription
 let package = Package(
     [...]
     dependencies: [
-        .package(url: "https://github.com/nerdsupremacist/GraphZahl.git", majorVersion: XYZ)
+        .package(url: "https://github.com/nerdsupremacist/GraphZahl.git", from: "0.1.0-alpha.")
         
         // It is recommended to use GraphZahl alongside Vapor
-        .package(url: "https://github.com/nerdsupremacist/graphzahl-vapor-support.git", majorVersion: XYZ)
+        .package(url: "https://github.com/nerdsupremacist/graphzahl-vapor-support.git", from: "0.1.0-alpha.")
     ]
 )
 ```
