@@ -65,7 +65,10 @@ import PackageDescription
 let package = Package(
     [...]
     dependencies: [
-        .Package(url: "https://github.com/nerdsupremacist/GraphZahl.git", majorVersion: XYZ)
+        .package(url: "https://github.com/nerdsupremacist/GraphZahl.git", majorVersion: XYZ)
+        
+        // It is recommended to use GraphZahl alongside Vapor
+        .package(url: "https://github.com/nerdsupremacist/graphzahl-vapor-support.git", majorVersion: XYZ)
     ]
 )
 ```
@@ -78,6 +81,8 @@ Most users of GraphZahl need to understand the four main provided protocols:
 - `GraphQLSchema`:  The root of any API
 - `GraphQLScalar`:  A singular value
 - `GraphQLEnum`: An simple enum that is RawRepresentable with String (so no associated values, sadly)
+
+As well as the extensions that enable you to get the most of GraphZahl alongside other common server-side libraries like Vapor and Fluent.
 
 ### GraphQLObject
 
@@ -242,12 +247,95 @@ enum HelloWorld: GraphQLSchema {
 
 You can do this with virtually all kinds of types: Dates in the format of your choice, Percentages, HTML Text, whatever you want.
 
+### GraphQLEnum
+
+The last one is the simplest case. If you want to support an enum in your API, it has to be RawRepresentable with String and implement `GraphQLEnum`.
+
+```swift
+enum Envirornment: String, GraphQLEnum {
+    case production
+    case development
+    case testing
+}
+```
+
+That's it!
+
+## Extensions and Plugins
+
+There's also some extensions on top of GraphZahl to add support for different scenarios that are not necessarily the norm:
+
+### Vapor Support (Recommended)
+
+To serve your API via Vapor, you can use [graphzahl-vapor-support](https://github.com/nerdsupremacist/graphzahl-vapor-support):
+
+```
+enum HelloWorld: GraphQLSchema {
+    class Query: QueryType {
+        func greeting(name: String) -> String {
+            return "Hello, \(name)"
+        }
+    }
+
+    typealias Mutation = None
+}
+
+// Add the API to the Routes of your Vapor App
+app.routes.graphql(path: "api", "graphql", use: HelloWorld.self)
+```
+
+And you can even add GraphiQL:
+
+```swift
+app.routes.graphql(path: "api", "graphql", use: HelloWorld.self, includeGraphiQL: true)
+```
+
+### Fluent Support
+
+To use Fluent Types and Models in your API, you can use [graphzahl-fluent-support](https://github.com/nerdsupremacist/graphzahl-fluent-support):
+
+```
+enum API: GraphQLSchema {
+    typealias ViewerContext = Database
+
+    class Query: QueryType {
+        let database: Database
+
+        // QueryBuilders are supported with additional paging API
+        func todos() -> QueryBuilder<Todo> {
+            return Todo.query(on: database)
+        }
+
+        required init(viewerContext database: Database) {
+            self.database = database
+        }
+    }
+    
+    ...
+}
+```
+
+It adds support for:
+
+- QueryBuilder<T>
+- ParentProperty
+- ChildrenProperty
+- SiblingProperty
+- FieldProperty
+- IDProperty
+
 ## Contributions
 Contributions are welcome and encouraged!
 
+## Related Work
+
+![](https://github.com/nerdsupremacist/Graphaello/raw/master/logo.png)
+
+GraphZahl works best when coupled with [Graphaello](https://github.com/nerdsupremacist/Graphaello) on the Client Side. Graphaello enables you to use GraphQL directly from your SwiftUI Views.
+
 ## Learn
-GraphZahl uses GraphQLSwift, Runtime and Swift NIO under the Hood.
-If you are looking for an alternative check out Graphitti, which is more verbose and complex to use, but offers you more control and better performance.
+GraphZahl uses [GraphQLSwift](https://github.com/GraphQLSwift/GraphQL), [Runtime](https://github.com/wickwirew/Runtime) and [Swift NIO](https://www.github.com/apple/swift-nio) under the Hood.
+If you are looking for an alternative check out [Graphiti](https://github.com/GraphQLSwift/Graphiti), which is more verbose and complex to use, but offers you more control and better performance.
 
 This is currenlty a research project. More details about how it works, will be published later.
 This was very difficult to build, so trust me, I really want to talk in detail about it... ;)
