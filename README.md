@@ -269,7 +269,7 @@ There's also some extensions on top of GraphZahl to add support for different sc
 
 To serve your API via Vapor, you can use [graphzahl-vapor-support](https://github.com/nerdsupremacist/graphzahl-vapor-support):
 
-```
+```swift
 enum HelloWorld: GraphQLSchema {
     class Query: QueryType {
         func greeting(name: String) -> String {
@@ -294,7 +294,7 @@ app.routes.graphql(path: "api", "graphql", use: HelloWorld.self, includeGraphiQL
 
 To use Fluent Types and Models in your API, you can use [graphzahl-fluent-support](https://github.com/nerdsupremacist/graphzahl-fluent-support):
 
-```
+```swift
 enum API: GraphQLSchema {
     typealias ViewerContext = Database
 
