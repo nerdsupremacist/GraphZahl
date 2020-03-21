@@ -5,45 +5,45 @@
         "package": "ContextKit",
         "repositoryURL": "https://github.com/nerdsupremacist/ContextKit.git",
         "state": {
-          "branch": "master",
+          "branch": null,
           "revision": "fe6a135c1f58b7115d4f524f1224036a3de0a852",
-          "version": null
+          "version": "0.1.0"
         }
       },
       {
         "package": "CRuntime",
         "repositoryURL": "https://github.com/nerdsupremacist/CRuntime.git",
         "state": {
-          "branch": "master",
-          "revision": "1ad0c05e0d2bc83546df2c7883eb33dbc3678d4c",
-          "version": null
+          "branch": null,
+          "revision": "95f911318d8c885f6fc05e971471f94adfd39405",
+          "version": "2.1.2"
         }
       },
       {
         "package": "CwlDemangle",
         "repositoryURL": "https://github.com/mattgallagher/CwlDemangle.git",
         "state": {
-          "branch": "master",
+          "branch": null,
           "revision": "b268c08207d2990664605c49b2c71cbd0df3445b",
-          "version": null
+          "version": "0.1.0"
         }
       },
       {
         "package": "GraphQL",
         "repositoryURL": "https://github.com/nerdsupremacist/GraphQL.git",
         "state": {
-          "branch": "master",
+          "branch": null,
           "revision": "d4213633506dfc766a7d8f343772052b1ecf847d",
-          "version": null
+          "version": "0.12.1-beta.1"
         }
       },
       {
         "package": "Runtime",
         "repositoryURL": "https://github.com/nerdsupremacist/Runtime.git",
         "state": {
-          "branch": "master",
-          "revision": "b365cfb86c24ad31ffbc5690e604dbc98a7417eb",
-          "version": null
+          "branch": null,
+          "revision": "64c026751ec24bdb69320a31ec933063b7b07cb7",
+          "version": "2.1.2-beta.1"
         }
       },
       {
