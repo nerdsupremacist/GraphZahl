@@ -2,6 +2,7 @@
 import Foundation
 import GraphQL
 import NIO
+import ContextKit
 
 extension GraphQLScalar {
 
@@ -13,7 +14,7 @@ extension GraphQLScalar {
         return try GraphQLNonNull(resolve())
     }
 
-    public func resolve(source: Any, arguments: [String : Map], eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
         return eventLoop.next().makeSucceededFuture(self)
     }
 

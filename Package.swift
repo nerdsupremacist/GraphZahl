@@ -15,11 +15,12 @@ let package = Package(
     dependencies: [
          .package(url: "https://github.com/nerdsupremacist/GraphQL.git", .branch("master")),
          .package(url: "https://github.com/nerdsupremacist/Runtime.git", .branch("master")),
+         .package(url: "https://github.com/nerdsupremacist/ContextKit.git", .branch("master")),
     ],
     targets: [
         .target(
             name: "GraphZahl",
-            dependencies: ["GraphQL", "Runtime", "CContext"]
+            dependencies: ["GraphQL", "Runtime", "CContext", "ContextKit"]
         ),
 
         .systemLibrary(name: "CContext"),

@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "ContextKit",
+        "repositoryURL": "https://github.com/nerdsupremacist/ContextKit.git",
+        "state": {
+          "branch": "master",
+          "revision": "fe6a135c1f58b7115d4f524f1224036a3de0a852",
+          "version": null
+        }
+      },
+      {
         "package": "CRuntime",
         "repositoryURL": "https://github.com/nerdsupremacist/CRuntime.git",
         "state": {

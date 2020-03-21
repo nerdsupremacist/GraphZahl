@@ -3,6 +3,7 @@ import Foundation
 import Runtime
 import GraphQL
 import NIO
+import ContextKit
 
 extension MethodInfo {
 
@@ -39,10 +40,10 @@ extension MethodInfo {
             .merging(arguments) { $1 }
 
         return GraphQLField(type: try context.resolve(type: returnType),
-                            args: completeArguments) { (source, args, _, eventLoop, _) -> Future<Any?> in
+                            args: completeArguments) { (source, args, context, eventLoop, _) -> Future<Any?> in
 
             let args = try args.dictionaryValue()
-            return try self.call(receiver: receiverType.object(from: source), argumentMap: args, eventLoop: eventLoop)
+                                return try self.call(receiver: receiverType.object(from: source), argumentMap: args, context: context as! MutableContext, eventLoop: eventLoop)
         }
     }
 
@@ -52,6 +53,7 @@ extension MethodInfo {
 
     fileprivate func call(receiver: AnyObject,
                           argumentMap: [String : Map],
+                          context: MutableContext,
                           eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
 
         let arguments = try self.arguments.map { argument -> Any in
@@ -74,7 +76,7 @@ extension MethodInfo {
         // TODO: for some reason this breaks with arrays...
         // this will break the server if we ever return [Future<T>]
         if let result = result as? OutputResolvable {
-            return try result.resolve(source: receiver, arguments: argumentMap, eventLoop: eventLoop)
+            return try result.resolve(source: receiver, arguments: argumentMap, context: context, eventLoop: eventLoop)
         }
         return eventLoop.next().makeSucceededFuture(result)
     }

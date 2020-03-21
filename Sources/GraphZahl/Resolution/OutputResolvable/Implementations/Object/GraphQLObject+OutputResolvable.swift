@@ -2,6 +2,7 @@
 import Foundation
 import GraphQL
 import NIO
+import ContextKit
 
 extension GraphQLObject {
 
@@ -15,6 +16,7 @@ extension GraphQLObject {
 
     public func resolve(source: Any,
                         arguments: [String : Map],
+                        context: MutableContext,
                         eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
 
         return eventLoop.next().makeSucceededFuture(self)

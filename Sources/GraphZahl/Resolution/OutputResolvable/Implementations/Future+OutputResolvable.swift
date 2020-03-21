@@ -2,6 +2,7 @@
 import Foundation
 import GraphQL
 import NIO
+import ContextKit
 
 extension EventLoopFuture: OutputResolvable where Value: OutputResolvable {
 
@@ -15,9 +16,10 @@ extension EventLoopFuture: OutputResolvable where Value: OutputResolvable {
 
     public func resolve(source: Any,
                         arguments: [String : Map],
+                        context: MutableContext,
                         eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
 
-        return flatMapThrowing { try $0.resolve(source: source, arguments: arguments, eventLoop: eventLoop) }.flatMap { $0 }
+        return flatMapThrowing { try $0.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop) }.flatMap { $0 }
     }
 
 }

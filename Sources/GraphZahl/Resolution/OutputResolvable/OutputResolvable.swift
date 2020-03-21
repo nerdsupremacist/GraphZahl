@@ -2,13 +2,14 @@
 import Foundation
 import GraphQL
 import NIO
+import ContextKit
 
 public protocol OutputResolvable: Resolvable {
     static var additionalArguments: [String : InputResolvable.Type] { get }
 
     static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType
 
-    func resolve(source: Any, arguments: [String : Map], eventLoop: EventLoopGroup) throws -> Future<Any?>
+    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> Future<Any?>
 }
 
 extension OutputResolvable {

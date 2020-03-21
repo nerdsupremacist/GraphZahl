@@ -2,6 +2,7 @@
 import Foundation
 import GraphQL
 import NIO
+import ContextKit
 
 extension Optional: OutputResolvable where Wrapped: OutputResolvable {
 
@@ -17,10 +18,11 @@ extension Optional: OutputResolvable where Wrapped: OutputResolvable {
 
     public func resolve(source: Any,
                         arguments: [String : Map],
+                        context: MutableContext,
                         eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
 
         guard let value = self else { return eventLoop.next().makeSucceededFuture(nil) }
-        return try value.resolve(source: source, arguments: arguments, eventLoop: eventLoop)
+        return try value.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
     }
 
 }
