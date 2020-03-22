@@ -6,7 +6,7 @@ public protocol GraphQLSchema {
     typealias Result = GraphQLResult
     typealias None = EmptyRootType<ViewerContext>
 
-    associatedtype ViewerContext
+    associatedtype ViewerContext = Void
     associatedtype Query: QueryType where Query.ViewerContext == ViewerContext
-    associatedtype Mutation: MutationType where Mutation.ViewerContext == ViewerContext
+    associatedtype Mutation: MutationType = None where Mutation.ViewerContext == ViewerContext
 }
