@@ -10,7 +10,9 @@ extension MethodInfo {
     func resolve(for receiverType: GraphQLObject.Type, using context: inout Resolution.Context) throws -> GraphQLField? {
         guard let returnType = returnType as? OutputResolvable.Type else { return nil }
 
-        let mappedArguments = arguments.compactMap { argument in argument.name.map { ($0, argument) } }
+        let viewerContext = context.viewerContext
+        let relevantArguments = arguments.filter { $0.type != MutableContext.self || $0.type != viewerContext }
+        let mappedArguments = relevantArguments.compactMap { argument in argument.name.map { ($0, argument) } }
         let arguments = try Dictionary(uniqueKeysWithValues: mappedArguments)
             .compactMapValues { argument -> GraphQLArgument? in
                 guard let argumentType = argument.type as? InputResolvable.Type else { return nil }
@@ -23,7 +25,7 @@ extension MethodInfo {
                 return GraphQLArgument(type: type)
             }
 
-        guard arguments.count == arguments.count else { return nil }
+        guard arguments.count == relevantArguments.count else { return nil }
 
         guard arguments.count <= MethodInfo.maximumNumberOfArgumentsWithReflection else {
             // Print a warning in such cases to make sure the developers catch it
@@ -43,7 +45,12 @@ extension MethodInfo {
                             args: completeArguments) { (source, args, context, eventLoop, _) -> Future<Any?> in
 
             let args = try args.dictionaryValue()
-                                return try self.call(receiver: receiverType.object(from: source), argumentMap: args, context: context as! MutableContext, eventLoop: eventLoop)
+            let object = receiverType.object(from: source)
+            return try self.call(receiver: object,
+                                 argumentMap: args,
+                                 context: context as! MutableContext,
+                                 eventLoop: eventLoop,
+                                 viewerContext: viewerContext)
         }
     }
 
@@ -54,9 +61,18 @@ extension MethodInfo {
     fileprivate func call(receiver: AnyObject,
                           argumentMap: [String : Map],
                           context: MutableContext,
-                          eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+                          eventLoop: EventLoopGroup,
+                          viewerContext: Any.Type) throws -> EventLoopFuture<Any?> {
 
         let arguments = try self.arguments.map { argument -> Any in
+            if argument.type == MutableContext.self {
+                return context
+            }
+
+            if argument.type == viewerContext {
+                return context.anyViewerContext
+            }
+
             guard let name = argument.name,
                 let argumentType = argument.type as? InputResolvable.Type else { fatalError() }
 

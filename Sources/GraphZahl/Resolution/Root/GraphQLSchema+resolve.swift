@@ -5,7 +5,7 @@ import GraphQL
 extension GraphQLSchema {
 
     static func resolve() throws -> GraphQL.GraphQLSchema {
-        var context = Resolution.Context.empty
+        var context = Resolution.Context.empty(viewerContext: ViewerContext.self)
 
         let query = try Query.resolveObject(using: &context)
 

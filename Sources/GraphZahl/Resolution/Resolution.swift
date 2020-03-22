@@ -6,9 +6,11 @@ public enum Resolution {
     
     public struct Context {
         let resolved: [String : GraphQLType]
+        let viewerContext: Any.Type
 
-        private init(resolved: [String : GraphQLType]) {
+        private init(resolved: [String : GraphQLType], viewerContext: Any.Type) {
             self.resolved = resolved
+            self.viewerContext = viewerContext
         }
     }
     
@@ -17,7 +19,7 @@ public enum Resolution {
 extension Resolution.Context {
 
     public func appending(type: GraphQLType, as name: String) -> Resolution.Context {
-        return Resolution.Context(resolved: resolved.merging([name : type]) { $1 })
+        return Resolution.Context(resolved: resolved.merging([name : type]) { $1 }, viewerContext: viewerContext)
     }
 
     public mutating func append(type: GraphQLType, as name: String) {
@@ -55,6 +57,8 @@ extension Resolution.Context {
 
 extension Resolution.Context {
 
-    static let empty = Resolution.Context(resolved: [:])
+    static func empty(viewerContext: Any.Type) -> Resolution.Context {
+        return Resolution.Context(resolved: [:], viewerContext: viewerContext)
+    }
 
 }
