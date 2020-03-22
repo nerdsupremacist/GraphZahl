@@ -16,7 +16,8 @@ extension GraphQLSchema {
         let schema = try schemaCache.getOrPut(String(describing: Self.self), default: try resolve())
 
         let context = MutableContext {
-            Self.viewerContext ~> viewerContext
+            Self.viewerContext ~> viewerContext;
+            .anyViewerContext ~> viewerContext
         }
 
         return try graphql(schema: schema,
