@@ -38,7 +38,7 @@ extension GraphQLSchema where ViewerContext == Void {
 
 extension GraphQLSchema {
 
-    static var viewerContext: Context.Key<ViewerContext> {
+    public static var viewerContext: Context.Key<ViewerContext> {
         return .viewerContext
     }
 
