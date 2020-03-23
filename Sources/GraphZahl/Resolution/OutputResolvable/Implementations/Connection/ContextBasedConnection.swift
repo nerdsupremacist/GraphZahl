@@ -4,7 +4,7 @@ import NIO
 import GraphQL
 import ContextKit
 
-public protocol ContextBasedConnection: class, OutputResolvable, ConcreteResolvable {
+public protocol ContextBasedConnection: OutputResolvable, ConcreteResolvable {
     associatedtype Node
     associatedtype Edge: EdgeProtocol = StandardEdge<Node> where Edge.Node == Node
     associatedtype Context
