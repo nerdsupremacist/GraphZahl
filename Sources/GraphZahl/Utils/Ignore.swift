@@ -10,6 +10,18 @@ public struct Ignore<T> {
     }
 }
 
-extension Ignore: Encodable where T: Encodable { }
+extension Ignore: Encodable where T: Encodable {
 
-extension Ignore: Decodable where T: Decodable { }
+    public func encode(to encoder: Encoder) throws {
+        try wrappedValue.encode(to: encoder)
+    }
+
+}
+
+extension Ignore: Decodable where T: Decodable {
+
+    public init(from decoder: Decoder) throws {
+        self.init(wrappedValue: try T(from: decoder))
+    }
+
+}
