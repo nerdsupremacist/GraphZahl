@@ -11,7 +11,7 @@ extension MethodInfo {
         guard let returnType = returnType as? OutputResolvable.Type else { return nil }
 
         let viewerContext = context.viewerContext
-        let relevantArguments = arguments.filter { $0.type != MutableContext.self || $0.type != viewerContext }
+        let relevantArguments = arguments.filter { $0.type != MutableContext.self && $0.type != viewerContext }
         let mappedArguments = relevantArguments.compactMap { argument in argument.name.map { ($0, argument) } }
         let arguments = try Dictionary(uniqueKeysWithValues: mappedArguments)
             .compactMapValues { argument -> GraphQLArgument? in
