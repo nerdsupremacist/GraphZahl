@@ -320,6 +320,40 @@ It adds support for:
 - @Field
 - @ID
 
+## Deploy
+
+### Heroku
+
+If you're deploying to Heroku, it's super simple. You'll need 2 things:
+
+*1. Add the build pack*
+
+Add the build pack to heroku:
+
+```bash
+heroku buildpacks:set nerdsupremacist/graph-zahl
+```
+
+*2. Add a Procfile*
+
+In our Repo we will add a Procfile that will tell Heroku the starting point of our app:
+
+For example, where the Target of our API is called `MyServer` and is using Vapor:
+
+```
+web: MyServer serve --env production --hostname 0.0.0.0 --port $PORT
+```
+
+You can also take some inspiration from the Deployment documentation for [Vapor](https://docs.vapor.codes/3.0/deploy/heroku/).
+
+### Building for Linux
+
+If you're building a GraphZahl app for Linux, you'll need to add `-E` linker flag. For example:
+
+```bash
+swift build -Xlinker -E {OTHER_FLAGS} -c debug
+```
+
 ## Known Issues
 
 - Due to issues with combinatorics the amount of arguments for a method has been limited
