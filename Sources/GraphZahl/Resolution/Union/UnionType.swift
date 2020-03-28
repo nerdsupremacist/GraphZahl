@@ -5,7 +5,7 @@ import NIO
 import ContextKit
 
 
-enum Union2<A, B> {
+public enum Union2<A, B> {
     case a(A)
     case b(B)
 }
@@ -14,7 +14,7 @@ extension Union2: Resolvable where A: Resolvable, B: Resolvable { }
 
 extension Union2: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteResolvable {
 
-    static var concreteTypeName: String {
+    public static var concreteTypeName: String {
         let types: [ConcreteResolvable.Type] = [A.self, B.self]
         return "Union" + types.map { $0.concreteTypeName }.joined(separator: "Or")
     }
@@ -22,11 +22,11 @@ extension Union2: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteRes
 }
 
 extension Union2: OutputResolvable where A: GraphQLObject, B: GraphQLObject {
-    static var additionalArguments: [String : InputResolvable.Type] {
+    public static var additionalArguments: [String : InputResolvable.Type] {
         return [:]
     }
 
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
         switch self {
         case .a(let object):
             return try object.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
@@ -35,7 +35,7 @@ extension Union2: OutputResolvable where A: GraphQLObject, B: GraphQLObject {
         }
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self]
@@ -54,7 +54,7 @@ extension Union2: OutputResolvable where A: GraphQLObject, B: GraphQLObject {
                                                    types: outputs))
     }
 }
-enum Union3<A, B, C> {
+public enum Union3<A, B, C> {
     case a(A)
     case b(B)
     case c(C)
@@ -64,7 +64,7 @@ extension Union3: Resolvable where A: Resolvable, B: Resolvable, C: Resolvable {
 
 extension Union3: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteResolvable, C: ConcreteResolvable {
 
-    static var concreteTypeName: String {
+    public static var concreteTypeName: String {
         let types: [ConcreteResolvable.Type] = [A.self, B.self, C.self]
         return "Union" + types.map { $0.concreteTypeName }.joined(separator: "Or")
     }
@@ -72,11 +72,11 @@ extension Union3: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteRes
 }
 
 extension Union3: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: GraphQLObject {
-    static var additionalArguments: [String : InputResolvable.Type] {
+    public static var additionalArguments: [String : InputResolvable.Type] {
         return [:]
     }
 
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
         switch self {
         case .a(let object):
             return try object.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
@@ -87,7 +87,7 @@ extension Union3: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
         }
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self]
@@ -108,7 +108,7 @@ extension Union3: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
                                                    types: outputs))
     }
 }
-enum Union4<A, B, C, D> {
+public enum Union4<A, B, C, D> {
     case a(A)
     case b(B)
     case c(C)
@@ -119,7 +119,7 @@ extension Union4: Resolvable where A: Resolvable, B: Resolvable, C: Resolvable, 
 
 extension Union4: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteResolvable, C: ConcreteResolvable, D: ConcreteResolvable {
 
-    static var concreteTypeName: String {
+    public static var concreteTypeName: String {
         let types: [ConcreteResolvable.Type] = [A.self, B.self, C.self, D.self]
         return "Union" + types.map { $0.concreteTypeName }.joined(separator: "Or")
     }
@@ -127,11 +127,11 @@ extension Union4: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteRes
 }
 
 extension Union4: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: GraphQLObject, D: GraphQLObject {
-    static var additionalArguments: [String : InputResolvable.Type] {
+    public static var additionalArguments: [String : InputResolvable.Type] {
         return [:]
     }
 
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
         switch self {
         case .a(let object):
             return try object.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
@@ -144,7 +144,7 @@ extension Union4: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
         }
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self]
@@ -167,7 +167,7 @@ extension Union4: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
                                                    types: outputs))
     }
 }
-enum Union5<A, B, C, D, E> {
+public enum Union5<A, B, C, D, E> {
     case a(A)
     case b(B)
     case c(C)
@@ -179,7 +179,7 @@ extension Union5: Resolvable where A: Resolvable, B: Resolvable, C: Resolvable, 
 
 extension Union5: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteResolvable, C: ConcreteResolvable, D: ConcreteResolvable, E: ConcreteResolvable {
 
-    static var concreteTypeName: String {
+    public static var concreteTypeName: String {
         let types: [ConcreteResolvable.Type] = [A.self, B.self, C.self, D.self, E.self]
         return "Union" + types.map { $0.concreteTypeName }.joined(separator: "Or")
     }
@@ -187,11 +187,11 @@ extension Union5: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteRes
 }
 
 extension Union5: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: GraphQLObject, D: GraphQLObject, E: GraphQLObject {
-    static var additionalArguments: [String : InputResolvable.Type] {
+    public static var additionalArguments: [String : InputResolvable.Type] {
         return [:]
     }
 
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
         switch self {
         case .a(let object):
             return try object.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
@@ -206,7 +206,7 @@ extension Union5: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
         }
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self]
@@ -231,7 +231,7 @@ extension Union5: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
                                                    types: outputs))
     }
 }
-enum Union6<A, B, C, D, E, F> {
+public enum Union6<A, B, C, D, E, F> {
     case a(A)
     case b(B)
     case c(C)
@@ -244,7 +244,7 @@ extension Union6: Resolvable where A: Resolvable, B: Resolvable, C: Resolvable, 
 
 extension Union6: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteResolvable, C: ConcreteResolvable, D: ConcreteResolvable, E: ConcreteResolvable, F: ConcreteResolvable {
 
-    static var concreteTypeName: String {
+    public static var concreteTypeName: String {
         let types: [ConcreteResolvable.Type] = [A.self, B.self, C.self, D.self, E.self, F.self]
         return "Union" + types.map { $0.concreteTypeName }.joined(separator: "Or")
     }
@@ -252,11 +252,11 @@ extension Union6: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteRes
 }
 
 extension Union6: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: GraphQLObject, D: GraphQLObject, E: GraphQLObject, F: GraphQLObject {
-    static var additionalArguments: [String : InputResolvable.Type] {
+    public static var additionalArguments: [String : InputResolvable.Type] {
         return [:]
     }
 
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
         switch self {
         case .a(let object):
             return try object.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
@@ -273,7 +273,7 @@ extension Union6: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
         }
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self]
@@ -300,7 +300,7 @@ extension Union6: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
                                                    types: outputs))
     }
 }
-enum Union7<A, B, C, D, E, F, G> {
+public enum Union7<A, B, C, D, E, F, G> {
     case a(A)
     case b(B)
     case c(C)
@@ -314,7 +314,7 @@ extension Union7: Resolvable where A: Resolvable, B: Resolvable, C: Resolvable, 
 
 extension Union7: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteResolvable, C: ConcreteResolvable, D: ConcreteResolvable, E: ConcreteResolvable, F: ConcreteResolvable, G: ConcreteResolvable {
 
-    static var concreteTypeName: String {
+    public static var concreteTypeName: String {
         let types: [ConcreteResolvable.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self]
         return "Union" + types.map { $0.concreteTypeName }.joined(separator: "Or")
     }
@@ -322,11 +322,11 @@ extension Union7: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteRes
 }
 
 extension Union7: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: GraphQLObject, D: GraphQLObject, E: GraphQLObject, F: GraphQLObject, G: GraphQLObject {
-    static var additionalArguments: [String : InputResolvable.Type] {
+    public static var additionalArguments: [String : InputResolvable.Type] {
         return [:]
     }
 
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
         switch self {
         case .a(let object):
             return try object.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
@@ -345,7 +345,7 @@ extension Union7: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
         }
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self]
@@ -374,7 +374,7 @@ extension Union7: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
                                                    types: outputs))
     }
 }
-enum Union8<A, B, C, D, E, F, G, H> {
+public enum Union8<A, B, C, D, E, F, G, H> {
     case a(A)
     case b(B)
     case c(C)
@@ -389,7 +389,7 @@ extension Union8: Resolvable where A: Resolvable, B: Resolvable, C: Resolvable, 
 
 extension Union8: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteResolvable, C: ConcreteResolvable, D: ConcreteResolvable, E: ConcreteResolvable, F: ConcreteResolvable, G: ConcreteResolvable, H: ConcreteResolvable {
 
-    static var concreteTypeName: String {
+    public static var concreteTypeName: String {
         let types: [ConcreteResolvable.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self]
         return "Union" + types.map { $0.concreteTypeName }.joined(separator: "Or")
     }
@@ -397,11 +397,11 @@ extension Union8: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteRes
 }
 
 extension Union8: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: GraphQLObject, D: GraphQLObject, E: GraphQLObject, F: GraphQLObject, G: GraphQLObject, H: GraphQLObject {
-    static var additionalArguments: [String : InputResolvable.Type] {
+    public static var additionalArguments: [String : InputResolvable.Type] {
         return [:]
     }
 
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
         switch self {
         case .a(let object):
             return try object.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
@@ -422,7 +422,7 @@ extension Union8: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
         }
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self]
@@ -453,7 +453,7 @@ extension Union8: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
                                                    types: outputs))
     }
 }
-enum Union9<A, B, C, D, E, F, G, H, I> {
+public enum Union9<A, B, C, D, E, F, G, H, I> {
     case a(A)
     case b(B)
     case c(C)
@@ -469,7 +469,7 @@ extension Union9: Resolvable where A: Resolvable, B: Resolvable, C: Resolvable, 
 
 extension Union9: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteResolvable, C: ConcreteResolvable, D: ConcreteResolvable, E: ConcreteResolvable, F: ConcreteResolvable, G: ConcreteResolvable, H: ConcreteResolvable, I: ConcreteResolvable {
 
-    static var concreteTypeName: String {
+    public static var concreteTypeName: String {
         let types: [ConcreteResolvable.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self]
         return "Union" + types.map { $0.concreteTypeName }.joined(separator: "Or")
     }
@@ -477,11 +477,11 @@ extension Union9: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteRes
 }
 
 extension Union9: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: GraphQLObject, D: GraphQLObject, E: GraphQLObject, F: GraphQLObject, G: GraphQLObject, H: GraphQLObject, I: GraphQLObject {
-    static var additionalArguments: [String : InputResolvable.Type] {
+    public static var additionalArguments: [String : InputResolvable.Type] {
         return [:]
     }
 
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
         switch self {
         case .a(let object):
             return try object.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
@@ -504,7 +504,7 @@ extension Union9: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
         }
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self]
@@ -537,7 +537,7 @@ extension Union9: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
                                                    types: outputs))
     }
 }
-enum Union10<A, B, C, D, E, F, G, H, I, J> {
+public enum Union10<A, B, C, D, E, F, G, H, I, J> {
     case a(A)
     case b(B)
     case c(C)
@@ -554,7 +554,7 @@ extension Union10: Resolvable where A: Resolvable, B: Resolvable, C: Resolvable,
 
 extension Union10: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteResolvable, C: ConcreteResolvable, D: ConcreteResolvable, E: ConcreteResolvable, F: ConcreteResolvable, G: ConcreteResolvable, H: ConcreteResolvable, I: ConcreteResolvable, J: ConcreteResolvable {
 
-    static var concreteTypeName: String {
+    public static var concreteTypeName: String {
         let types: [ConcreteResolvable.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self]
         return "Union" + types.map { $0.concreteTypeName }.joined(separator: "Or")
     }
@@ -562,11 +562,11 @@ extension Union10: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteRe
 }
 
 extension Union10: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: GraphQLObject, D: GraphQLObject, E: GraphQLObject, F: GraphQLObject, G: GraphQLObject, H: GraphQLObject, I: GraphQLObject, J: GraphQLObject {
-    static var additionalArguments: [String : InputResolvable.Type] {
+    public static var additionalArguments: [String : InputResolvable.Type] {
         return [:]
     }
 
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
         switch self {
         case .a(let object):
             return try object.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
@@ -591,7 +591,7 @@ extension Union10: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         }
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self]
@@ -626,7 +626,7 @@ extension Union10: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
                                                    types: outputs))
     }
 }
-enum Union11<A, B, C, D, E, F, G, H, I, J, K> {
+public enum Union11<A, B, C, D, E, F, G, H, I, J, K> {
     case a(A)
     case b(B)
     case c(C)
@@ -644,7 +644,7 @@ extension Union11: Resolvable where A: Resolvable, B: Resolvable, C: Resolvable,
 
 extension Union11: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteResolvable, C: ConcreteResolvable, D: ConcreteResolvable, E: ConcreteResolvable, F: ConcreteResolvable, G: ConcreteResolvable, H: ConcreteResolvable, I: ConcreteResolvable, J: ConcreteResolvable, K: ConcreteResolvable {
 
-    static var concreteTypeName: String {
+    public static var concreteTypeName: String {
         let types: [ConcreteResolvable.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self]
         return "Union" + types.map { $0.concreteTypeName }.joined(separator: "Or")
     }
@@ -652,11 +652,11 @@ extension Union11: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteRe
 }
 
 extension Union11: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: GraphQLObject, D: GraphQLObject, E: GraphQLObject, F: GraphQLObject, G: GraphQLObject, H: GraphQLObject, I: GraphQLObject, J: GraphQLObject, K: GraphQLObject {
-    static var additionalArguments: [String : InputResolvable.Type] {
+    public static var additionalArguments: [String : InputResolvable.Type] {
         return [:]
     }
 
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
         switch self {
         case .a(let object):
             return try object.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
@@ -683,7 +683,7 @@ extension Union11: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         }
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self]
@@ -720,7 +720,7 @@ extension Union11: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
                                                    types: outputs))
     }
 }
-enum Union12<A, B, C, D, E, F, G, H, I, J, K, L> {
+public enum Union12<A, B, C, D, E, F, G, H, I, J, K, L> {
     case a(A)
     case b(B)
     case c(C)
@@ -739,7 +739,7 @@ extension Union12: Resolvable where A: Resolvable, B: Resolvable, C: Resolvable,
 
 extension Union12: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteResolvable, C: ConcreteResolvable, D: ConcreteResolvable, E: ConcreteResolvable, F: ConcreteResolvable, G: ConcreteResolvable, H: ConcreteResolvable, I: ConcreteResolvable, J: ConcreteResolvable, K: ConcreteResolvable, L: ConcreteResolvable {
 
-    static var concreteTypeName: String {
+    public static var concreteTypeName: String {
         let types: [ConcreteResolvable.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self]
         return "Union" + types.map { $0.concreteTypeName }.joined(separator: "Or")
     }
@@ -747,11 +747,11 @@ extension Union12: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteRe
 }
 
 extension Union12: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: GraphQLObject, D: GraphQLObject, E: GraphQLObject, F: GraphQLObject, G: GraphQLObject, H: GraphQLObject, I: GraphQLObject, J: GraphQLObject, K: GraphQLObject, L: GraphQLObject {
-    static var additionalArguments: [String : InputResolvable.Type] {
+    public static var additionalArguments: [String : InputResolvable.Type] {
         return [:]
     }
 
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
         switch self {
         case .a(let object):
             return try object.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
@@ -780,7 +780,7 @@ extension Union12: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         }
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self]
@@ -819,7 +819,7 @@ extension Union12: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
                                                    types: outputs))
     }
 }
-enum Union13<A, B, C, D, E, F, G, H, I, J, K, L, M> {
+public enum Union13<A, B, C, D, E, F, G, H, I, J, K, L, M> {
     case a(A)
     case b(B)
     case c(C)
@@ -839,7 +839,7 @@ extension Union13: Resolvable where A: Resolvable, B: Resolvable, C: Resolvable,
 
 extension Union13: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteResolvable, C: ConcreteResolvable, D: ConcreteResolvable, E: ConcreteResolvable, F: ConcreteResolvable, G: ConcreteResolvable, H: ConcreteResolvable, I: ConcreteResolvable, J: ConcreteResolvable, K: ConcreteResolvable, L: ConcreteResolvable, M: ConcreteResolvable {
 
-    static var concreteTypeName: String {
+    public static var concreteTypeName: String {
         let types: [ConcreteResolvable.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self]
         return "Union" + types.map { $0.concreteTypeName }.joined(separator: "Or")
     }
@@ -847,11 +847,11 @@ extension Union13: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteRe
 }
 
 extension Union13: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: GraphQLObject, D: GraphQLObject, E: GraphQLObject, F: GraphQLObject, G: GraphQLObject, H: GraphQLObject, I: GraphQLObject, J: GraphQLObject, K: GraphQLObject, L: GraphQLObject, M: GraphQLObject {
-    static var additionalArguments: [String : InputResolvable.Type] {
+    public static var additionalArguments: [String : InputResolvable.Type] {
         return [:]
     }
 
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
         switch self {
         case .a(let object):
             return try object.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
@@ -882,7 +882,7 @@ extension Union13: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         }
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self]
@@ -923,7 +923,7 @@ extension Union13: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
                                                    types: outputs))
     }
 }
-enum Union14<A, B, C, D, E, F, G, H, I, J, K, L, M, N> {
+public enum Union14<A, B, C, D, E, F, G, H, I, J, K, L, M, N> {
     case a(A)
     case b(B)
     case c(C)
@@ -944,7 +944,7 @@ extension Union14: Resolvable where A: Resolvable, B: Resolvable, C: Resolvable,
 
 extension Union14: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteResolvable, C: ConcreteResolvable, D: ConcreteResolvable, E: ConcreteResolvable, F: ConcreteResolvable, G: ConcreteResolvable, H: ConcreteResolvable, I: ConcreteResolvable, J: ConcreteResolvable, K: ConcreteResolvable, L: ConcreteResolvable, M: ConcreteResolvable, N: ConcreteResolvable {
 
-    static var concreteTypeName: String {
+    public static var concreteTypeName: String {
         let types: [ConcreteResolvable.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self, N.self]
         return "Union" + types.map { $0.concreteTypeName }.joined(separator: "Or")
     }
@@ -952,11 +952,11 @@ extension Union14: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteRe
 }
 
 extension Union14: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: GraphQLObject, D: GraphQLObject, E: GraphQLObject, F: GraphQLObject, G: GraphQLObject, H: GraphQLObject, I: GraphQLObject, J: GraphQLObject, K: GraphQLObject, L: GraphQLObject, M: GraphQLObject, N: GraphQLObject {
-    static var additionalArguments: [String : InputResolvable.Type] {
+    public static var additionalArguments: [String : InputResolvable.Type] {
         return [:]
     }
 
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
         switch self {
         case .a(let object):
             return try object.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
@@ -989,7 +989,7 @@ extension Union14: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         }
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self, N.self]
@@ -1032,7 +1032,7 @@ extension Union14: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
                                                    types: outputs))
     }
 }
-enum Union15<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O> {
+public enum Union15<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O> {
     case a(A)
     case b(B)
     case c(C)
@@ -1054,7 +1054,7 @@ extension Union15: Resolvable where A: Resolvable, B: Resolvable, C: Resolvable,
 
 extension Union15: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteResolvable, C: ConcreteResolvable, D: ConcreteResolvable, E: ConcreteResolvable, F: ConcreteResolvable, G: ConcreteResolvable, H: ConcreteResolvable, I: ConcreteResolvable, J: ConcreteResolvable, K: ConcreteResolvable, L: ConcreteResolvable, M: ConcreteResolvable, N: ConcreteResolvable, O: ConcreteResolvable {
 
-    static var concreteTypeName: String {
+    public static var concreteTypeName: String {
         let types: [ConcreteResolvable.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self, N.self, O.self]
         return "Union" + types.map { $0.concreteTypeName }.joined(separator: "Or")
     }
@@ -1062,11 +1062,11 @@ extension Union15: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteRe
 }
 
 extension Union15: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: GraphQLObject, D: GraphQLObject, E: GraphQLObject, F: GraphQLObject, G: GraphQLObject, H: GraphQLObject, I: GraphQLObject, J: GraphQLObject, K: GraphQLObject, L: GraphQLObject, M: GraphQLObject, N: GraphQLObject, O: GraphQLObject {
-    static var additionalArguments: [String : InputResolvable.Type] {
+    public static var additionalArguments: [String : InputResolvable.Type] {
         return [:]
     }
 
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
         switch self {
         case .a(let object):
             return try object.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
@@ -1101,7 +1101,7 @@ extension Union15: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         }
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self, N.self, O.self]
@@ -1146,7 +1146,7 @@ extension Union15: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
                                                    types: outputs))
     }
 }
-enum Union16<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P> {
+public enum Union16<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P> {
     case a(A)
     case b(B)
     case c(C)
@@ -1169,7 +1169,7 @@ extension Union16: Resolvable where A: Resolvable, B: Resolvable, C: Resolvable,
 
 extension Union16: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteResolvable, C: ConcreteResolvable, D: ConcreteResolvable, E: ConcreteResolvable, F: ConcreteResolvable, G: ConcreteResolvable, H: ConcreteResolvable, I: ConcreteResolvable, J: ConcreteResolvable, K: ConcreteResolvable, L: ConcreteResolvable, M: ConcreteResolvable, N: ConcreteResolvable, O: ConcreteResolvable, P: ConcreteResolvable {
 
-    static var concreteTypeName: String {
+    public static var concreteTypeName: String {
         let types: [ConcreteResolvable.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self, N.self, O.self, P.self]
         return "Union" + types.map { $0.concreteTypeName }.joined(separator: "Or")
     }
@@ -1177,11 +1177,11 @@ extension Union16: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteRe
 }
 
 extension Union16: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: GraphQLObject, D: GraphQLObject, E: GraphQLObject, F: GraphQLObject, G: GraphQLObject, H: GraphQLObject, I: GraphQLObject, J: GraphQLObject, K: GraphQLObject, L: GraphQLObject, M: GraphQLObject, N: GraphQLObject, O: GraphQLObject, P: GraphQLObject {
-    static var additionalArguments: [String : InputResolvable.Type] {
+    public static var additionalArguments: [String : InputResolvable.Type] {
         return [:]
     }
 
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
         switch self {
         case .a(let object):
             return try object.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
@@ -1218,7 +1218,7 @@ extension Union16: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         }
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self, N.self, O.self, P.self]
@@ -1265,7 +1265,7 @@ extension Union16: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
                                                    types: outputs))
     }
 }
-enum Union17<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q> {
+public enum Union17<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q> {
     case a(A)
     case b(B)
     case c(C)
@@ -1289,7 +1289,7 @@ extension Union17: Resolvable where A: Resolvable, B: Resolvable, C: Resolvable,
 
 extension Union17: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteResolvable, C: ConcreteResolvable, D: ConcreteResolvable, E: ConcreteResolvable, F: ConcreteResolvable, G: ConcreteResolvable, H: ConcreteResolvable, I: ConcreteResolvable, J: ConcreteResolvable, K: ConcreteResolvable, L: ConcreteResolvable, M: ConcreteResolvable, N: ConcreteResolvable, O: ConcreteResolvable, P: ConcreteResolvable, Q: ConcreteResolvable {
 
-    static var concreteTypeName: String {
+    public static var concreteTypeName: String {
         let types: [ConcreteResolvable.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self, N.self, O.self, P.self, Q.self]
         return "Union" + types.map { $0.concreteTypeName }.joined(separator: "Or")
     }
@@ -1297,11 +1297,11 @@ extension Union17: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteRe
 }
 
 extension Union17: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: GraphQLObject, D: GraphQLObject, E: GraphQLObject, F: GraphQLObject, G: GraphQLObject, H: GraphQLObject, I: GraphQLObject, J: GraphQLObject, K: GraphQLObject, L: GraphQLObject, M: GraphQLObject, N: GraphQLObject, O: GraphQLObject, P: GraphQLObject, Q: GraphQLObject {
-    static var additionalArguments: [String : InputResolvable.Type] {
+    public static var additionalArguments: [String : InputResolvable.Type] {
         return [:]
     }
 
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
         switch self {
         case .a(let object):
             return try object.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
@@ -1340,7 +1340,7 @@ extension Union17: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         }
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self, N.self, O.self, P.self, Q.self]
@@ -1389,7 +1389,7 @@ extension Union17: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
                                                    types: outputs))
     }
 }
-enum Union18<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R> {
+public enum Union18<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R> {
     case a(A)
     case b(B)
     case c(C)
@@ -1414,7 +1414,7 @@ extension Union18: Resolvable where A: Resolvable, B: Resolvable, C: Resolvable,
 
 extension Union18: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteResolvable, C: ConcreteResolvable, D: ConcreteResolvable, E: ConcreteResolvable, F: ConcreteResolvable, G: ConcreteResolvable, H: ConcreteResolvable, I: ConcreteResolvable, J: ConcreteResolvable, K: ConcreteResolvable, L: ConcreteResolvable, M: ConcreteResolvable, N: ConcreteResolvable, O: ConcreteResolvable, P: ConcreteResolvable, Q: ConcreteResolvable, R: ConcreteResolvable {
 
-    static var concreteTypeName: String {
+    public static var concreteTypeName: String {
         let types: [ConcreteResolvable.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self, N.self, O.self, P.self, Q.self, R.self]
         return "Union" + types.map { $0.concreteTypeName }.joined(separator: "Or")
     }
@@ -1422,11 +1422,11 @@ extension Union18: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteRe
 }
 
 extension Union18: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: GraphQLObject, D: GraphQLObject, E: GraphQLObject, F: GraphQLObject, G: GraphQLObject, H: GraphQLObject, I: GraphQLObject, J: GraphQLObject, K: GraphQLObject, L: GraphQLObject, M: GraphQLObject, N: GraphQLObject, O: GraphQLObject, P: GraphQLObject, Q: GraphQLObject, R: GraphQLObject {
-    static var additionalArguments: [String : InputResolvable.Type] {
+    public static var additionalArguments: [String : InputResolvable.Type] {
         return [:]
     }
 
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
         switch self {
         case .a(let object):
             return try object.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
@@ -1467,7 +1467,7 @@ extension Union18: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         }
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self, N.self, O.self, P.self, Q.self, R.self]
@@ -1518,7 +1518,7 @@ extension Union18: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
                                                    types: outputs))
     }
 }
-enum Union19<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S> {
+public enum Union19<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S> {
     case a(A)
     case b(B)
     case c(C)
@@ -1544,7 +1544,7 @@ extension Union19: Resolvable where A: Resolvable, B: Resolvable, C: Resolvable,
 
 extension Union19: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteResolvable, C: ConcreteResolvable, D: ConcreteResolvable, E: ConcreteResolvable, F: ConcreteResolvable, G: ConcreteResolvable, H: ConcreteResolvable, I: ConcreteResolvable, J: ConcreteResolvable, K: ConcreteResolvable, L: ConcreteResolvable, M: ConcreteResolvable, N: ConcreteResolvable, O: ConcreteResolvable, P: ConcreteResolvable, Q: ConcreteResolvable, R: ConcreteResolvable, S: ConcreteResolvable {
 
-    static var concreteTypeName: String {
+    public static var concreteTypeName: String {
         let types: [ConcreteResolvable.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self, N.self, O.self, P.self, Q.self, R.self, S.self]
         return "Union" + types.map { $0.concreteTypeName }.joined(separator: "Or")
     }
@@ -1552,11 +1552,11 @@ extension Union19: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteRe
 }
 
 extension Union19: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: GraphQLObject, D: GraphQLObject, E: GraphQLObject, F: GraphQLObject, G: GraphQLObject, H: GraphQLObject, I: GraphQLObject, J: GraphQLObject, K: GraphQLObject, L: GraphQLObject, M: GraphQLObject, N: GraphQLObject, O: GraphQLObject, P: GraphQLObject, Q: GraphQLObject, R: GraphQLObject, S: GraphQLObject {
-    static var additionalArguments: [String : InputResolvable.Type] {
+    public static var additionalArguments: [String : InputResolvable.Type] {
         return [:]
     }
 
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
         switch self {
         case .a(let object):
             return try object.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
@@ -1599,7 +1599,7 @@ extension Union19: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         }
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self, N.self, O.self, P.self, Q.self, R.self, S.self]
@@ -1652,7 +1652,7 @@ extension Union19: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
                                                    types: outputs))
     }
 }
-enum Union20<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T> {
+public enum Union20<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T> {
     case a(A)
     case b(B)
     case c(C)
@@ -1679,7 +1679,7 @@ extension Union20: Resolvable where A: Resolvable, B: Resolvable, C: Resolvable,
 
 extension Union20: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteResolvable, C: ConcreteResolvable, D: ConcreteResolvable, E: ConcreteResolvable, F: ConcreteResolvable, G: ConcreteResolvable, H: ConcreteResolvable, I: ConcreteResolvable, J: ConcreteResolvable, K: ConcreteResolvable, L: ConcreteResolvable, M: ConcreteResolvable, N: ConcreteResolvable, O: ConcreteResolvable, P: ConcreteResolvable, Q: ConcreteResolvable, R: ConcreteResolvable, S: ConcreteResolvable, T: ConcreteResolvable {
 
-    static var concreteTypeName: String {
+    public static var concreteTypeName: String {
         let types: [ConcreteResolvable.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self, N.self, O.self, P.self, Q.self, R.self, S.self, T.self]
         return "Union" + types.map { $0.concreteTypeName }.joined(separator: "Or")
     }
@@ -1687,11 +1687,11 @@ extension Union20: ConcreteResolvable where A: ConcreteResolvable, B: ConcreteRe
 }
 
 extension Union20: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: GraphQLObject, D: GraphQLObject, E: GraphQLObject, F: GraphQLObject, G: GraphQLObject, H: GraphQLObject, I: GraphQLObject, J: GraphQLObject, K: GraphQLObject, L: GraphQLObject, M: GraphQLObject, N: GraphQLObject, O: GraphQLObject, P: GraphQLObject, Q: GraphQLObject, R: GraphQLObject, S: GraphQLObject, T: GraphQLObject {
-    static var additionalArguments: [String : InputResolvable.Type] {
+    public static var additionalArguments: [String : InputResolvable.Type] {
         return [:]
     }
 
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
         switch self {
         case .a(let object):
             return try object.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
@@ -1736,7 +1736,7 @@ extension Union20: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         }
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self, N.self, O.self, P.self, Q.self, R.self, S.self, T.self]

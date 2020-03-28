@@ -11,7 +11,7 @@ import ContextKit
 % for numberOfTypes in range(2, allowedNumberOfTypes + 1):
 %{ types = [names[i].upper() for i in range(numberOfTypes)] }%
 %{ typeInstances = [type + ".self" for type in types] }%
-enum Union${numberOfTypes}<${", ".join(types)}> {
+public enum Union${numberOfTypes}<${", ".join(types)}> {
     % for i in range(numberOfTypes):
     case ${names[i]}(${names[i].upper()})
     % end
@@ -23,7 +23,7 @@ extension Union${numberOfTypes}: Resolvable where ${", ".join(resolvableConforma
 %{ concreteResolvableConformances = [type + ": ConcreteResolvable" for type in types] }%
 extension Union${numberOfTypes}: ConcreteResolvable where ${", ".join(concreteResolvableConformances)} {
 
-    static var concreteTypeName: String {
+    public static var concreteTypeName: String {
         let types: [ConcreteResolvable.Type] = [${", ".join(typeInstances)}]
         return "Union" + types.map { $0.concreteTypeName }.joined(separator: "Or")
     }
@@ -32,11 +32,11 @@ extension Union${numberOfTypes}: ConcreteResolvable where ${", ".join(concreteRe
 
 %{ objectConformances = [type + ": GraphQLObject" for type in types] }%
 extension Union${numberOfTypes}: OutputResolvable where ${", ".join(objectConformances)} {
-    static var additionalArguments: [String : InputResolvable.Type] {
+    public static var additionalArguments: [String : InputResolvable.Type] {
         return [:]
     }
 
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
         switch self {
         % for i in range(numberOfTypes):
         case .${names[i]}(let object):
@@ -45,7 +45,7 @@ extension Union${numberOfTypes}: OutputResolvable where ${", ".join(objectConfor
         }
     }
 
-    static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+    public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [${", ".join(typeInstances)}]
