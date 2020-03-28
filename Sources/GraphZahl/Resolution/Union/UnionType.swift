@@ -39,7 +39,10 @@ extension Union2: OutputResolvable where A: GraphQLObject, B: GraphQLObject {
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self]
-        let outputs = try types.map { try $0.resolveObject(using: &context) }
+        let outputs: [GraphQLObjectType] = try types.map { type in
+            let object = try context.resolve(type: type) as! GraphQLNonNull
+            return object.ofType as! GraphQLObjectType
+        }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
             switch value as! Union2 {
                 case .a:
@@ -91,7 +94,10 @@ extension Union3: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self]
-        let outputs = try types.map { try $0.resolveObject(using: &context) }
+        let outputs: [GraphQLObjectType] = try types.map { type in
+            let object = try context.resolve(type: type) as! GraphQLNonNull
+            return object.ofType as! GraphQLObjectType
+        }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
             switch value as! Union3 {
                 case .a:
@@ -148,7 +154,10 @@ extension Union4: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self]
-        let outputs = try types.map { try $0.resolveObject(using: &context) }
+        let outputs: [GraphQLObjectType] = try types.map { type in
+            let object = try context.resolve(type: type) as! GraphQLNonNull
+            return object.ofType as! GraphQLObjectType
+        }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
             switch value as! Union4 {
                 case .a:
@@ -210,7 +219,10 @@ extension Union5: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self]
-        let outputs = try types.map { try $0.resolveObject(using: &context) }
+        let outputs: [GraphQLObjectType] = try types.map { type in
+            let object = try context.resolve(type: type) as! GraphQLNonNull
+            return object.ofType as! GraphQLObjectType
+        }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
             switch value as! Union5 {
                 case .a:
@@ -277,7 +289,10 @@ extension Union6: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self]
-        let outputs = try types.map { try $0.resolveObject(using: &context) }
+        let outputs: [GraphQLObjectType] = try types.map { type in
+            let object = try context.resolve(type: type) as! GraphQLNonNull
+            return object.ofType as! GraphQLObjectType
+        }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
             switch value as! Union6 {
                 case .a:
@@ -349,7 +364,10 @@ extension Union7: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self]
-        let outputs = try types.map { try $0.resolveObject(using: &context) }
+        let outputs: [GraphQLObjectType] = try types.map { type in
+            let object = try context.resolve(type: type) as! GraphQLNonNull
+            return object.ofType as! GraphQLObjectType
+        }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
             switch value as! Union7 {
                 case .a:
@@ -426,7 +444,10 @@ extension Union8: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self]
-        let outputs = try types.map { try $0.resolveObject(using: &context) }
+        let outputs: [GraphQLObjectType] = try types.map { type in
+            let object = try context.resolve(type: type) as! GraphQLNonNull
+            return object.ofType as! GraphQLObjectType
+        }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
             switch value as! Union8 {
                 case .a:
@@ -508,7 +529,10 @@ extension Union9: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self]
-        let outputs = try types.map { try $0.resolveObject(using: &context) }
+        let outputs: [GraphQLObjectType] = try types.map { type in
+            let object = try context.resolve(type: type) as! GraphQLNonNull
+            return object.ofType as! GraphQLObjectType
+        }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
             switch value as! Union9 {
                 case .a:
@@ -595,7 +619,10 @@ extension Union10: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self]
-        let outputs = try types.map { try $0.resolveObject(using: &context) }
+        let outputs: [GraphQLObjectType] = try types.map { type in
+            let object = try context.resolve(type: type) as! GraphQLNonNull
+            return object.ofType as! GraphQLObjectType
+        }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
             switch value as! Union10 {
                 case .a:
@@ -687,7 +714,10 @@ extension Union11: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self]
-        let outputs = try types.map { try $0.resolveObject(using: &context) }
+        let outputs: [GraphQLObjectType] = try types.map { type in
+            let object = try context.resolve(type: type) as! GraphQLNonNull
+            return object.ofType as! GraphQLObjectType
+        }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
             switch value as! Union11 {
                 case .a:
@@ -784,7 +814,10 @@ extension Union12: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self]
-        let outputs = try types.map { try $0.resolveObject(using: &context) }
+        let outputs: [GraphQLObjectType] = try types.map { type in
+            let object = try context.resolve(type: type) as! GraphQLNonNull
+            return object.ofType as! GraphQLObjectType
+        }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
             switch value as! Union12 {
                 case .a:
@@ -886,7 +919,10 @@ extension Union13: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self]
-        let outputs = try types.map { try $0.resolveObject(using: &context) }
+        let outputs: [GraphQLObjectType] = try types.map { type in
+            let object = try context.resolve(type: type) as! GraphQLNonNull
+            return object.ofType as! GraphQLObjectType
+        }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
             switch value as! Union13 {
                 case .a:
@@ -993,7 +1029,10 @@ extension Union14: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self, N.self]
-        let outputs = try types.map { try $0.resolveObject(using: &context) }
+        let outputs: [GraphQLObjectType] = try types.map { type in
+            let object = try context.resolve(type: type) as! GraphQLNonNull
+            return object.ofType as! GraphQLObjectType
+        }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
             switch value as! Union14 {
                 case .a:
@@ -1105,7 +1144,10 @@ extension Union15: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self, N.self, O.self]
-        let outputs = try types.map { try $0.resolveObject(using: &context) }
+        let outputs: [GraphQLObjectType] = try types.map { type in
+            let object = try context.resolve(type: type) as! GraphQLNonNull
+            return object.ofType as! GraphQLObjectType
+        }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
             switch value as! Union15 {
                 case .a:
@@ -1222,7 +1264,10 @@ extension Union16: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self, N.self, O.self, P.self]
-        let outputs = try types.map { try $0.resolveObject(using: &context) }
+        let outputs: [GraphQLObjectType] = try types.map { type in
+            let object = try context.resolve(type: type) as! GraphQLNonNull
+            return object.ofType as! GraphQLObjectType
+        }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
             switch value as! Union16 {
                 case .a:
@@ -1344,7 +1389,10 @@ extension Union17: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self, N.self, O.self, P.self, Q.self]
-        let outputs = try types.map { try $0.resolveObject(using: &context) }
+        let outputs: [GraphQLObjectType] = try types.map { type in
+            let object = try context.resolve(type: type) as! GraphQLNonNull
+            return object.ofType as! GraphQLObjectType
+        }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
             switch value as! Union17 {
                 case .a:
@@ -1471,7 +1519,10 @@ extension Union18: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self, N.self, O.self, P.self, Q.self, R.self]
-        let outputs = try types.map { try $0.resolveObject(using: &context) }
+        let outputs: [GraphQLObjectType] = try types.map { type in
+            let object = try context.resolve(type: type) as! GraphQLNonNull
+            return object.ofType as! GraphQLObjectType
+        }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
             switch value as! Union18 {
                 case .a:
@@ -1603,7 +1654,10 @@ extension Union19: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self, N.self, O.self, P.self, Q.self, R.self, S.self]
-        let outputs = try types.map { try $0.resolveObject(using: &context) }
+        let outputs: [GraphQLObjectType] = try types.map { type in
+            let object = try context.resolve(type: type) as! GraphQLNonNull
+            return object.ofType as! GraphQLObjectType
+        }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
             switch value as! Union19 {
                 case .a:
@@ -1740,7 +1794,10 @@ extension Union20: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
         let name = concreteTypeName
         context.append(type: GraphQLTypeReference(name), as: name)
         let types: [GraphQLObject.Type] = [A.self, B.self, C.self, D.self, E.self, F.self, G.self, H.self, I.self, J.self, K.self, L.self, M.self, N.self, O.self, P.self, Q.self, R.self, S.self, T.self]
-        let outputs = try types.map { try $0.resolveObject(using: &context) }
+        let outputs: [GraphQLObjectType] = try types.map { type in
+            let object = try context.resolve(type: type) as! GraphQLNonNull
+            return object.ofType as! GraphQLObjectType
+        }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
             switch value as! Union20 {
                 case .a:
