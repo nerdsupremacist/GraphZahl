@@ -145,7 +145,7 @@ func resolveArguments(for value: Any, using type: Any.Type, isNil: Bool = false)
         return [.int(.pointer(pointer))]
     }
 
-    let info = try typeInfo(of: type)
+    let info = try typeInfo(of: type, include: [.mangledName, .genericTypes, .properties])
 
     // More special cases
     if info.mangledName == "Array" {
@@ -197,7 +197,7 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
         return ([.int(.pointer(pointer.assumingMemoryBound(to: UnsafeMutableRawPointer.self)))], MemoryLayout<UnsafeMutableRawPointer>.size)
     }
 
-    let info = try typeInfo(of: type)
+    let info = try typeInfo(of: type, include: [.mangledName, .genericTypes, .properties])
 
     // More special cases
     if info.mangledName == "Array" {
@@ -220,7 +220,7 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
 }
 
 func resolveDecoder(for type: Any.Type) throws -> FunctionResultDecoder {
-    let info = try typeInfo(of: type)
+    let info = try typeInfo(of: type, include: .genericTypes)
 
     let isOptional = info.kind == .optional
     let size = isOptional && !isPrimitive(type: info.genericTypes.first!) ? info.size + 1 : info.size
@@ -290,7 +290,7 @@ private func isValueNil(value: Any, type: Any.Type) throws -> Bool {
         return true
     }
 
-    let info = try typeInfo(of: type)
+    let info = try typeInfo(of: type, include: [])
 
     let bytes = withUnsafeBytes(of: value) { $0.baseAddress!.assumingMemoryBound(to: Int8.self) }
 

@@ -6,7 +6,7 @@ import Runtime
 extension GraphQLObject {
 
     static func resolveObject(using context: inout Resolution.Context) throws -> GraphQLObjectType {
-        let info = try typeInfo(of: Self.self)
+        let info = try typeInfo(of: Self.self, include: [.properties, .methods])
         
         context.append(type: GraphQLNonNull(GraphQLTypeReference(concreteTypeName)), as: concreteTypeName)
 
