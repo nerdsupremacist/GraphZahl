@@ -44,12 +44,13 @@ extension Union2: OutputResolvable where A: GraphQLObject, B: GraphQLObject {
             return object.ofType as! GraphQLObjectType
         }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
-            switch value as! Union2 {
-                case .a:
-                    return outputs[0]
-                case .b:
-                    return outputs[1]
+            if value is A {
+                return outputs[0]
             }
+            if value is B {
+                return outputs[1]
+            }
+            fatalError()
         }
         return GraphQLNonNull(try GraphQLUnionType(name: name,
                                                    description: nil,
@@ -99,14 +100,16 @@ extension Union3: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
             return object.ofType as! GraphQLObjectType
         }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
-            switch value as! Union3 {
-                case .a:
-                    return outputs[0]
-                case .b:
-                    return outputs[1]
-                case .c:
-                    return outputs[2]
+            if value is A {
+                return outputs[0]
             }
+            if value is B {
+                return outputs[1]
+            }
+            if value is C {
+                return outputs[2]
+            }
+            fatalError()
         }
         return GraphQLNonNull(try GraphQLUnionType(name: name,
                                                    description: nil,
@@ -159,16 +162,19 @@ extension Union4: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
             return object.ofType as! GraphQLObjectType
         }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
-            switch value as! Union4 {
-                case .a:
-                    return outputs[0]
-                case .b:
-                    return outputs[1]
-                case .c:
-                    return outputs[2]
-                case .d:
-                    return outputs[3]
+            if value is A {
+                return outputs[0]
             }
+            if value is B {
+                return outputs[1]
+            }
+            if value is C {
+                return outputs[2]
+            }
+            if value is D {
+                return outputs[3]
+            }
+            fatalError()
         }
         return GraphQLNonNull(try GraphQLUnionType(name: name,
                                                    description: nil,
@@ -224,18 +230,22 @@ extension Union5: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
             return object.ofType as! GraphQLObjectType
         }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
-            switch value as! Union5 {
-                case .a:
-                    return outputs[0]
-                case .b:
-                    return outputs[1]
-                case .c:
-                    return outputs[2]
-                case .d:
-                    return outputs[3]
-                case .e:
-                    return outputs[4]
+            if value is A {
+                return outputs[0]
             }
+            if value is B {
+                return outputs[1]
+            }
+            if value is C {
+                return outputs[2]
+            }
+            if value is D {
+                return outputs[3]
+            }
+            if value is E {
+                return outputs[4]
+            }
+            fatalError()
         }
         return GraphQLNonNull(try GraphQLUnionType(name: name,
                                                    description: nil,
@@ -294,20 +304,25 @@ extension Union6: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
             return object.ofType as! GraphQLObjectType
         }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
-            switch value as! Union6 {
-                case .a:
-                    return outputs[0]
-                case .b:
-                    return outputs[1]
-                case .c:
-                    return outputs[2]
-                case .d:
-                    return outputs[3]
-                case .e:
-                    return outputs[4]
-                case .f:
-                    return outputs[5]
+            if value is A {
+                return outputs[0]
             }
+            if value is B {
+                return outputs[1]
+            }
+            if value is C {
+                return outputs[2]
+            }
+            if value is D {
+                return outputs[3]
+            }
+            if value is E {
+                return outputs[4]
+            }
+            if value is F {
+                return outputs[5]
+            }
+            fatalError()
         }
         return GraphQLNonNull(try GraphQLUnionType(name: name,
                                                    description: nil,
@@ -369,22 +384,28 @@ extension Union7: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
             return object.ofType as! GraphQLObjectType
         }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
-            switch value as! Union7 {
-                case .a:
-                    return outputs[0]
-                case .b:
-                    return outputs[1]
-                case .c:
-                    return outputs[2]
-                case .d:
-                    return outputs[3]
-                case .e:
-                    return outputs[4]
-                case .f:
-                    return outputs[5]
-                case .g:
-                    return outputs[6]
+            if value is A {
+                return outputs[0]
             }
+            if value is B {
+                return outputs[1]
+            }
+            if value is C {
+                return outputs[2]
+            }
+            if value is D {
+                return outputs[3]
+            }
+            if value is E {
+                return outputs[4]
+            }
+            if value is F {
+                return outputs[5]
+            }
+            if value is G {
+                return outputs[6]
+            }
+            fatalError()
         }
         return GraphQLNonNull(try GraphQLUnionType(name: name,
                                                    description: nil,
@@ -449,24 +470,31 @@ extension Union8: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
             return object.ofType as! GraphQLObjectType
         }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
-            switch value as! Union8 {
-                case .a:
-                    return outputs[0]
-                case .b:
-                    return outputs[1]
-                case .c:
-                    return outputs[2]
-                case .d:
-                    return outputs[3]
-                case .e:
-                    return outputs[4]
-                case .f:
-                    return outputs[5]
-                case .g:
-                    return outputs[6]
-                case .h:
-                    return outputs[7]
+            if value is A {
+                return outputs[0]
             }
+            if value is B {
+                return outputs[1]
+            }
+            if value is C {
+                return outputs[2]
+            }
+            if value is D {
+                return outputs[3]
+            }
+            if value is E {
+                return outputs[4]
+            }
+            if value is F {
+                return outputs[5]
+            }
+            if value is G {
+                return outputs[6]
+            }
+            if value is H {
+                return outputs[7]
+            }
+            fatalError()
         }
         return GraphQLNonNull(try GraphQLUnionType(name: name,
                                                    description: nil,
@@ -534,26 +562,34 @@ extension Union9: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C: 
             return object.ofType as! GraphQLObjectType
         }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
-            switch value as! Union9 {
-                case .a:
-                    return outputs[0]
-                case .b:
-                    return outputs[1]
-                case .c:
-                    return outputs[2]
-                case .d:
-                    return outputs[3]
-                case .e:
-                    return outputs[4]
-                case .f:
-                    return outputs[5]
-                case .g:
-                    return outputs[6]
-                case .h:
-                    return outputs[7]
-                case .i:
-                    return outputs[8]
+            if value is A {
+                return outputs[0]
             }
+            if value is B {
+                return outputs[1]
+            }
+            if value is C {
+                return outputs[2]
+            }
+            if value is D {
+                return outputs[3]
+            }
+            if value is E {
+                return outputs[4]
+            }
+            if value is F {
+                return outputs[5]
+            }
+            if value is G {
+                return outputs[6]
+            }
+            if value is H {
+                return outputs[7]
+            }
+            if value is I {
+                return outputs[8]
+            }
+            fatalError()
         }
         return GraphQLNonNull(try GraphQLUnionType(name: name,
                                                    description: nil,
@@ -624,28 +660,37 @@ extension Union10: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
             return object.ofType as! GraphQLObjectType
         }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
-            switch value as! Union10 {
-                case .a:
-                    return outputs[0]
-                case .b:
-                    return outputs[1]
-                case .c:
-                    return outputs[2]
-                case .d:
-                    return outputs[3]
-                case .e:
-                    return outputs[4]
-                case .f:
-                    return outputs[5]
-                case .g:
-                    return outputs[6]
-                case .h:
-                    return outputs[7]
-                case .i:
-                    return outputs[8]
-                case .j:
-                    return outputs[9]
+            if value is A {
+                return outputs[0]
             }
+            if value is B {
+                return outputs[1]
+            }
+            if value is C {
+                return outputs[2]
+            }
+            if value is D {
+                return outputs[3]
+            }
+            if value is E {
+                return outputs[4]
+            }
+            if value is F {
+                return outputs[5]
+            }
+            if value is G {
+                return outputs[6]
+            }
+            if value is H {
+                return outputs[7]
+            }
+            if value is I {
+                return outputs[8]
+            }
+            if value is J {
+                return outputs[9]
+            }
+            fatalError()
         }
         return GraphQLNonNull(try GraphQLUnionType(name: name,
                                                    description: nil,
@@ -719,30 +764,40 @@ extension Union11: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
             return object.ofType as! GraphQLObjectType
         }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
-            switch value as! Union11 {
-                case .a:
-                    return outputs[0]
-                case .b:
-                    return outputs[1]
-                case .c:
-                    return outputs[2]
-                case .d:
-                    return outputs[3]
-                case .e:
-                    return outputs[4]
-                case .f:
-                    return outputs[5]
-                case .g:
-                    return outputs[6]
-                case .h:
-                    return outputs[7]
-                case .i:
-                    return outputs[8]
-                case .j:
-                    return outputs[9]
-                case .k:
-                    return outputs[10]
+            if value is A {
+                return outputs[0]
             }
+            if value is B {
+                return outputs[1]
+            }
+            if value is C {
+                return outputs[2]
+            }
+            if value is D {
+                return outputs[3]
+            }
+            if value is E {
+                return outputs[4]
+            }
+            if value is F {
+                return outputs[5]
+            }
+            if value is G {
+                return outputs[6]
+            }
+            if value is H {
+                return outputs[7]
+            }
+            if value is I {
+                return outputs[8]
+            }
+            if value is J {
+                return outputs[9]
+            }
+            if value is K {
+                return outputs[10]
+            }
+            fatalError()
         }
         return GraphQLNonNull(try GraphQLUnionType(name: name,
                                                    description: nil,
@@ -819,32 +874,43 @@ extension Union12: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
             return object.ofType as! GraphQLObjectType
         }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
-            switch value as! Union12 {
-                case .a:
-                    return outputs[0]
-                case .b:
-                    return outputs[1]
-                case .c:
-                    return outputs[2]
-                case .d:
-                    return outputs[3]
-                case .e:
-                    return outputs[4]
-                case .f:
-                    return outputs[5]
-                case .g:
-                    return outputs[6]
-                case .h:
-                    return outputs[7]
-                case .i:
-                    return outputs[8]
-                case .j:
-                    return outputs[9]
-                case .k:
-                    return outputs[10]
-                case .l:
-                    return outputs[11]
+            if value is A {
+                return outputs[0]
             }
+            if value is B {
+                return outputs[1]
+            }
+            if value is C {
+                return outputs[2]
+            }
+            if value is D {
+                return outputs[3]
+            }
+            if value is E {
+                return outputs[4]
+            }
+            if value is F {
+                return outputs[5]
+            }
+            if value is G {
+                return outputs[6]
+            }
+            if value is H {
+                return outputs[7]
+            }
+            if value is I {
+                return outputs[8]
+            }
+            if value is J {
+                return outputs[9]
+            }
+            if value is K {
+                return outputs[10]
+            }
+            if value is L {
+                return outputs[11]
+            }
+            fatalError()
         }
         return GraphQLNonNull(try GraphQLUnionType(name: name,
                                                    description: nil,
@@ -924,34 +990,46 @@ extension Union13: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
             return object.ofType as! GraphQLObjectType
         }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
-            switch value as! Union13 {
-                case .a:
-                    return outputs[0]
-                case .b:
-                    return outputs[1]
-                case .c:
-                    return outputs[2]
-                case .d:
-                    return outputs[3]
-                case .e:
-                    return outputs[4]
-                case .f:
-                    return outputs[5]
-                case .g:
-                    return outputs[6]
-                case .h:
-                    return outputs[7]
-                case .i:
-                    return outputs[8]
-                case .j:
-                    return outputs[9]
-                case .k:
-                    return outputs[10]
-                case .l:
-                    return outputs[11]
-                case .m:
-                    return outputs[12]
+            if value is A {
+                return outputs[0]
             }
+            if value is B {
+                return outputs[1]
+            }
+            if value is C {
+                return outputs[2]
+            }
+            if value is D {
+                return outputs[3]
+            }
+            if value is E {
+                return outputs[4]
+            }
+            if value is F {
+                return outputs[5]
+            }
+            if value is G {
+                return outputs[6]
+            }
+            if value is H {
+                return outputs[7]
+            }
+            if value is I {
+                return outputs[8]
+            }
+            if value is J {
+                return outputs[9]
+            }
+            if value is K {
+                return outputs[10]
+            }
+            if value is L {
+                return outputs[11]
+            }
+            if value is M {
+                return outputs[12]
+            }
+            fatalError()
         }
         return GraphQLNonNull(try GraphQLUnionType(name: name,
                                                    description: nil,
@@ -1034,36 +1112,49 @@ extension Union14: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
             return object.ofType as! GraphQLObjectType
         }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
-            switch value as! Union14 {
-                case .a:
-                    return outputs[0]
-                case .b:
-                    return outputs[1]
-                case .c:
-                    return outputs[2]
-                case .d:
-                    return outputs[3]
-                case .e:
-                    return outputs[4]
-                case .f:
-                    return outputs[5]
-                case .g:
-                    return outputs[6]
-                case .h:
-                    return outputs[7]
-                case .i:
-                    return outputs[8]
-                case .j:
-                    return outputs[9]
-                case .k:
-                    return outputs[10]
-                case .l:
-                    return outputs[11]
-                case .m:
-                    return outputs[12]
-                case .n:
-                    return outputs[13]
+            if value is A {
+                return outputs[0]
             }
+            if value is B {
+                return outputs[1]
+            }
+            if value is C {
+                return outputs[2]
+            }
+            if value is D {
+                return outputs[3]
+            }
+            if value is E {
+                return outputs[4]
+            }
+            if value is F {
+                return outputs[5]
+            }
+            if value is G {
+                return outputs[6]
+            }
+            if value is H {
+                return outputs[7]
+            }
+            if value is I {
+                return outputs[8]
+            }
+            if value is J {
+                return outputs[9]
+            }
+            if value is K {
+                return outputs[10]
+            }
+            if value is L {
+                return outputs[11]
+            }
+            if value is M {
+                return outputs[12]
+            }
+            if value is N {
+                return outputs[13]
+            }
+            fatalError()
         }
         return GraphQLNonNull(try GraphQLUnionType(name: name,
                                                    description: nil,
@@ -1149,38 +1240,52 @@ extension Union15: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
             return object.ofType as! GraphQLObjectType
         }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
-            switch value as! Union15 {
-                case .a:
-                    return outputs[0]
-                case .b:
-                    return outputs[1]
-                case .c:
-                    return outputs[2]
-                case .d:
-                    return outputs[3]
-                case .e:
-                    return outputs[4]
-                case .f:
-                    return outputs[5]
-                case .g:
-                    return outputs[6]
-                case .h:
-                    return outputs[7]
-                case .i:
-                    return outputs[8]
-                case .j:
-                    return outputs[9]
-                case .k:
-                    return outputs[10]
-                case .l:
-                    return outputs[11]
-                case .m:
-                    return outputs[12]
-                case .n:
-                    return outputs[13]
-                case .o:
-                    return outputs[14]
+            if value is A {
+                return outputs[0]
             }
+            if value is B {
+                return outputs[1]
+            }
+            if value is C {
+                return outputs[2]
+            }
+            if value is D {
+                return outputs[3]
+            }
+            if value is E {
+                return outputs[4]
+            }
+            if value is F {
+                return outputs[5]
+            }
+            if value is G {
+                return outputs[6]
+            }
+            if value is H {
+                return outputs[7]
+            }
+            if value is I {
+                return outputs[8]
+            }
+            if value is J {
+                return outputs[9]
+            }
+            if value is K {
+                return outputs[10]
+            }
+            if value is L {
+                return outputs[11]
+            }
+            if value is M {
+                return outputs[12]
+            }
+            if value is N {
+                return outputs[13]
+            }
+            if value is O {
+                return outputs[14]
+            }
+            fatalError()
         }
         return GraphQLNonNull(try GraphQLUnionType(name: name,
                                                    description: nil,
@@ -1269,40 +1374,55 @@ extension Union16: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
             return object.ofType as! GraphQLObjectType
         }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
-            switch value as! Union16 {
-                case .a:
-                    return outputs[0]
-                case .b:
-                    return outputs[1]
-                case .c:
-                    return outputs[2]
-                case .d:
-                    return outputs[3]
-                case .e:
-                    return outputs[4]
-                case .f:
-                    return outputs[5]
-                case .g:
-                    return outputs[6]
-                case .h:
-                    return outputs[7]
-                case .i:
-                    return outputs[8]
-                case .j:
-                    return outputs[9]
-                case .k:
-                    return outputs[10]
-                case .l:
-                    return outputs[11]
-                case .m:
-                    return outputs[12]
-                case .n:
-                    return outputs[13]
-                case .o:
-                    return outputs[14]
-                case .p:
-                    return outputs[15]
+            if value is A {
+                return outputs[0]
             }
+            if value is B {
+                return outputs[1]
+            }
+            if value is C {
+                return outputs[2]
+            }
+            if value is D {
+                return outputs[3]
+            }
+            if value is E {
+                return outputs[4]
+            }
+            if value is F {
+                return outputs[5]
+            }
+            if value is G {
+                return outputs[6]
+            }
+            if value is H {
+                return outputs[7]
+            }
+            if value is I {
+                return outputs[8]
+            }
+            if value is J {
+                return outputs[9]
+            }
+            if value is K {
+                return outputs[10]
+            }
+            if value is L {
+                return outputs[11]
+            }
+            if value is M {
+                return outputs[12]
+            }
+            if value is N {
+                return outputs[13]
+            }
+            if value is O {
+                return outputs[14]
+            }
+            if value is P {
+                return outputs[15]
+            }
+            fatalError()
         }
         return GraphQLNonNull(try GraphQLUnionType(name: name,
                                                    description: nil,
@@ -1394,42 +1514,58 @@ extension Union17: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
             return object.ofType as! GraphQLObjectType
         }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
-            switch value as! Union17 {
-                case .a:
-                    return outputs[0]
-                case .b:
-                    return outputs[1]
-                case .c:
-                    return outputs[2]
-                case .d:
-                    return outputs[3]
-                case .e:
-                    return outputs[4]
-                case .f:
-                    return outputs[5]
-                case .g:
-                    return outputs[6]
-                case .h:
-                    return outputs[7]
-                case .i:
-                    return outputs[8]
-                case .j:
-                    return outputs[9]
-                case .k:
-                    return outputs[10]
-                case .l:
-                    return outputs[11]
-                case .m:
-                    return outputs[12]
-                case .n:
-                    return outputs[13]
-                case .o:
-                    return outputs[14]
-                case .p:
-                    return outputs[15]
-                case .q:
-                    return outputs[16]
+            if value is A {
+                return outputs[0]
             }
+            if value is B {
+                return outputs[1]
+            }
+            if value is C {
+                return outputs[2]
+            }
+            if value is D {
+                return outputs[3]
+            }
+            if value is E {
+                return outputs[4]
+            }
+            if value is F {
+                return outputs[5]
+            }
+            if value is G {
+                return outputs[6]
+            }
+            if value is H {
+                return outputs[7]
+            }
+            if value is I {
+                return outputs[8]
+            }
+            if value is J {
+                return outputs[9]
+            }
+            if value is K {
+                return outputs[10]
+            }
+            if value is L {
+                return outputs[11]
+            }
+            if value is M {
+                return outputs[12]
+            }
+            if value is N {
+                return outputs[13]
+            }
+            if value is O {
+                return outputs[14]
+            }
+            if value is P {
+                return outputs[15]
+            }
+            if value is Q {
+                return outputs[16]
+            }
+            fatalError()
         }
         return GraphQLNonNull(try GraphQLUnionType(name: name,
                                                    description: nil,
@@ -1524,44 +1660,61 @@ extension Union18: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
             return object.ofType as! GraphQLObjectType
         }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
-            switch value as! Union18 {
-                case .a:
-                    return outputs[0]
-                case .b:
-                    return outputs[1]
-                case .c:
-                    return outputs[2]
-                case .d:
-                    return outputs[3]
-                case .e:
-                    return outputs[4]
-                case .f:
-                    return outputs[5]
-                case .g:
-                    return outputs[6]
-                case .h:
-                    return outputs[7]
-                case .i:
-                    return outputs[8]
-                case .j:
-                    return outputs[9]
-                case .k:
-                    return outputs[10]
-                case .l:
-                    return outputs[11]
-                case .m:
-                    return outputs[12]
-                case .n:
-                    return outputs[13]
-                case .o:
-                    return outputs[14]
-                case .p:
-                    return outputs[15]
-                case .q:
-                    return outputs[16]
-                case .r:
-                    return outputs[17]
+            if value is A {
+                return outputs[0]
             }
+            if value is B {
+                return outputs[1]
+            }
+            if value is C {
+                return outputs[2]
+            }
+            if value is D {
+                return outputs[3]
+            }
+            if value is E {
+                return outputs[4]
+            }
+            if value is F {
+                return outputs[5]
+            }
+            if value is G {
+                return outputs[6]
+            }
+            if value is H {
+                return outputs[7]
+            }
+            if value is I {
+                return outputs[8]
+            }
+            if value is J {
+                return outputs[9]
+            }
+            if value is K {
+                return outputs[10]
+            }
+            if value is L {
+                return outputs[11]
+            }
+            if value is M {
+                return outputs[12]
+            }
+            if value is N {
+                return outputs[13]
+            }
+            if value is O {
+                return outputs[14]
+            }
+            if value is P {
+                return outputs[15]
+            }
+            if value is Q {
+                return outputs[16]
+            }
+            if value is R {
+                return outputs[17]
+            }
+            fatalError()
         }
         return GraphQLNonNull(try GraphQLUnionType(name: name,
                                                    description: nil,
@@ -1659,46 +1812,64 @@ extension Union19: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
             return object.ofType as! GraphQLObjectType
         }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
-            switch value as! Union19 {
-                case .a:
-                    return outputs[0]
-                case .b:
-                    return outputs[1]
-                case .c:
-                    return outputs[2]
-                case .d:
-                    return outputs[3]
-                case .e:
-                    return outputs[4]
-                case .f:
-                    return outputs[5]
-                case .g:
-                    return outputs[6]
-                case .h:
-                    return outputs[7]
-                case .i:
-                    return outputs[8]
-                case .j:
-                    return outputs[9]
-                case .k:
-                    return outputs[10]
-                case .l:
-                    return outputs[11]
-                case .m:
-                    return outputs[12]
-                case .n:
-                    return outputs[13]
-                case .o:
-                    return outputs[14]
-                case .p:
-                    return outputs[15]
-                case .q:
-                    return outputs[16]
-                case .r:
-                    return outputs[17]
-                case .s:
-                    return outputs[18]
+            if value is A {
+                return outputs[0]
             }
+            if value is B {
+                return outputs[1]
+            }
+            if value is C {
+                return outputs[2]
+            }
+            if value is D {
+                return outputs[3]
+            }
+            if value is E {
+                return outputs[4]
+            }
+            if value is F {
+                return outputs[5]
+            }
+            if value is G {
+                return outputs[6]
+            }
+            if value is H {
+                return outputs[7]
+            }
+            if value is I {
+                return outputs[8]
+            }
+            if value is J {
+                return outputs[9]
+            }
+            if value is K {
+                return outputs[10]
+            }
+            if value is L {
+                return outputs[11]
+            }
+            if value is M {
+                return outputs[12]
+            }
+            if value is N {
+                return outputs[13]
+            }
+            if value is O {
+                return outputs[14]
+            }
+            if value is P {
+                return outputs[15]
+            }
+            if value is Q {
+                return outputs[16]
+            }
+            if value is R {
+                return outputs[17]
+            }
+            if value is S {
+                return outputs[18]
+            }
+            fatalError()
         }
         return GraphQLNonNull(try GraphQLUnionType(name: name,
                                                    description: nil,
@@ -1799,48 +1970,67 @@ extension Union20: OutputResolvable where A: GraphQLObject, B: GraphQLObject, C:
             return object.ofType as! GraphQLObjectType
         }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
-            switch value as! Union20 {
-                case .a:
-                    return outputs[0]
-                case .b:
-                    return outputs[1]
-                case .c:
-                    return outputs[2]
-                case .d:
-                    return outputs[3]
-                case .e:
-                    return outputs[4]
-                case .f:
-                    return outputs[5]
-                case .g:
-                    return outputs[6]
-                case .h:
-                    return outputs[7]
-                case .i:
-                    return outputs[8]
-                case .j:
-                    return outputs[9]
-                case .k:
-                    return outputs[10]
-                case .l:
-                    return outputs[11]
-                case .m:
-                    return outputs[12]
-                case .n:
-                    return outputs[13]
-                case .o:
-                    return outputs[14]
-                case .p:
-                    return outputs[15]
-                case .q:
-                    return outputs[16]
-                case .r:
-                    return outputs[17]
-                case .s:
-                    return outputs[18]
-                case .t:
-                    return outputs[19]
+            if value is A {
+                return outputs[0]
             }
+            if value is B {
+                return outputs[1]
+            }
+            if value is C {
+                return outputs[2]
+            }
+            if value is D {
+                return outputs[3]
+            }
+            if value is E {
+                return outputs[4]
+            }
+            if value is F {
+                return outputs[5]
+            }
+            if value is G {
+                return outputs[6]
+            }
+            if value is H {
+                return outputs[7]
+            }
+            if value is I {
+                return outputs[8]
+            }
+            if value is J {
+                return outputs[9]
+            }
+            if value is K {
+                return outputs[10]
+            }
+            if value is L {
+                return outputs[11]
+            }
+            if value is M {
+                return outputs[12]
+            }
+            if value is N {
+                return outputs[13]
+            }
+            if value is O {
+                return outputs[14]
+            }
+            if value is P {
+                return outputs[15]
+            }
+            if value is Q {
+                return outputs[16]
+            }
+            if value is R {
+                return outputs[17]
+            }
+            if value is S {
+                return outputs[18]
+            }
+            if value is T {
+                return outputs[19]
+            }
+            fatalError()
         }
         return GraphQLNonNull(try GraphQLUnionType(name: name,
                                                    description: nil,

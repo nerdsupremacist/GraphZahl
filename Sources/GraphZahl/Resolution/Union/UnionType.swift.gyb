@@ -54,12 +54,12 @@ extension Union${numberOfTypes}: OutputResolvable where ${", ".join(objectConfor
             return object.ofType as! GraphQLObjectType
         }
         let resolveType: GraphQLTypeResolve = { value, _, _ in
-            switch value as! Union${numberOfTypes} {
-                % for i in range(numberOfTypes):
-                case .${names[i]}:
-                    return outputs[${i}]
-                % end
+            % for i in range(numberOfTypes):
+            if value is ${names[i].upper()} {
+                return outputs[${i}]
             }
+            % end
+            fatalError()
         }
         return GraphQLNonNull(try GraphQLUnionType(name: name,
                                                    description: nil,
