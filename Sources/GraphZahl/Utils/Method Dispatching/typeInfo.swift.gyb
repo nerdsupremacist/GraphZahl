@@ -1,0 +1,54 @@
+
+import Foundation
+import Runtime
+
+%{
+    infos = {
+        "kind" : "Kind",
+        "name" : "String",
+        "type" : "Any.Type",
+        "mangledName" : "String",
+        "properties" : "[PropertyInfo]",
+        "methods" : "[MethodInfo]",
+        "inheritance" : "[Any.Type]",
+        "size" : "Int",
+        "alignment" : "Int",
+        "stride" : "Int",
+        "cases" : "[Case]",
+        "genericTypes" : "[Any.Type]",
+        "includedInfo" : "TypeInfo.IncludeOptions"
+    }
+
+    includedOptions = ["mangledName", "properties", "methods", "inheritance", "cases", "genericTypes"]
+}%
+
+struct TypeInfoValue<T> {
+    let keyPath: KeyPath<TypeInfo, T>
+    let includedFlag: TypeInfo.IncludeOptions?
+}
+
+% for property, type in infos.items():
+
+extension TypeInfoValue where T == ${type} {
+    %{ includedFlag = "." + property if property in includedOptions else "nil" }%
+    static let ${property} = TypeInfoValue(keyPath: \.${property}, includedFlag: ${includedFlag})
+}
+
+% end
+
+% for numberOfValues in range(1, len(infos) + 1):
+%{ argTypes = ["Arg" + str(i) for i in range(numberOfValues)] }%
+%{ argParameters = ["_ arg" + str(i) + ": TypeInfoValue<Arg" + str(i) + ">" for i in range(numberOfValues)] }%
+%{ argTypeString = ", ".join(argTypes) }%
+%{ argParameterString = ", ".join(argParameters) }%
+func typeInfo<${argTypeString}>(of type: Any.Type, ${argParameterString}) throws -> (${argTypeString}) {
+    %{ argParameterFlagList = ["arg" + str(i) + ".includedFlag" for i in range(numberOfValues)]  }%
+    %{ argParameterString = ", ".join(argParameterFlagList) }%
+    let flags = TypeInfo.IncludeOptions([${argParameterString}].compactMap { $0 })
+    let info = try typeInfo(of: type, include: flags)
+    %{ typeAccess = ["info[keyPath: arg" + str(i) + ".keyPath]" for i in range(numberOfValues)] }%
+    %{ typeAccessString = ", ".join(typeAccess) }%
+    return (${typeAccessString})
+}
+
+% end

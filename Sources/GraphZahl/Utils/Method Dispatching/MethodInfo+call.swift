@@ -62987,8 +62987,8 @@ extension MethodInfo {
 }
 
 private func estimatedType(of type: Any.Type) throws -> Any.Type {
-    let info = try typeInfo(of: type, include: [])
-    switch info.kind {
+    let kind = try typeInfo(of: type, .kind)
+    switch kind {
     case .class:
         return AnyObject.self
     default:
