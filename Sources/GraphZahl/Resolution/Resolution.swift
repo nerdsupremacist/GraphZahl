@@ -53,6 +53,23 @@ extension Resolution.Context {
         return inputType
     }
 
+    public mutating func resolveInterface(object: GraphQLObject.Type) throws -> GraphQLInterfaceType {
+        let name = "I\(object.concreteTypeName)"
+        if let type = resolved[name] as? GraphQLInterfaceType {
+            return type
+        }
+
+        let nonNull = try resolve(type: object) as! GraphQLNonNull
+        let object = nonNull.ofType as! GraphQLObjectType
+        let fields = object.fields.mapValues { GraphQLField(type: $0.type, args: Dictionary(uniqueKeysWithValues: $0.args.map { ($0.name, $0.type) }).mapValues { GraphQLArgument(type: $0) }) }
+
+        let type = try GraphQLInterfaceType(name: name, fields: fields)
+
+        // TODO: Make the object type implement the interface as well and propagate the change
+        append(type: type, as: name)
+        return type
+    }
+
 }
 
 extension Resolution.Context {

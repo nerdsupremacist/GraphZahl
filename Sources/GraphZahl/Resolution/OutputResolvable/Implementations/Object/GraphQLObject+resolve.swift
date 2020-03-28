@@ -6,7 +6,7 @@ import Runtime
 extension GraphQLObject {
 
     static func resolveObject(using context: inout Resolution.Context) throws -> GraphQLObjectType {
-        let (typeProperties, typeMethods) = try typeInfo(of: Self.self, .properties, .methods)
+        let (typeProperties, typeMethods, inheritance) = try typeInfo(of: Self.self, .properties, .methods, .inheritance)
         
         context.append(type: GraphQLNonNull(GraphQLTypeReference(concreteTypeName)), as: concreteTypeName)
 
@@ -17,7 +17,12 @@ extension GraphQLObject {
         let methods = try methodMap.compactMapValues { try $0.resolve(for: Self.self, using: &context) }
 
         let fields = properties.merging(methods) { $1 }
-        let type = try GraphQLObjectType(name: concreteTypeName, fields: fields)
+
+        let interfaces = try inheritance
+            .compactMap { $0 as? GraphQLObject.Type }
+            .map { try context.resolveInterface(object: $0) }
+
+        let type = try GraphQLObjectType(name: concreteTypeName, fields: fields, interfaces: interfaces) { value, _, _ in value is Self }
 
         return type
     }
