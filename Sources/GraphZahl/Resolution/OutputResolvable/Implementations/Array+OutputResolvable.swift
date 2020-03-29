@@ -10,6 +10,10 @@ extension Array: OutputResolvable where Element: OutputResolvable {
         return Element.additionalArguments
     }
 
+    public static func reference(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+        return GraphQLNonNull(GraphQLList(try Element.reference(using: &context)))
+    }
+
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         return GraphQLNonNull(GraphQLList(try context.resolve(type: Element.self)))
     }

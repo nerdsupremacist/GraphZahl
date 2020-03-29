@@ -10,6 +10,12 @@ extension Optional: OutputResolvable where Wrapped: OutputResolvable {
         return Wrapped.additionalArguments
     }
 
+    public static func reference(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+        guard let resolved = try Wrapped.reference(using: &context) as? GraphQLNonNull else { fatalError() }
+        guard let type = resolved.ofType as? GraphQLOutputType else { fatalError() }
+        return type
+    }
+
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         guard let resolved = try context.resolve(type: Wrapped.self) as? GraphQLNonNull else { fatalError() }
         guard let type = resolved.ofType as? GraphQLOutputType else { fatalError() }

@@ -4,7 +4,7 @@ import NIO
 import GraphQL
 import ContextKit
 
-public struct StandardEdge<Node: OutputResolvable & ConcreteResolvable>: EdgeProtocol {
+public struct StandardEdge<Node: OutputResolvable & ConcreteResolvable>: EdgeProtocol, ConcreteResolvable {
     public let node: Node?
     public let cursor: String
 

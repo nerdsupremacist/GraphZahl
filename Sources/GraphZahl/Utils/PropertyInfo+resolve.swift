@@ -12,7 +12,7 @@ extension PropertyInfo {
 
         let arguments = try type.additionalGraphqlArguments(using: &context)
 
-        return GraphQLField(type: try context.resolve(type: type),
+        return GraphQLField(type: try context.reference(for: type),
                             args: arguments) { source, arguments, context, eventLoop, _ in
 
             let object = receiverType.object(from: source)

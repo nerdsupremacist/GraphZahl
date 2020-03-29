@@ -19,7 +19,7 @@ extension GraphQLSchema {
         return try GraphQL.GraphQLSchema(query: query,
                                          mutation: mutation,
                                          subscription: nil,
-                                         types: [],
+                                         types: try context.types(),
                                          directives: [])
     }
 

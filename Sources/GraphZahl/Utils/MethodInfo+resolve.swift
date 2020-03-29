@@ -41,7 +41,7 @@ extension MethodInfo {
             .additionalGraphqlArguments(using: &context)
             .merging(arguments) { $1 }
 
-        return GraphQLField(type: try context.resolve(type: returnType),
+        return GraphQLField(type: try context.reference(for: returnType),
                             args: completeArguments) { (source, args, context, eventLoop, _) -> Future<Any?> in
 
             let args = try args.dictionaryValue()

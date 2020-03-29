@@ -10,6 +10,10 @@ extension EventLoopFuture: OutputResolvable where Value: OutputResolvable {
         return Value.additionalArguments
     }
 
+    public static func reference(using context: inout Resolution.Context) throws -> GraphQLOutputType {
+        return try Value.reference(using: &context)
+    }
+
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         return try context.resolve(type: Value.self)
     }
