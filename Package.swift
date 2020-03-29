@@ -13,8 +13,8 @@ let package = Package(
                  targets: ["GraphZahl"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/nerdsupremacist/GraphQL.git", from: "0.12.1-beta.2"),
-        .package(url: "https://github.com/nerdsupremacist/Runtime.git", from: "2.1.2-beta.4"),
+        .package(url: "https://github.com/nerdsupremacist/GraphQL.git", from: "0.12.1-beta.3"),
+        .package(url: "https://github.com/nerdsupremacist/Runtime.git", from: "2.1.2-beta.5"),
         .package(url: "https://github.com/nerdsupremacist/ContextKit.git", from: "0.2.1"),
     ],
     targets: [
