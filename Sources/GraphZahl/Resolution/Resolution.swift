@@ -6,11 +6,13 @@ public enum Resolution {
     
     public struct Context {
         let resolved: [String : GraphQLType]
+        let references: [String : GraphQLOutputType]
         let unresolvedReferences: [String : OutputResolvable.Type]
         let viewerContext: Any.Type
 
-        private init(resolved: [String : GraphQLType], unresolvedReferences: [String : OutputResolvable.Type], viewerContext: Any.Type) {
+        private init(resolved: [String : GraphQLType], references: [String : GraphQLOutputType], unresolvedReferences: [String : OutputResolvable.Type], viewerContext: Any.Type) {
             self.resolved = resolved
+            self.references = references
             self.unresolvedReferences = unresolvedReferences
             self.viewerContext = viewerContext
         }
@@ -21,7 +23,7 @@ public enum Resolution {
 extension Resolution.Context {
 
     public func appending(type: GraphQLType, as name: String) -> Resolution.Context {
-        return Resolution.Context(resolved: resolved.merging([name : type]) { $1 }, unresolvedReferences: unresolvedReferences, viewerContext: viewerContext)
+        return Resolution.Context(resolved: resolved.merging([name : type]) { $1 }, references: references, unresolvedReferences: unresolvedReferences, viewerContext: viewerContext)
     }
 
     public mutating func append(type: GraphQLType, as name: String) {
@@ -32,8 +34,20 @@ extension Resolution.Context {
 
 extension Resolution.Context {
 
+    public func appending(reference type: GraphQLOutputType, as name: String) -> Resolution.Context {
+        return Resolution.Context(resolved: resolved, references: references.merging([name : type]) { $1 }, unresolvedReferences: unresolvedReferences, viewerContext: viewerContext)
+    }
+
+    public mutating func append(reference type: GraphQLOutputType, as name: String) {
+        self = appending(reference: type, as: name)
+    }
+
+}
+
+extension Resolution.Context {
+
     public func appending(unresolved type: OutputResolvable.Type, as name: String) -> Resolution.Context {
-        return Resolution.Context(resolved: resolved, unresolvedReferences: unresolvedReferences.merging([name : type]) { $1 }, viewerContext: viewerContext)
+        return Resolution.Context(resolved: resolved, references: references, unresolvedReferences: unresolvedReferences.merging([name : type]) { $1 }, viewerContext: viewerContext)
     }
 
     public mutating func append(unresolved type: OutputResolvable.Type, as name: String) {
@@ -47,7 +61,7 @@ extension Resolution.Context {
     public func removingUnresolved(with name: String) -> Resolution.Context {
         var unresolvedReferences = self.unresolvedReferences
         unresolvedReferences.removeValue(forKey: name)
-        return Resolution.Context(resolved: resolved, unresolvedReferences: unresolvedReferences, viewerContext: viewerContext)
+        return Resolution.Context(resolved: resolved, references: references, unresolvedReferences: unresolvedReferences, viewerContext: viewerContext)
     }
 
     public mutating func removeUnresolved(with name: String) {
@@ -89,7 +103,15 @@ extension Resolution.Context {
 extension Resolution.Context {
 
     public mutating func reference(for type: OutputResolvable.Type) throws -> GraphQLOutputType {
+        if let type = type.typeName.flatMap({ references[$0] }) {
+            return type
+        }
+
         let outputType = try type.reference(using: &self)
+
+        if let typeName = type.typeName {
+            append(reference: outputType, as: typeName)
+        }
 
         if let typeName = type.typeName, resolved[typeName] == nil, unresolvedReferences[typeName] == nil {
             append(unresolved: type, as: typeName)
@@ -127,7 +149,7 @@ extension Resolution.Context {
 extension Resolution.Context {
 
     static func empty(viewerContext: Any.Type) -> Resolution.Context {
-        return Resolution.Context(resolved: [:], unresolvedReferences: [:], viewerContext: viewerContext)
+        return Resolution.Context(resolved: [:], references: [:], unresolvedReferences: [:], viewerContext: viewerContext)
     }
 
 }
