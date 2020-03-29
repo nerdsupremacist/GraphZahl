@@ -110,7 +110,7 @@ extension Resolution.Context {
         case let object as GraphQLObjectType:
             let fields = object.fields.mapValues { GraphQLField(type: $0.type, args: Dictionary(uniqueKeysWithValues: $0.args.map { ($0.name, $0.type) }).mapValues { GraphQLArgument(type: $0) }, resolve: $0.resolve) }
             let type = try GraphQLInterfaceType(name: name, fields: fields)
-
+            append(type: GraphQLNonNull(type), as: name)
             return type
 
         case let interface as GraphQLInterfaceType:
