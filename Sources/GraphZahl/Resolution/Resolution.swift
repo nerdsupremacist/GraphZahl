@@ -143,10 +143,10 @@ extension Resolution.Context {
             let interfaceFields = object.fields.mapValues { GraphQLField(type: $0.type, args: Dictionary(uniqueKeysWithValues: $0.args.map { ($0.name, $0.type) }).mapValues { GraphQLArgument(type: $0) }) }
             let interface = try GraphQLInterfaceType(name: name, fields: interfaceFields)
 
-            let newObjectName = "\(object.name)Impl"
+            let newObjectName = "__\(object.name)"
             let newObjectFields = object.fields.mapValues { GraphQLField(type: $0.type,
                                                                          args: Dictionary(uniqueKeysWithValues: $0.args.map { ($0.name, $0.type) }).mapValues { GraphQLArgument(type: $0) }, resolve: $0.resolve) }
-            
+
             let newObject = try GraphQLObjectType(name: newObjectName,
                                                   description: object.description,
                                                   fields: newObjectFields,
@@ -265,6 +265,13 @@ private func update(type: inout GraphQLOutputType, types: [String : GraphQLOutpu
         updated.formUnion([interface.name])
         for field in interface.fields.values {
             update(type: &field.type, types: types, updated: &updated)
+        }
+
+    case let union as GraphQLUnionType:
+        updated.formUnion([union.name])
+        for type in union.types {
+            var type: GraphQLOutputType = type
+            update(type: &type, types: types, updated: &updated)
         }
 
     default:
