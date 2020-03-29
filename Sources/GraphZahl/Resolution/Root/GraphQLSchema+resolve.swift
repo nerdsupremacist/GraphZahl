@@ -7,11 +7,11 @@ extension GraphQLSchema {
     static func resolve() throws -> GraphQL.GraphQLSchema {
         var context = Resolution.Context.empty(viewerContext: ViewerContext.self)
 
-        let query = try context.resolve(object: Query.self)
+        let query = try Query.resolveObject(using: &context)
 
         let mutation: GraphQLObjectType?
         if Mutation.self != None.self {
-            mutation = try context.resolve(object: Query.self)
+            mutation = try Mutation.resolveObject(using: &context)
         } else {
             mutation = nil
         }
@@ -19,7 +19,7 @@ extension GraphQLSchema {
         return try GraphQL.GraphQLSchema(query: query,
                                          mutation: mutation,
                                          subscription: nil,
-                                         types: [],
+                                         types: try context.types(),
                                          directives: [])
     }
 

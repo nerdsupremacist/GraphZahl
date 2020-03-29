@@ -188,11 +188,17 @@ extension Resolution.Context {
     mutating func types() throws -> [GraphQLNamedType] {
         try resolveMissingReferences()
         assert(unresolvedReferences.isEmpty)
-        return resolved.values.compactMap { $0.namedType() }
-    }
 
-    private mutating func outputs() throws -> [GraphQLNamedType & GraphQLOutputType] {
-        return try types().compactMap { $0 as? GraphQLNamedType & GraphQLOutputType }
+        let types = resolved.values.compactMap { $0.namedType() }
+        let outputs = Dictionary(uniqueKeysWithValues: types.compactMap { $0 as? GraphQLNamedType & GraphQLOutputType }.map { ($0.name, $0) })
+
+        var updated: Set<String> = []
+        for type in types {
+            guard var outputType = type as? GraphQLOutputType else { continue }
+            update(type: &outputType, types: outputs, updated: &updated)
+        }
+
+        return types
     }
 
 }
@@ -210,38 +216,6 @@ extension GraphQLType {
         default:
             return nil
         }
-    }
-
-}
-
-extension Resolution.Context {
-
-    mutating func resolve(object type: GraphQLObject.Type) throws -> GraphQLObjectType {
-        let resolved = try type.resolveObject(using: &self)
-        let types = Dictionary(uniqueKeysWithValues: try outputs().map { ($0.name, $0) })
-
-        var updated: Set<String> = []
-        var type: GraphQLOutputType = resolved
-        update(type: &type, types: types, updated: &updated)
-        assert(type is GraphQLObjectType)
-        return resolved
-    }
-
-    mutating func resolve(object first: GraphQLObject.Type, _ second: GraphQLObject.Type) throws -> (GraphQLObjectType, GraphQLObjectType) {
-        let first = try first.resolveObject(using: &self)
-        let second = try second.resolveObject(using: &self)
-
-        let types = Dictionary(uniqueKeysWithValues: try outputs().map { ($0.name, $0) })
-
-        var updated: Set<String> = []
-        var firstType: GraphQLOutputType = first
-        var secondType: GraphQLOutputType = second
-        update(type: &firstType, types: types, updated: &updated)
-        update(type: &secondType, types: types, updated: &updated)
-
-        assert(firstType is GraphQLObjectType)
-        assert(secondType is GraphQLObjectType)
-        return (first, second)
     }
 
 }
