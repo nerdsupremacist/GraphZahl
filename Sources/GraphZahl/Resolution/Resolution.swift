@@ -130,10 +130,19 @@ extension Resolution.Context {
         let nonNull = try resolve(type: object) as! GraphQLNonNull
         switch nonNull.ofType {
         case let object as GraphQLObjectType:
-            let fields = object.fields.mapValues { GraphQLField(type: $0.type, args: Dictionary(uniqueKeysWithValues: $0.args.map { ($0.name, $0.type) }).mapValues { GraphQLArgument(type: $0) }, resolve: $0.resolve) }
-            let type = try GraphQLInterfaceType(name: name, fields: fields)
-            append(type: GraphQLNonNull(type), as: name)
-            return type
+
+            let interfaceFields = object.fields.mapValues { GraphQLField(type: $0.type, args: Dictionary(uniqueKeysWithValues: $0.args.map { ($0.name, $0.type) }).mapValues { GraphQLArgument(type: $0) }) }
+            let interface = try GraphQLInterfaceType(name: name, fields: interfaceFields)
+
+            let newObjectName = "\(object.name)Impl"
+            let newObjectFields = object.fields.mapValues { GraphQLField(type: $0.type,
+                                                                         args: Dictionary(uniqueKeysWithValues: $0.args.map { ($0.name, $0.type) }).mapValues { GraphQLArgument(type: $0) }, resolve: $0.resolve) }
+            let newObject = try GraphQLObjectType(name: newObjectName, description: object.description, fields: newObjectFields, interfaces: object.interfaces, isTypeOf: object.isTypeOf)
+
+            append(type: GraphQLNonNull(interface), as: name)
+            append(type: GraphQLNonNull(newObject), as: newObjectName)
+
+            return interface
 
         case let interface as GraphQLInterfaceType:
             return interface
@@ -176,10 +185,14 @@ extension Resolution.Context {
 
 extension Resolution.Context {
 
-    private mutating func outputs() throws -> [GraphQLNamedType & GraphQLOutputType] {
+    mutating func types() throws -> [GraphQLNamedType] {
         try resolveMissingReferences()
         assert(unresolvedReferences.isEmpty)
-        return resolved.values.compactMap { $0.namedType() as? GraphQLNamedType & GraphQLOutputType }
+        return resolved.values.compactMap { $0.namedType() }
+    }
+
+    private mutating func outputs() throws -> [GraphQLNamedType & GraphQLOutputType] {
+        return try types().compactMap { $0 as? GraphQLNamedType & GraphQLOutputType }
     }
 
 }
@@ -212,6 +225,23 @@ extension Resolution.Context {
         update(type: &type, types: types, updated: &updated)
         assert(type is GraphQLObjectType)
         return resolved
+    }
+
+    mutating func resolve(object first: GraphQLObject.Type, _ second: GraphQLObject.Type) throws -> (GraphQLObjectType, GraphQLObjectType) {
+        let first = try first.resolveObject(using: &self)
+        let second = try second.resolveObject(using: &self)
+
+        let types = Dictionary(uniqueKeysWithValues: try outputs().map { ($0.name, $0) })
+
+        var updated: Set<String> = []
+        var firstType: GraphQLOutputType = first
+        var secondType: GraphQLOutputType = second
+        update(type: &firstType, types: types, updated: &updated)
+        update(type: &secondType, types: types, updated: &updated)
+
+        assert(firstType is GraphQLObjectType)
+        assert(secondType is GraphQLObjectType)
+        return (first, second)
     }
 
 }
