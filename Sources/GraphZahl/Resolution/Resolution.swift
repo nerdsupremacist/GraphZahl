@@ -98,6 +98,15 @@ extension Resolution.Context {
         return inputType
     }
 
+    @discardableResult
+    mutating func resolve(object type: GraphQLObject.Type) throws -> GraphQLObjectType {
+        let outputType = try type.resolveObject(using: &self)
+        
+        removeUnresolved(with: type.concreteTypeName)
+        append(type: outputType, as: type.concreteTypeName)
+
+        return outputType
+    }
 }
 
 extension Resolution.Context {
