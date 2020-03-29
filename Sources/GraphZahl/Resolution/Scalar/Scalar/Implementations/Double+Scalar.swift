@@ -4,6 +4,8 @@ import GraphQL
 
 extension Double: GraphQLScalar {
 
+    public static let concreteTypeName = "Float"
+
     public init(scalar: ScalarValue) throws {
         self = try scalar.float()
     }
