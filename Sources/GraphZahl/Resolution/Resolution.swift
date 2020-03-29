@@ -222,6 +222,7 @@ private func update(type: inout GraphQLOutputType, types: [String : GraphQLOutpu
     case let reference as GraphQLTypeReference:
         guard let resolved = types[reference.name] else { fatalError() }
         type = resolved
+        update(type: &type, types: types, updated: &updated)
 
     case let named as GraphQLNamedType where updated.contains(named.name):
         return
