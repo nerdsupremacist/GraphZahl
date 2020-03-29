@@ -101,9 +101,9 @@ extension Resolution.Context {
     @discardableResult
     mutating func resolve(object type: GraphQLObject.Type) throws -> GraphQLObjectType {
         let outputType = try type.resolveObject(using: &self)
-        
+
         removeUnresolved(with: type.concreteTypeName)
-        append(type: outputType, as: type.concreteTypeName)
+        append(type: GraphQLNonNull(outputType), as: type.concreteTypeName)
 
         return outputType
     }
@@ -146,7 +146,12 @@ extension Resolution.Context {
             let newObjectName = "\(object.name)Impl"
             let newObjectFields = object.fields.mapValues { GraphQLField(type: $0.type,
                                                                          args: Dictionary(uniqueKeysWithValues: $0.args.map { ($0.name, $0.type) }).mapValues { GraphQLArgument(type: $0) }, resolve: $0.resolve) }
-            let newObject = try GraphQLObjectType(name: newObjectName, description: object.description, fields: newObjectFields, interfaces: object.interfaces, isTypeOf: object.isTypeOf)
+            
+            let newObject = try GraphQLObjectType(name: newObjectName,
+                                                  description: object.description,
+                                                  fields: newObjectFields,
+                                                  interfaces: object.interfaces + [interface],
+                                                  isTypeOf: object.isTypeOf)
 
             append(type: GraphQLNonNull(interface), as: name)
             append(type: GraphQLNonNull(newObject), as: newObjectName)
