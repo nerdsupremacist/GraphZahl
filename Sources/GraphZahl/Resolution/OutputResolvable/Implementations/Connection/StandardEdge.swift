@@ -30,12 +30,12 @@ extension StandardEdge {
         context.append(type: GraphQLNonNull(GraphQLTypeReference(concreteTypeName)), as: concreteTypeName)
 
         let fields = [
-            "node" : GraphQLField(type: try context.resolve(type: Optional<Node>.self)) { (receiver, args, context, eventLoop, _) -> Future<Any?> in
+            "node" : GraphQLField(type: try context.reference(for: Optional<Node>.self)) { (receiver, args, context, eventLoop, _) -> Future<Any?> in
                 return try (receiver as! StandardEdge<Node>)
                     .node
                     .resolve(source: receiver, arguments: try args.dictionaryValue(), context: context as! MutableContext, eventLoop: eventLoop)
             },
-            "cursor" : GraphQLField(type: try context.resolve(type: String.self)) { (receiver, args, context, eventLoop, _) -> Future<Any?> in
+            "cursor" : GraphQLField(type: try context.reference(for: String.self)) { (receiver, args, context, eventLoop, _) -> Future<Any?> in
                 return (receiver as! StandardEdge<Node>)
                     .cursor
                     .resolve(source: receiver, arguments: try args.dictionaryValue(), context: context as! MutableContext,eventLoop: eventLoop)

@@ -79,17 +79,17 @@ extension ContextBasedConnectionWrapper: OutputResolvable {
         context.append(type: GraphQLNonNull(GraphQLTypeReference(concreteTypeName)), as: concreteTypeName)
 
         let fields = [
-            "pageInfo" : GraphQLField(type: try context.resolve(type: PageInfo.self)) { (receiver, args, context, eventLoop, _) -> Future<Any?> in
+            "pageInfo" : GraphQLField(type: try context.reference(for: PageInfo.self)) { (receiver, args, context, eventLoop, _) -> Future<Any?> in
                 return (receiver as! ContextBasedConnectionWrapper<Connection>)
                     .pageInfo()
                     .resolve(source: receiver, arguments: try args.dictionaryValue(), context: context as! MutableContext, eventLoop: eventLoop)
             },
-            "edges" : GraphQLField(type: try context.resolve(type: [Connection.Edge?]?.self)) { (receiver, args, context, eventLoop, _) -> Future<Any?> in
+            "edges" : GraphQLField(type: try context.reference(for: [Connection.Edge?]?.self)) { (receiver, args, context, eventLoop, _) -> Future<Any?> in
                 return (receiver as! ContextBasedConnectionWrapper<Connection>)
                     .edges()
                     .resolve(source: receiver, arguments: try args.dictionaryValue(), context: context as! MutableContext, eventLoop: eventLoop)
             },
-            "totalCount" : GraphQLField(type: try context.resolve(type: Int.self)) { (receiver, args, context, eventLoop, _) -> Future<Any?> in
+            "totalCount" : GraphQLField(type: try context.reference(for: Int.self)) { (receiver, args, context, eventLoop, _) -> Future<Any?> in
                 return (receiver as! ContextBasedConnectionWrapper<Connection>)
                     .totalCount()
                     .resolve(source: receiver, arguments: try args.dictionaryValue(), context: context as! MutableContext, eventLoop: eventLoop)
