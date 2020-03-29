@@ -11,7 +11,7 @@ extension EventLoopFuture: OutputResolvable where Value: OutputResolvable {
     }
 
     public static func reference(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        return try Value.reference(using: &context)
+        return try context.reference(for: Value.self)
     }
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {

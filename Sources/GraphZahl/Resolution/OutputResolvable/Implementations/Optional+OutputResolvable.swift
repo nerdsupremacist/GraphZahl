@@ -11,7 +11,7 @@ extension Optional: OutputResolvable where Wrapped: OutputResolvable {
     }
 
     public static func reference(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        guard let resolved = try Wrapped.reference(using: &context) as? GraphQLNonNull else { fatalError() }
+        guard let resolved = try context.reference(for: Wrapped.self) as? GraphQLNonNull else { fatalError() }
         guard let type = resolved.ofType as? GraphQLOutputType else { fatalError() }
         return type
     }
