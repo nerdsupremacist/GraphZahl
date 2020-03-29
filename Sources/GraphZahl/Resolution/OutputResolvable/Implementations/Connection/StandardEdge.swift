@@ -27,8 +27,6 @@ extension StandardEdge {
     }
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        context.append(type: GraphQLNonNull(GraphQLTypeReference(concreteTypeName)), as: concreteTypeName)
-
         let fields = [
             "node" : GraphQLField(type: try context.reference(for: Optional<Node>.self)) { (receiver, args, context, eventLoop, _) -> Future<Any?> in
                 return try (receiver as! StandardEdge<Node>)

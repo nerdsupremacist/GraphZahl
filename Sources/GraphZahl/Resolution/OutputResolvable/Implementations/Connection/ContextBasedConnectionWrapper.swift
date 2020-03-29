@@ -76,8 +76,6 @@ extension ContextBasedConnectionWrapper: OutputResolvable {
     }
 
     static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        context.append(type: GraphQLNonNull(GraphQLTypeReference(concreteTypeName)), as: concreteTypeName)
-
         let fields = [
             "pageInfo" : GraphQLField(type: try context.reference(for: PageInfo.self)) { (receiver, args, context, eventLoop, _) -> Future<Any?> in
                 return (receiver as! ContextBasedConnectionWrapper<Connection>)

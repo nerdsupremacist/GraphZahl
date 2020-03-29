@@ -8,8 +8,6 @@ extension GraphQLObject {
     static func resolveObject(using context: inout Resolution.Context) throws -> GraphQLObjectType {
         let (typeProperties, typeMethods, inheritance) = try typeInfo(of: Self.self, .properties, .methods, .inheritance)
         
-        context.append(type: GraphQLNonNull(GraphQLTypeReference(concreteTypeName)), as: concreteTypeName)
-
         let propertyMap = Dictionary(typeProperties.map { ($0.name.deleting(prefix: "_"), $0) }) { first, _ in first }
         let properties = try propertyMap.compactMapValues { try $0.resolve(for: Self.self, using: &context) }
 
