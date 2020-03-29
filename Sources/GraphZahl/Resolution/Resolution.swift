@@ -176,10 +176,10 @@ extension Resolution.Context {
 
 extension Resolution.Context {
 
-    mutating func types() throws -> [GraphQLNamedType] {
+    private mutating func outputs() throws -> [GraphQLNamedType & GraphQLOutputType] {
         try resolveMissingReferences()
         assert(unresolvedReferences.isEmpty)
-        return resolved.values.compactMap { $0.namedType() }
+        return resolved.values.compactMap { $0.namedType() as? GraphQLNamedType & GraphQLOutputType }
     }
 
 }
@@ -199,4 +199,57 @@ extension GraphQLType {
         }
     }
 
+}
+
+extension Resolution.Context {
+
+    mutating func resolve(object type: GraphQLObject.Type) throws -> GraphQLObjectType {
+        let resolved = try type.resolveObject(using: &self)
+        let types = Dictionary(uniqueKeysWithValues: try outputs().map { ($0.name, $0) })
+
+        var updated: Set<String> = []
+        var type: GraphQLOutputType = resolved
+        update(type: &type, types: types, updated: &updated)
+        assert(type is GraphQLObjectType)
+        return resolved
+    }
+
+}
+
+private func update(type: inout GraphQLOutputType, types: [String : GraphQLOutputType], updated: inout Set<String>) {
+    switch type {
+
+    case let reference as GraphQLTypeReference:
+        guard let resolved = types[reference.name] else { fatalError() }
+        type = resolved
+
+    case let named as GraphQLNamedType where updated.contains(named.name):
+        return
+
+    case let nonNull as GraphQLNonNull:
+        var ofType = nonNull.ofType as! GraphQLOutputType
+        update(type: &ofType, types: types, updated: &updated)
+        type = GraphQLNonNull(ofType as! GraphQLNullableType)
+
+    case let list as GraphQLList:
+        var ofType = list.ofType as! GraphQLOutputType
+        update(type: &ofType, types: types, updated: &updated)
+        type = GraphQLList(ofType)
+
+    case let object as GraphQLObjectType:
+        updated.formUnion([object.name])
+        for field in object.fields.values {
+            update(type: &field.type, types: types, updated: &updated)
+        }
+
+    case let interface as GraphQLInterfaceType:
+        updated.formUnion([interface.name])
+        for field in interface.fields.values {
+            update(type: &field.type, types: types, updated: &updated)
+        }
+
+    default:
+        return
+
+    }
 }
