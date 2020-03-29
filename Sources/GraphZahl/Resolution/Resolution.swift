@@ -69,8 +69,6 @@ extension Resolution.Context {
             append(type: outputType, as: typeName)
         }
 
-        try resolveMissingReferences()
-
         return outputType
     }
 
@@ -137,9 +135,19 @@ extension Resolution.Context {
 extension Resolution.Context {
 
     mutating func resolveMissingReferences() throws {
+        let previousCount = unresolvedReferences.count
+
         for reference in unresolvedReferences.values {
             try resolve(type: reference)
         }
+
+        guard !unresolvedReferences.isEmpty else { return }
+
+        if unresolvedReferences.count == previousCount {
+            fatalError("Recursion issue in resolving missing references")
+        }
+
+        try resolveMissingReferences()
     }
 
 }
