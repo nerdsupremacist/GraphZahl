@@ -257,6 +257,57 @@ enum Envirornment: String, GraphQLEnum {
 
 That's it!
 
+### Union Types
+
+GraphZahl supports Union Types via the UnionN types of up to 20 generic arguments. They're basically enums with N cases. One for each Type
+
+```
+class Query: QueryType {
+    func search(term: String) -> [Union3<User, Page, Group>] {
+        return [
+            .a(user),
+            .b(page),
+            .c(group),
+        ]
+    }
+}
+```
+
+### Subclassing Support
+
+GraphZahl supports subclassing, but due to Subclassing not being available in GraphQL, it is abstracted as an extra Interface.
+
+For example:
+
+```swift
+class A: GraphQLObject {
+    ...
+}
+
+class B: A {
+    ...
+}
+```
+
+will be represented as the interface `A` and the concrete types `__A` and `B`:
+
+```graphql
+// Interface that displays the output of any A
+interface A {
+    ...
+}
+
+// An instance of the superclass A
+type __A implements A {
+    ...
+}
+
+// An instance of the subclass B
+type B implements A {
+    ...
+}
+```
+
 ## Extensions and Plugins
 
 There's also some extensions on top of GraphZahl to add support for different scenarios that are not necessarily the norm:
