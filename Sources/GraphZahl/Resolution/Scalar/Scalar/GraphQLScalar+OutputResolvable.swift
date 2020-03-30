@@ -15,7 +15,9 @@ extension GraphQLScalar {
     }
 
     public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
-        return eventLoop.next().makeSucceededFuture(self)
+        return eventLoop.next().submit {
+            try self.encodeScalar().graphql()
+        }
     }
 
 }

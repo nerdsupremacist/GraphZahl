@@ -12,10 +12,7 @@ public protocol GraphQLScalar: OutputResolvable, InputResolvable, ConcreteResolv
 extension GraphQLScalar {
 
     public static func resolve() throws -> GraphQLScalarType {
-        return try GraphQLScalarType(name: concreteTypeName) { value in
-            guard let value = value as? Self else { fatalError() }
-            return try value.encodeScalar().graphql()
-        }
+        return try GraphQLScalarType(name: concreteTypeName) { $0 as! Map }
     }
 
 }
