@@ -74,7 +74,8 @@ extension Resolution.Context {
 
     @discardableResult
     public mutating func resolve(type: OutputResolvable.Type) throws -> GraphQLOutputType {
-        if let type = type.typeName.flatMap({ resolved[$0] }) as? GraphQLOutputType {
+        if let typeName = type.typeName, let type = resolved[typeName] as? GraphQLOutputType {
+            removeUnresolved(with: typeName)
             return type
         }
         let outputType = try type.resolve(using: &self)
