@@ -181,7 +181,7 @@ extension Resolution.Context {
 extension Resolution.Context {
 
     mutating func resolveMissingReferences() throws {
-        let previousCount = unresolvedReferences.count
+        let previousKeys = Set(unresolvedReferences.keys)
 
         for reference in unresolvedReferences.values {
             try resolve(type: reference)
@@ -189,7 +189,8 @@ extension Resolution.Context {
 
         guard !unresolvedReferences.isEmpty else { return }
 
-        if unresolvedReferences.count == previousCount {
+        let currentKeys = Set(unresolvedReferences.keys)
+        if previousKeys.isSubset(of: currentKeys) {
             fatalError("Recursion issue in resolving missing references")
         }
 
