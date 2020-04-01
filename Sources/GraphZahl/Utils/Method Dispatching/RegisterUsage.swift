@@ -204,6 +204,11 @@ func resolveArguments(for value: Any, using type: Any.Type, isNil: Bool = false)
         let actualType = genericTypes.first!
         let isNil = try isNil || isValueNil(value: value, type: actualType)
         return try resolveArguments(for: value, using: actualType, isNil: isNil) + [.int(.int8(isNil ? 1 : 0))]
+    case .enum:
+        if isNil {
+            return [.int(.int8(0))]
+        }
+        return [.int(.int8(withUnsafeBytes(of: value) { $0.bindMemory(to: Int8.self).baseAddress!.pointee }))]
     default:
         return try properties.flatMap { try resolveArguments(for: isNil ? 0 : $0.get(from: value), using: $0.type, isNil: isNil) }
     }
@@ -260,6 +265,8 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
         let actualType = genericTypes.first!
         let (result, offset) = try resolveResults(for: actualType, pointer: pointer)
         return (result + [.int(.int8(pointer.advanced(by: offset).assumingMemoryBound(to: Int8.self)))], offset + 1)
+    case .enum:
+        return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))], MemoryLayout<Int8>.size)
     default:
         return try properties.reduce(([], 0)) { accumulator, property in
             let (results, offset) = try resolveResults(for: property.type, pointer: pointer.advanced(by: accumulator.1))
