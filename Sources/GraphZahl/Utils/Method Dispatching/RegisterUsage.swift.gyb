@@ -283,10 +283,13 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
             return try resolveResults(for: genericTypes.first!, pointer: pointer)
         }
 
+        // TODO: Refactor to use allow enum layouts: https://github.com/apple/swift/blob/master/docs/ABI/TypeLayout.rst#fragile-enum-layout
+
         let actualType = genericTypes.first!
         let (result, _) = try resolveResults(for: actualType, pointer: pointer.advanced(by: 1))
         return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))] + result.map { $0.intResult() }, stride)
     case .enum:
+        // TODO: Refactor to use more complex layouts: https://github.com/apple/swift/blob/master/docs/ABI/TypeLayout.rst#fragile-enum-layout
         return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))], MemoryLayout<Int8>.stride)
     default:
         return try properties.reduce(([], 0)) { accumulator, property in
