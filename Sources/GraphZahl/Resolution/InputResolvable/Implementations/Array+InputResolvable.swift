@@ -2,6 +2,14 @@
 import Foundation
 import GraphQL
 
+extension Array: ValueResolvable where Element: ValueResolvable {
+
+    public func map() throws -> Map {
+        return .array(try map { try $0.map() })
+    }
+
+}
+
 extension Array: InputResolvable where Element: InputResolvable {
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLInputType {

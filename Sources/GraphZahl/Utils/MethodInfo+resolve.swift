@@ -18,11 +18,9 @@ extension MethodInfo {
                 guard let argumentType = argument.type as? InputResolvable.Type else { return nil }
 
                 let type = try context.resolve(type: argumentType)
-                if let type = type as? GraphQLNonNull, argument.defaultAddress != nil {
-                    return GraphQLArgument(type: type.ofType as! GraphQLInputType)
-                }
+                let defaultValue = try argument.defaultValue() as? ValueResolvable
 
-                return GraphQLArgument(type: type)
+                return GraphQLArgument(type: type, defaultValue: try defaultValue?.map())
             }
 
         guard arguments.count == relevantArguments.count else { return nil }
