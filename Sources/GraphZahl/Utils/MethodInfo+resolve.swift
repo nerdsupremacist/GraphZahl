@@ -88,6 +88,10 @@ extension MethodInfo {
             return NSNull()
         } as [Any]
         let result = try self.call(receiver: receiver, arguments: arguments)
+
+        if result is NSNull {
+            return eventLoop.next().makeSucceededFuture(Map.null)
+        }
         
         // TODO: for some reason this breaks with arrays...
         // this will break the server if we ever return [Future<T>]
