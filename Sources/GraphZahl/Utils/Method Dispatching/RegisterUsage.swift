@@ -110,15 +110,7 @@ struct FunctionResultDecoder {
             return NSNull()
         }
 
-        if isClass {
-            return Unmanaged<AnyObject>.fromOpaque(pointer.load(as: UnsafeRawPointer.self)).takeRetainedValue()
-        }
-
-        var instance = try createInstance(of: type)
-        withUnsafeMutableBytes(of: &instance) { bytes in
-            bytes.copyMemory(from: pointer)
-        }
-        return instance
+        return pointer.baseAddress!.unsafeLoad(as: type)
     }
 }
 
@@ -284,8 +276,10 @@ func resolveDecoder(for type: Any.Type) throws -> FunctionResultDecoder {
     let (results, offset) = try resolveResults(for: type, pointer: pointer.baseAddress!)
     assert(offset == size)
 
+    let underlyingKind = isOptional ? try typeInfo(of: genericTypes.first!, .kind) : kind
+
     return FunctionResultDecoder(type: isOptional ? genericTypes.first! : type,
-                                 isClass: kind == .class,
+                                 isClass: underlyingKind == .class,
                                  isOptional: isOptional,
                                  pointer: UnsafeRawBufferPointer(pointer),
                                  results: results.ordered())

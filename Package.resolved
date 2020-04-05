@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/nerdsupremacist/Runtime.git",
         "state": {
           "branch": null,
-          "revision": "dcc597b71ea4683027a35e527b4f3882437fccaa",
-          "version": "2.1.2-beta.6"
+          "revision": "7ff7de69a6309726a68360556d85c73ec431585b",
+          "version": "2.1.2-beta.7"
         }
       },
       {
@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/apple/swift-nio.git",
         "state": {
           "branch": null,
-          "revision": "a27a07719ca785bcaca019a5b9fe1814b981b4a2",
-          "version": "2.15.0"
+          "revision": "e876fb37410e0036b98b5361bb18e6854739572b",
+          "version": "2.16.0"
         }
       }
     ]
