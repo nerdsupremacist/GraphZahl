@@ -239,12 +239,27 @@ func resolveDecoder(for type: Any.Type) throws -> FunctionResultDecoder {
                                  isClass: kind == .class,
                                  isOptional: isOptional,
                                  pointer: UnsafeRawBufferPointer(pointer),
-                                 results: results)
+                                 results: results.ordered())
 }
 
 extension Sequence where Element == FunctionArgument {
 
     func ordered() -> [FunctionArgument] {
+        return sorted { lhs, rhs in
+            switch (lhs, rhs) {
+            case (.int, .float):
+                return true
+            case (.int, .int), (.float, .float), (.float, .int):
+                return false
+            }
+        }
+    }
+
+}
+
+extension Sequence where Element == FunctionResult {
+
+    func ordered() -> [FunctionResult] {
         return sorted { lhs, rhs in
             switch (lhs, rhs) {
             case (.int, .float):
