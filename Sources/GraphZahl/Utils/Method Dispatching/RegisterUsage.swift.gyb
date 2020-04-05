@@ -90,19 +90,19 @@ struct FunctionResultDecoder {
     let results: [FunctionResult]
 
     func decode() throws -> Any {
-        if (type == Void.self) {
+        if type == Void.self {
             return ()
         }
 
-        if (isOptional && pointer.last != 0) {
+        if isOptional && pointer.last != 0 {
             return NSNull()
         }
 
-        if (isClass) {
+        if isClass {
             return Unmanaged<AnyObject>.fromOpaque(pointer.load(as: UnsafeRawPointer.self)).takeRetainedValue()
         }
 
-        var instance = try createInstance(of: type)
+        var instance = try createInstance(of: isOptional ? try typeInfo(of: type, .genericTypes).first! : type)
         withUnsafeMutableBytes(of: &instance) { bytes in
             bytes.copyMemory(from: pointer)
         }
