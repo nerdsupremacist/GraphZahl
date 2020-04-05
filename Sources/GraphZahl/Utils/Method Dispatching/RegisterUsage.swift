@@ -36,7 +36,6 @@ enum IntResult {
     case int16(UnsafeMutablePointer<Int16>)
     case int32(UnsafeMutablePointer<Int32>)
     case int(UnsafeMutablePointer<Int>)
-    case pointer(UnsafeMutablePointer<UnsafeMutableRawPointer>)
 
     func decode(_ int: Int) {
         switch self {
@@ -50,8 +49,6 @@ enum IntResult {
             pointer.pointee = withUnsafeBytes(of: int) { $0.baseAddress!.load(as: Int32.self) }
         case .int(let pointer):
             pointer.pointee = withUnsafeBytes(of: int) { $0.baseAddress!.load(as: Int.self) }
-        case .pointer(let pointer):
-            pointer.pointee = UnsafeMutableRawPointer(bitPattern: int)!
         }
     }
 }
@@ -234,19 +231,19 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
         )
     }
     if type == UUID.self {
-        return ([.int(.pointer(pointer.assumingMemoryBound(to: UnsafeMutableRawPointer.self)))], MemoryLayout<UnsafeMutableRawPointer>.size)
+        return ([.int(.int(pointer.assumingMemoryBound(to: Int.self)))], MemoryLayout<Int>.size)
     }
 
     let (mangledName, kind, genericTypes, properties) = try typeInfo(of: type, .mangledName, .kind, .genericTypes, .properties)
 
     // More special cases
     if mangledName == "Array" {
-         return ([.int(.pointer(pointer.assumingMemoryBound(to: UnsafeMutableRawPointer.self)))], MemoryLayout<UnsafeMutableRawPointer>.size)
+         return ([.int(.int(pointer.assumingMemoryBound(to: Int.self)))], MemoryLayout<Int>.size)
     }
 
     switch kind {
     case .class:
-        return ([.int(.pointer(pointer.assumingMemoryBound(to: UnsafeMutableRawPointer.self)))], MemoryLayout<UnsafeMutableRawPointer>.size)
+        return ([.int(.int(pointer.assumingMemoryBound(to: Int.self)))], MemoryLayout<Int>.size)
     case .optional:
         if genericTypes.first == String.self || genericTypes.first == UUID.self {
             return try resolveResults(for: genericTypes.first!, pointer: pointer)
