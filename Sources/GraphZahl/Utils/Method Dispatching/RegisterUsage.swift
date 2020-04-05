@@ -331,11 +331,11 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
 }
 
 func resolveDecoder(for type: Any.Type) throws -> FunctionResultDecoder {
-    let (size, alignment) = try typeInfo(of: type, .size, .alignment)
+    let (size, stride, alignment) = try typeInfo(of: type, .size, .stride, .alignment)
 
     let pointer = UnsafeMutableRawBufferPointer.allocate(byteCount: size + 1, alignment: alignment)
     let (results, offset) = try resolveResults(for: type, pointer: pointer.baseAddress!)
-    assert(abs(offset - size) <= 1)
+    assert(size <= offset && offset <= stride)
 
     return FunctionResultDecoder(type: type,
                                  pointer: UnsafeRawBufferPointer(pointer),
