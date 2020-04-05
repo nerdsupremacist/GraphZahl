@@ -256,25 +256,25 @@ func resolveArguments(for value: Any, using type: Any.Type, isNil: Bool = false)
 
 func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws -> ([FunctionResult], Int) {
     if type == Bool.self {
-        return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))], MemoryLayout<Int8>.size)
+        return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))], MemoryLayout<Bool>.stride)
     }
     if type == Int8.self {
-        return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))], MemoryLayout<Int8>.size)
+        return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))], MemoryLayout<Int8>.stride)
     }
     if type == Int16.self {
-        return ([.int(.int16(pointer.assumingMemoryBound(to: Int16.self)))], MemoryLayout<Int16>.size)
+        return ([.int(.int16(pointer.assumingMemoryBound(to: Int16.self)))], MemoryLayout<Int16>.stride)
     }
     if type == Int32.self {
-        return ([.int(.int32(pointer.assumingMemoryBound(to: Int32.self)))], MemoryLayout<Int32>.size)
+        return ([.int(.int32(pointer.assumingMemoryBound(to: Int32.self)))], MemoryLayout<Int32>.stride)
     }
     if type == Int.self {
-        return ([.int(.int(pointer.assumingMemoryBound(to: Int.self)))], MemoryLayout<Int>.size)
+        return ([.int(.int(pointer.assumingMemoryBound(to: Int.self)))], MemoryLayout<Int>.stride)
     }
     if type == Float.self {
-        return ([.float(.float(pointer.assumingMemoryBound(to: Float.self)))], MemoryLayout<Float>.size)
+        return ([.float(.float(pointer.assumingMemoryBound(to: Float.self)))], MemoryLayout<Float>.stride)
     }
     if type == Double.self {
-        return ([.float(.double(pointer.assumingMemoryBound(to: Double.self)))], MemoryLayout<Double>.size)
+        return ([.float(.double(pointer.assumingMemoryBound(to: Double.self)))], MemoryLayout<Double>.stride)
     }
 
     // Special cases
@@ -284,18 +284,18 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
                 .int(.int(pointer.assumingMemoryBound(to: Int.self))),
                 .int(.int(pointer.advanced(by: MemoryLayout<Int>.size).assumingMemoryBound(to: Int.self))),
             ],
-            MemoryLayout<String>.size
+            MemoryLayout<String>.stride
         )
     }
     if type == UUID.self {
-        return ([.int(.int(pointer.assumingMemoryBound(to: Int.self)))], MemoryLayout<Int>.size)
+        return ([.int(.int(pointer.assumingMemoryBound(to: Int.self)))], MemoryLayout<Int>.stride)
     }
 
-    let (mangledName, kind, genericTypes, properties) = try typeInfo(of: type, .mangledName, .kind, .genericTypes, .properties)
+    let (mangledName, kind, genericTypes, properties, stride) = try typeInfo(of: type, .mangledName, .kind, .genericTypes, .properties, .stride)
 
     // More special cases
     if mangledName == "Array" {
-         return ([.int(.int(pointer.assumingMemoryBound(to: Int.self)))], MemoryLayout<Int>.size)
+         return ([.int(.int(pointer.assumingMemoryBound(to: Int.self)))], MemoryLayout<Int>.stride)
     }
 
     switch kind {
@@ -309,7 +309,7 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
         if isPrimitive(type: genericTypes.first!) {
             let actualType = genericTypes.first!
             let (result, offset) = try resolveResults(for: actualType, pointer: pointer)
-            return (result.map { $0.intResult() } + [.int(.int8(pointer.advanced(by: offset).assumingMemoryBound(to: Int8.self)))], offset + 1)
+            return (result.map { $0.intResult() } + [.int(.int8(pointer.advanced(by: offset).assumingMemoryBound(to: Int8.self)))], stride)
         }
 
         let (kind, mangledName) = try typeInfo(of: genericTypes.first!, .kind, .mangledName)
@@ -318,10 +318,10 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
         }
 
         let actualType = genericTypes.first!
-        let (result, offset) = try resolveResults(for: actualType, pointer: pointer.advanced(by: 1))
-        return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))] + result.map { $0.intResult() }, offset + 1)
+        let (result, _) = try resolveResults(for: actualType, pointer: pointer.advanced(by: 1))
+        return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))] + result.map { $0.intResult() }, stride)
     case .enum:
-        return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))], MemoryLayout<Int8>.size)
+        return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))], MemoryLayout<Int8>.stride)
     default:
         return try properties.reduce(([], 0)) { accumulator, property in
             let (results, offset) = try resolveResults(for: property.type, pointer: pointer.advanced(by: accumulator.1))
