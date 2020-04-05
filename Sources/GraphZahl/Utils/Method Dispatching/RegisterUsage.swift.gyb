@@ -199,17 +199,24 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
     case .class:
         return ([.int(.pointer(pointer.assumingMemoryBound(to: UnsafeMutableRawPointer.self)))], MemoryLayout<UnsafeMutableRawPointer>.size)
     case .optional:
+        if genericTypes.first == String.self || genericTypes.first == UUID.self {
+            return try resolveResults(for: genericTypes.first!, pointer: pointer)
+        }
+
         if isPrimitive(type: genericTypes.first!) {
             let actualType = genericTypes.first!
             let (result, offset) = try resolveResults(for: actualType, pointer: pointer)
-            return ([.int(.int8(pointer.advanced(by: 1).assumingMemoryBound(to: Int8.self)))] + result, offset + 1)
-        } else if try typeInfo(of: genericTypes.first!, .kind) == .class {
-            return ([.int(.pointer(pointer.assumingMemoryBound(to: UnsafeMutableRawPointer.self)))], MemoryLayout<UnsafeMutableRawPointer>.size)
-        } else {
-            let actualType = genericTypes.first!
-            let (result, offset) = try resolveResults(for: actualType, pointer: pointer.advanced(by: 1))
-            return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))] + result, offset + 1)
+            return (result + [.int(.int8(pointer.advanced(by: offset).assumingMemoryBound(to: Int8.self)))], offset + 1)
         }
+
+        let (kind, mangledName) = try typeInfo(of: genericTypes.first!, .kind, .mangledName)
+        if  kind == .class || mangledName == "Array" {
+            return try resolveResults(for: genericTypes.first!, pointer: pointer)
+        }
+
+        let actualType = genericTypes.first!
+        let (result, offset) = try resolveResults(for: actualType, pointer: pointer.advanced(by: 1))
+        return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))] + result, offset + 1)
     case .enum:
         return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))], MemoryLayout<Int8>.size)
     default:
@@ -221,14 +228,11 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
 }
 
 func resolveDecoder(for type: Any.Type) throws -> FunctionResultDecoder {
-    let (kind, genericTypes, typeSize, alignment) = try typeInfo(of: type, .kind, .genericTypes, .size, .alignment)
+    let (size, alignment) = try typeInfo(of: type, .size, .alignment)
 
-    let isOptional = kind == .optional
-    let isClass = isOptional ? try typeInfo(of: genericTypes.first!, .kind) == .class : kind == .class
-    let size = isOptional && !isPrimitive(type: genericTypes.first!) && !isClass ? typeSize + 1 : typeSize
-    let pointer = UnsafeMutableRawBufferPointer.allocate(byteCount: size, alignment: alignment)
+    let pointer = UnsafeMutableRawBufferPointer.allocate(byteCount: size + 1, alignment: alignment)
     let (results, offset) = try resolveResults(for: type, pointer: pointer.baseAddress!)
-    assert(offset == size)
+    assert(abs(offset - size) <= 1)
 
     return FunctionResultDecoder(type: type,
                                  pointer: UnsafeRawBufferPointer(pointer),

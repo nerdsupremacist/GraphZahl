@@ -23,6 +23,10 @@ let package = Package(
             dependencies: ["GraphQL", "Runtime", "CContext", "ContextKit"]
         ),
 
+        .testTarget(
+            name: "GraphZahlTests",
+            dependencies: ["GraphZahl"]),
+
         .systemLibrary(name: "CContext"),
     ]
 )
