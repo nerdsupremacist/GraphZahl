@@ -114,7 +114,7 @@ struct FunctionResultDecoder {
             return Unmanaged<AnyObject>.fromOpaque(pointer.load(as: UnsafeRawPointer.self)).takeRetainedValue()
         }
 
-        var instance = try createInstance(of: isOptional ? try typeInfo(of: type, .genericTypes).first! : type)
+        var instance = try createInstance(of: type)
         withUnsafeMutableBytes(of: &instance) { bytes in
             bytes.copyMemory(from: pointer)
         }
