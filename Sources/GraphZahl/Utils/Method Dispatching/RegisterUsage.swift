@@ -96,8 +96,6 @@ enum FunctionResult {
 
 struct FunctionResultDecoder {
     let type: Any.Type
-    let isClass: Bool
-    let isOptional: Bool
     let pointer: UnsafeRawBufferPointer
     let results: [FunctionResult]
 
@@ -105,11 +103,7 @@ struct FunctionResultDecoder {
         if type == Void.self {
             return ()
         }
-
-        if isOptional && pointer.last != 0 {
-            return NSNull()
-        }
-
+        
         return pointer.baseAddress!.unsafeLoad(as: type)
     }
 }
@@ -255,8 +249,8 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
         return ([.int(.pointer(pointer.assumingMemoryBound(to: UnsafeMutableRawPointer.self)))], MemoryLayout<UnsafeMutableRawPointer>.size)
     case .optional:
         let actualType = genericTypes.first!
-        let (result, offset) = try resolveResults(for: actualType, pointer: pointer)
-        return (result + [.int(.int8(pointer.advanced(by: offset).assumingMemoryBound(to: Int8.self)))], offset + 1)
+        let (result, offset) = try resolveResults(for: actualType, pointer: pointer.advanced(by: 1))
+        return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))] + result, offset + 1)
     case .enum:
         return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))], MemoryLayout<Int8>.size)
     default:
@@ -276,11 +270,7 @@ func resolveDecoder(for type: Any.Type) throws -> FunctionResultDecoder {
     let (results, offset) = try resolveResults(for: type, pointer: pointer.baseAddress!)
     assert(offset == size)
 
-    let underlyingKind = isOptional ? try typeInfo(of: genericTypes.first!, .kind) : kind
-
-    return FunctionResultDecoder(type: isOptional ? genericTypes.first! : type,
-                                 isClass: underlyingKind == .class,
-                                 isOptional: isOptional,
+    return FunctionResultDecoder(type: type,
                                  pointer: UnsafeRawBufferPointer(pointer),
                                  results: results.ordered())
 }
