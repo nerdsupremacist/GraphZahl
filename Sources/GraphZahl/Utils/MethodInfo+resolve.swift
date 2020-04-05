@@ -90,7 +90,7 @@ extension MethodInfo {
         let result = try self.call(receiver: receiver, arguments: arguments)
 
         if result is NSNull {
-            return eventLoop.next().makeSucceededFuture(Map.null)
+            return eventLoop.next().makeSucceededFuture(Optional<Int>.none)
         }
         
         // TODO: for some reason this breaks with arrays...
