@@ -32,6 +32,22 @@ class CallingTests: XCTestCase {
         XCTAssertEqual(result, .first)
     }
 
+    func testOptionalBool() throws {
+        let info = try typeInfo(of: MyClass.self)
+        let instance = MyClass()
+        let method = info.methods.first { $0.methodName == "optionalBool" }!
+        let result = try method.call(receiver: instance, arguments: [])
+        XCTAssertEqual(result as! Bool, true)
+    }
+
+    func testOptionalDouble() throws {
+        let info = try typeInfo(of: MyClass.self)
+        let instance = MyClass()
+        let method = info.methods.first { $0.methodName == "optionalDouble" }!
+        let result = try method.call(receiver: instance, arguments: [])
+        XCTAssertEqual(result as! Double, 42)
+    }
+
     func testOptionalEnumCase() throws {
         let info = try typeInfo(of: MyClass.self)
         let instance = MyClass()
@@ -113,6 +129,14 @@ enum MyEnum: String, CaseIterable, GraphQLEnum {
 class MyClass: GraphQLObject {
     func uuid(uuid: UUID) -> String {
         return uuid.uuidString
+    }
+
+    func optionalBool() -> Bool? {
+        return true
+    }
+
+    func optionalDouble() -> Double? {
+        return 42
     }
 
     func optionalInt() -> Int? {

@@ -5,7 +5,6 @@ import CContext
 import Runtime
 
 enum IntArgument {
-    case bool(Bool)
     case int8(Int8)
     case int16(Int16)
     case int32(Int32)
@@ -14,8 +13,6 @@ enum IntArgument {
 
     var value: Int {
         switch self {
-        case .bool(let value):
-            return Int(from: value)
         case .int8(let value):
             return Int(from: value)
         case .int16(let value):
@@ -31,7 +28,6 @@ enum IntArgument {
 }
 
 enum IntResult {
-    case bool(UnsafeMutablePointer<Bool>)
     case int8(UnsafeMutablePointer<Int8>)
     case int16(UnsafeMutablePointer<Int16>)
     case int32(UnsafeMutablePointer<Int32>)
@@ -39,8 +35,6 @@ enum IntResult {
 
     func decode(_ int: Int) {
         switch self {
-        case .bool(let pointer):
-            pointer.pointee = withUnsafeBytes(of: int) { $0.baseAddress!.load(as: Bool.self) }
         case .int8(let pointer):
             pointer.pointee = withUnsafeBytes(of: int) { $0.baseAddress!.load(as: Int8.self) }
         case .int16(let pointer):
@@ -67,6 +61,19 @@ enum FloatArgument {
     }
 }
 
+extension FloatArgument {
+
+    func intArgument() -> IntArgument {
+        switch self {
+        case .double(let double):
+            return .int(Int(bitPattern: UInt(double.bitPattern)))
+        case .float(let float):
+            return .int32(Int32(bitPattern: float.bitPattern))
+        }
+    }
+
+}
+
 enum FloatResult {
     case float(UnsafeMutablePointer<Float>)
     case double(UnsafeMutablePointer<Double>)
@@ -81,15 +88,55 @@ enum FloatResult {
     }
 }
 
+extension FloatResult {
+
+    func intResult() -> IntResult {
+        switch self {
+        case .double(let pointer):
+            return pointer.withMemoryRebound(to: Int.self, capacity: 1) { .int($0) }
+        case .float(let pointer):
+            return pointer.withMemoryRebound(to: Int32.self, capacity: 1) { .int32($0) }
+        }
+    }
+
+}
+
 enum FunctionArgument {
     case int(IntArgument)
     case float(FloatArgument)
+}
+
+extension FunctionArgument {
+
+    func intArgument() -> FunctionArgument {
+        switch self {
+        case .int:
+            return self
+        case .float(let float):
+            return .int(float.intArgument())
+        }
+    }
+
 }
 
 enum FunctionResult {
     case int(IntResult)
     case float(FloatResult)
 }
+
+extension FunctionResult {
+
+    func intResult() -> FunctionResult {
+        switch self {
+        case .int:
+            return self
+        case .float(let float):
+            return .int(float.intResult())
+        }
+    }
+
+}
+
 
 struct FunctionResultDecoder {
     let type: Any.Type
@@ -108,9 +155,9 @@ struct FunctionResultDecoder {
 func resolveArguments(for value: Any, using type: Any.Type, isNil: Bool = false) throws -> [FunctionArgument] {
     if type == Bool.self {
         if isNil {
-            return [.int(.int(0))]
+            return [.int(.int8(2))]
         }
-        return [.int(.bool(value as! Bool))]
+        return [.int(.int8(value as! Bool ? 1 : 0))]
     }
     if type == Int8.self {
         if isNil {
@@ -186,7 +233,17 @@ func resolveArguments(for value: Any, using type: Any.Type, isNil: Bool = false)
     case .optional:
         let actualType = genericTypes.first!
         let isNil = try isNil || isValueNil(value: value, type: actualType)
-        return try resolveArguments(for: value, using: actualType, isNil: isNil) + [.int(.int8(isNil ? 1 : 0))]
+
+        if actualType == Bool.self || actualType == String.self || actualType == UUID.self {
+            return try resolveArguments(for: value, using: actualType, isNil: isNil)
+        }
+
+        let (kind, mangledName) = try typeInfo(of: actualType, .kind, .mangledName)
+        if  kind == .class || mangledName == "Array" {
+            return try resolveArguments(for: value, using: actualType, isNil: isNil)
+        }
+
+        return try resolveArguments(for: value, using: actualType, isNil: isNil).map { $0.intArgument() } + [.int(.int8(isNil ? 1 : 0))]
     case .enum:
         if isNil {
             return [.int(.int8(0))]
@@ -199,7 +256,7 @@ func resolveArguments(for value: Any, using type: Any.Type, isNil: Bool = false)
 
 func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws -> ([FunctionResult], Int) {
     if type == Bool.self {
-        return ([.int(.bool(pointer.assumingMemoryBound(to: Bool.self)))], MemoryLayout<Bool>.size)
+        return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))], MemoryLayout<Int8>.size)
     }
     if type == Int8.self {
         return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))], MemoryLayout<Int8>.size)
@@ -245,14 +302,14 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
     case .class:
         return ([.int(.int(pointer.assumingMemoryBound(to: Int.self)))], MemoryLayout<Int>.size)
     case .optional:
-        if genericTypes.first == String.self || genericTypes.first == UUID.self {
+        if genericTypes.first == Bool.self || genericTypes.first == String.self || genericTypes.first == UUID.self {
             return try resolveResults(for: genericTypes.first!, pointer: pointer)
         }
 
         if isPrimitive(type: genericTypes.first!) {
             let actualType = genericTypes.first!
             let (result, offset) = try resolveResults(for: actualType, pointer: pointer)
-            return (result + [.int(.int8(pointer.advanced(by: offset).assumingMemoryBound(to: Int8.self)))], offset + 1)
+            return (result.map { $0.intResult() } + [.int(.int8(pointer.advanced(by: offset).assumingMemoryBound(to: Int8.self)))], offset + 1)
         }
 
         let (kind, mangledName) = try typeInfo(of: genericTypes.first!, .kind, .mangledName)
@@ -262,7 +319,7 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
 
         let actualType = genericTypes.first!
         let (result, offset) = try resolveResults(for: actualType, pointer: pointer.advanced(by: 1))
-        return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))] + result, offset + 1)
+        return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))] + result.map { $0.intResult() }, offset + 1)
     case .enum:
         return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))], MemoryLayout<Int8>.size)
     default:
