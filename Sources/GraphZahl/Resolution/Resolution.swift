@@ -3,7 +3,12 @@ import Foundation
 import GraphQL
 
 public enum Resolution {
-    
+
+    public enum Error: Swift.Error {
+        case nonStructInputObjectType(type: Any.Type)
+        case invalidPropertyInInputObject(name: String, type: Any.Type, ownerType: Any.Type)
+    }
+
     public struct Context {
         let resolved: [String : GraphQLType]
         let references: [String : GraphQLOutputType]
