@@ -212,6 +212,14 @@ func resolveArguments(for value: Any, using type: Any.Type, isNil: Bool = false)
         pointer.storeBytes(of: value as! UUID, as: UUID.self)
         return [.int(.pointer(pointer))]
     }
+    if type == Date.self {
+        if isNil {
+            return [.int(.int(0))]
+        }
+        let pointer = UnsafeMutableRawPointer.allocate(byteCount: MemoryLayout<Date>.size, alignment: MemoryLayout<Date>.size)
+        pointer.storeBytes(of: value as! Date, as: Date.self)
+        return [.int(.pointer(pointer))]
+    }
 
     let (mangledName, kind, genericTypes, properties) = try typeInfo(of: type, .mangledName, .kind, .genericTypes, .properties)
 
@@ -287,7 +295,7 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
             MemoryLayout<String>.stride
         )
     }
-    if type == UUID.self {
+    if type == UUID.self || type == Date.self {
         return ([.int(.int(pointer.assumingMemoryBound(to: Int.self)))], MemoryLayout<Int>.stride)
     }
 
