@@ -216,9 +216,8 @@ func resolveArguments(for value: Any, using type: Any.Type, isNil: Bool = false)
         if isNil {
             return [.int(.int(0))]
         }
-        let pointer = UnsafeMutableRawPointer.allocate(byteCount: MemoryLayout<Date>.size, alignment: MemoryLayout<Date>.size)
-        pointer.storeBytes(of: value as! Date, as: Date.self)
-        return [.int(.pointer(pointer))]
+        let bytes = withUnsafeBytes(of: value as! Date) { $0.bindMemory(to: Int.self) }
+        return Array(bytes).map { .int(.int($0)) }
     }
 
     let (mangledName, kind, genericTypes, properties) = try typeInfo(of: type, .mangledName, .kind, .genericTypes, .properties)
