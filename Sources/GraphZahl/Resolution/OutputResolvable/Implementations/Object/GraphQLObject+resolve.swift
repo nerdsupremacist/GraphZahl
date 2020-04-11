@@ -14,7 +14,7 @@ extension GraphQLObject {
         let methodMap = Dictionary(typeMethods.map { ($0.methodName, $0) }) { first, _ in first }
         let methods = try methodMap.compactMapValues { try $0.resolve(for: Self.self, using: &context) }
 
-        let fields = properties.merging(methods) { $1 }
+        let fields = properties.merging(methods) { property, _ in property }
 
         let interfaces = try inheritance
             .compactMap { $0 as? GraphQLObject.Type }
