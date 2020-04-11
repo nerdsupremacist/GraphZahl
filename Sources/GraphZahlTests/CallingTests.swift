@@ -6,22 +6,18 @@ import ContextKit
 @testable import GraphQL
 @testable import GraphZahl
 
+private let google = URL(string: "https://google.com")!
+
+struct Item {
+    let url: URL
+}
+
 class CallingTests: XCTestCase {
 
     static var allTests: [(String, (CallingTests) -> () throws -> Void)] {
         return [
             ("testArray", testArray)
         ]
-    }
-
-    func testUUID() throws {
-        let info = try typeInfo(of: MyClass.self)
-        let instance = MyClass()
-        let method = info.methods.first { $0.methodName == "uuid" }!
-        let uuid = UUID()
-        let arguments = [uuid] as [Any]
-        let string = try method.call(receiver: instance, arguments: arguments) as! String
-        XCTAssertEqual(string, uuid.uuidString)
     }
 
     func testEnumCase() throws {
@@ -127,8 +123,8 @@ enum MyEnum: String, CaseIterable, GraphQLEnum {
 }
 
 class MyClass: GraphQLObject {
-    func uuid(uuid: UUID) -> String {
-        return uuid.uuidString
+    var url: Item {
+        return Item(url: google)
     }
 
     func optionalBool() -> Bool? {

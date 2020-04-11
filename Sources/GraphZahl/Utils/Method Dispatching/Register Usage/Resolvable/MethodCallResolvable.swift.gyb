@@ -1,0 +1,66 @@
+
+import Foundation
+
+%{ int_types = ["Int8", "Int16", "Int32", "Int"] }%
+%{ float_types = ["Float", "Double"] }%
+
+protocol MethodCallResolvable {
+    static func arguments(value: Any, isNil: Bool) throws -> [FunctionArgument]
+    static func decoder(pointer: UnsafeMutableRawPointer) throws -> ([FunctionResult], Int)
+}
+
+extension MethodCallResolvable {
+
+    static var hasExtraInhabitants: Bool {
+        return MemoryLayout<Self>.size == MemoryLayout<Self?>.size
+    }
+
+}
+
+protocol SelfMethodCallResolvable: MethodCallResolvable {
+    static func createArguments(value: Self) throws -> [FunctionArgument]
+    static func createNil() throws -> [FunctionArgument]
+}
+
+extension SelfMethodCallResolvable {
+    static func arguments(value: Any, isNil: Bool) throws -> [FunctionArgument] {
+        if isNil {
+            return try createNil()
+        }
+        return try createArguments(value: value as! Self)
+    }
+}
+
+% for swiftType in int_types:
+extension ${swiftType}: SelfMethodCallResolvable {
+    static func createArguments(value: Self) throws -> [FunctionArgument] {
+        return [.int(.${swiftType.lower()}(value))]
+    }
+
+    static func createNil() throws -> [FunctionArgument] {
+        return [.int(.${swiftType.lower()}(0))]
+    }
+
+    static func decoder(pointer: UnsafeMutableRawPointer) throws -> ([FunctionResult], Int) {
+        return ([.int(.${swiftType.lower()}(pointer.assumingMemoryBound(to: ${swiftType}.self)))], MemoryLayout<${swiftType}>.stride)
+    }
+}
+
+% end
+
+% for swiftType in float_types:
+extension ${swiftType}: SelfMethodCallResolvable {
+    static func createArguments(value: Self) throws -> [FunctionArgument] {
+        return [.float(.${swiftType.lower()}(value))]
+    }
+
+    static func createNil() throws -> [FunctionArgument] {
+        return [.float(.${swiftType.lower()}(0))]
+    }
+
+    static func decoder(pointer: UnsafeMutableRawPointer) throws -> ([FunctionResult], Int) {
+        return ([.float(.${swiftType.lower()}(pointer.assumingMemoryBound(to: ${swiftType}.self)))], MemoryLayout<${swiftType}>.stride)
+    }
+}
+
+% end
