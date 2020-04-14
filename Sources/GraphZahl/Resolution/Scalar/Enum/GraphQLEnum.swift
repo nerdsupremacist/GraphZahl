@@ -10,7 +10,7 @@ public protocol GraphQLEnum: OutputResolvable, InputResolvable, ConcreteResolvab
 
 extension GraphQLEnum where Self: CaseIterable & RawRepresentable, RawValue == String  {
 
-    static func cases(using context: inout Resolution.Context) throws -> [String : Map] {
+    public static func cases(using context: inout Resolution.Context) throws -> [String : Map] {
         let keysAndValues = try allCases.map { ($0.rawValue, try $0.map()) }
         return Dictionary(uniqueKeysWithValues: keysAndValues)
     }
