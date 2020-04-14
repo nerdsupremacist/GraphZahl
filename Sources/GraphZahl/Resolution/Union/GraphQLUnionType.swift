@@ -47,9 +47,20 @@ extension GraphQLUnion {
         guard let cases = caseTypes[unsafeBitCast(Self.self, to: Int.self)] else {
             throw GraphQLUnionError.resolveOnObjectCalledBeforeRegisteringType(type: Self.self)
         }
-        let caseIndex = withUnsafeBytes(of: self) { Int($0.last!) }
+        let bits = Int(ceil(log2(Double(cases.count))))
+        let caseIndex = withUnsafeBytes(of: self) { Int($0.last!.mostSignificant(bits)) }
         let object = withUnsafeBytes(of: self) { $0.baseAddress!.unsafeLoad(as: cases[caseIndex]) as! OutputResolvable }
         return try object.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
+    }
+
+}
+
+extension UInt8 {
+
+    fileprivate func mostSignificant(_ bits: Int) -> UInt8 {
+        let shift = Self(MemoryLayout<UInt8>.size * 8 - bits)
+        let shape = UInt8.max >> (MemoryLayout<UInt8>.size * 8 - bits)
+        return (self >> shift) & shape
     }
 
 }
