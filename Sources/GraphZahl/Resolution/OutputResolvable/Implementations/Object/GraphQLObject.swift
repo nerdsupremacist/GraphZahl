@@ -1,7 +1,7 @@
 
 import Foundation
 
-public protocol GraphQLObject : class, OutputResolvable, ConcreteResolvable {
+public protocol GraphQLObject : class, OutputResolvable, ConcreteResolvable, KeyPathListable {
     static func object(from source: Any) -> AnyObject
 }
 

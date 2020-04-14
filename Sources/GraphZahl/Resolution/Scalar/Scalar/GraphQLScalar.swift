@@ -2,7 +2,7 @@
 import Foundation
 import GraphQL
 
-public protocol GraphQLScalar: OutputResolvable, InputResolvable, ConcreteResolvable {
+public protocol GraphQLScalar: OutputResolvable, InputResolvable, ConcreteResolvable, KeyPathListable {
     static func resolve() throws -> GraphQLScalarType
 
     init(scalar: ScalarValue) throws

@@ -4,7 +4,7 @@ import GraphQL
 import NIO
 import Runtime
 
-public protocol GraphQLInputObject: InputResolvable, ConcreteResolvable { }
+public protocol GraphQLInputObject: InputResolvable, ConcreteResolvable, KeyPathListable { }
 
 extension GraphQLInputObject {
 
