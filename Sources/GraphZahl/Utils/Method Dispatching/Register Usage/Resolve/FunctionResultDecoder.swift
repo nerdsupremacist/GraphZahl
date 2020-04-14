@@ -21,7 +21,7 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
         return try type.decoder(pointer: pointer)
     }
 
-    let (kind, genericTypes, properties, stride) = try typeInfo(of: type, .kind, .genericTypes, .properties, .stride)
+    let (kind, genericTypes, properties, size, stride) = try typeInfo(of: type, .kind, .genericTypes, .properties, .size, .stride)
 
     switch kind {
     case .class:
@@ -46,8 +46,7 @@ func resolveResults(for type: Any.Type, pointer: UnsafeMutableRawPointer) throws
         let (result, _) = try resolveResults(for: actualType, pointer: pointer.advanced(by: 1))
         return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))] + result.map { $0.intResult() }, stride)
     case .enum:
-        // TODO: Refactor to use more complex layouts: https://github.com/apple/swift/blob/master/docs/ABI/TypeLayout.rst#fragile-enum-layout
-        return ([.int(.int8(pointer.assumingMemoryBound(to: Int8.self)))], MemoryLayout<Int8>.stride)
+        return (resolveIntResults(for: size, pointer: pointer), stride)
     default:
         return try properties.reduce(([], 0)) { accumulator, property in
             let (results, offset) = try resolveResults(for: property.type, pointer: pointer.advanced(by: accumulator.1))
