@@ -187,6 +187,28 @@ extension Double {
 
 }
 
+func resolveIntResults(for size: Int, pointer: UnsafeMutableRawPointer) -> [FunctionResult] {
+    if size == 0 {
+        return []
+    }
+    let remainder = size % MemoryLayout<Int>.size
+    if remainder == MemoryLayout<Int8>.size {
+        let newSize = size - MemoryLayout<Int8>.size
+        return resolveIntResults(for: newSize, pointer: pointer) + [.int(.int8(pointer.advanced(by: newSize).assumingMemoryBound(to: Int8.self)))]
+    }
+    if remainder == MemoryLayout<Int16>.size {
+        let newSize = size - MemoryLayout<Int16>.size
+        return resolveIntResults(for: newSize, pointer: pointer) + [.int(.int16(pointer.advanced(by: newSize).assumingMemoryBound(to: Int16.self)))]
+    }
+    if remainder == MemoryLayout<Int32>.size {
+        let newSize = size - MemoryLayout<Int32>.size
+        return resolveIntResults(for: newSize, pointer: pointer) + [.int(.int32(pointer.advanced(by: newSize).assumingMemoryBound(to: Int32.self)))]
+    }
+
+    let newSize = size - MemoryLayout<Int>.size
+    return resolveIntResults(for: newSize, pointer: pointer) + [.int(.int(pointer.advanced(by: newSize).assumingMemoryBound(to: Int.self)))]
+}
+
 func isPrimitive(type: Any.Type) -> Bool {
     if type == Bool.self {
         return true

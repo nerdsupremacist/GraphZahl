@@ -181,6 +181,23 @@ extension Double {
 
 }
 
+func resolveIntResults(for size: Int, pointer: UnsafeMutableRawPointer) -> [FunctionResult] {
+    if size == 0 {
+        return []
+    }
+    let remainder = size % MemoryLayout<Int>.size
+    %{ relevant_types = [type for type in int_types if type != "Int"] }%
+    % for swiftType in relevant_types:
+    if remainder == MemoryLayout<${swiftType}>.size {
+        let newSize = size - MemoryLayout<${swiftType}>.size
+        return resolveIntResults(for: newSize, pointer: pointer) + [.int(.${swiftType.lower()}(pointer.advanced(by: newSize).assumingMemoryBound(to: ${swiftType}.self)))]
+    }
+    % end
+
+    let newSize = size - MemoryLayout<Int>.size
+    return resolveIntResults(for: newSize, pointer: pointer) + [.int(.int(pointer.advanced(by: newSize).assumingMemoryBound(to: Int.self)))]
+}
+
 func isPrimitive(type: Any.Type) -> Bool {
     if type == Bool.self {
         return true
