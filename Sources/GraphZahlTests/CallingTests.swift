@@ -8,16 +8,20 @@ import ContextKit
 
 private let google = URL(string: "https://google.com")!
 
-struct Item {
-    let url: URL
-}
-
 class CallingTests: XCTestCase {
 
     static var allTests: [(String, (CallingTests) -> () throws -> Void)] {
         return [
             ("testArray", testArray)
         ]
+    }
+
+    func testURL() throws {
+        let info = try typeInfo(of: MyClass.self)
+        let instance = MyClass()
+        let method = info.methods.first { $0.methodName == "url" }!
+        let result = try method.call(receiver: instance, arguments: []) as! URL
+        XCTAssertEqual(result, google)
     }
 
     func testEnumCase() throws {
