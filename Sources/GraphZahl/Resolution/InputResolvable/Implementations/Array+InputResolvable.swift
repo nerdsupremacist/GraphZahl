@@ -16,8 +16,8 @@ extension Array: InputResolvable where Element: InputResolvable {
         return GraphQLNonNull(GraphQLList(try context.resolve(type: Element.self)))
     }
 
-    public init(map: Map) throws {
-        self = try map.arrayValue().map { try Element(map: $0) }
+    public static func create(from map: Map) throws -> Array<Element> {
+        return try map.arrayValue().map { try Element.create(from: $0) }
     }
 
 }

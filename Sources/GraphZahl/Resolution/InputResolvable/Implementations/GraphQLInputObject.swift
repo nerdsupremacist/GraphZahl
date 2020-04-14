@@ -31,7 +31,7 @@ extension GraphQLInputObject {
                 throw Resolution.Error.invalidPropertyInInputObject(name: property.name, type: property.type, ownerType: property.ownerType)
             }
             let value = dictionary[property.name.deleting(prefix: "_")] ?? .null
-            return try type.init(map: value)
+            return try type.create(from: value)
         }
     }
 

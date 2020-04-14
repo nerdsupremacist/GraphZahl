@@ -18,12 +18,12 @@ extension Optional: InputResolvable where Wrapped: InputResolvable {
         return type
     }
 
-    public init(map: Map) throws {
+    public static func create(from map: Map) throws -> Optional<Wrapped> {
         switch map {
         case .null:
-            self = .none
+            return .none
         default:
-            self = try Wrapped(map: map)
+            return try Wrapped.create(from: map)
         }
     }
 }

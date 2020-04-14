@@ -8,8 +8,8 @@ extension GraphQLScalar {
         return try GraphQLNonNull(resolve())
     }
 
-    public init(map: Map) throws {
-        try self.init(scalar: try ScalarValue(map: map))
+    public static func create(from map: Map) throws -> Self {
+        return try Self.init(scalar: try ScalarValue(map: map))
     }
 
 }

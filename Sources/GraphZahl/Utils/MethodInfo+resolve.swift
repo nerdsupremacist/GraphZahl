@@ -75,7 +75,7 @@ extension MethodInfo {
                 let argumentType = argument.type as? InputResolvable.Type else { fatalError() }
 
             if let value = argumentMap[name] {
-                return try argumentType.init(map: value)
+                return try argumentType.create(from: value)
             }
 
             if argument.defaultAddress != nil {
