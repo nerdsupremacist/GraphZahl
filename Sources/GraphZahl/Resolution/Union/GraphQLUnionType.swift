@@ -9,11 +9,6 @@ private var caseTypes = [Int : [GraphQLObject.Type]]()
 
 public protocol GraphQLUnion: ConcreteResolvable, OutputResolvable { }
 
-enum GraphQLUnionError: Error {
-    case notAllCasesAreGraphQLObjects(type: GraphQLUnion.Type, valid: [GraphQLObject.Type], invalid: [Any.Type?])
-    case resolveOnObjectCalledBeforeRegisteringType(type: GraphQLUnion.Type)
-}
-
 extension GraphQLUnion {
 
     public static var additionalArguments: [String : InputResolvable.Type] {
@@ -25,7 +20,11 @@ extension GraphQLUnion {
     }
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        let cases = try typeInfo(of: Self.self, .cases)
+        let (kind, cases) = try typeInfo(of: Self.self, .kind, .cases)
+        guard case .enum = kind else {
+            throw GraphQLUnionError.unionTypeIsNotAnEnum(type: Self.self)
+        }
+
         let objectMetaTypesTypes = cases.compactMap { $0.payload as? GraphQLObject.Type }
 
         guard objectMetaTypesTypes.count == cases.count else {
