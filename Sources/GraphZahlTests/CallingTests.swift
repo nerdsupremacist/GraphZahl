@@ -127,8 +127,8 @@ enum MyEnum: String, CaseIterable, GraphQLEnum {
 }
 
 class MyClass: GraphQLObject {
-    var url: Item {
-        return Item(url: google)
+    var url: URL {
+        return google
     }
 
     func optionalBool() -> Bool? {
