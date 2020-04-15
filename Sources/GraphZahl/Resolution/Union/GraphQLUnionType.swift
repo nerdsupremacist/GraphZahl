@@ -20,33 +20,12 @@ extension GraphQLUnion {
     }
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        let (kind, cases) = try typeInfo(of: Self.self, .kind, .cases)
-        guard case .enum = kind else {
-            throw GraphQLUnionError.unionTypeIsNotAnEnum(type: Self.self)
-        }
-
-        let objectMetaTypesTypes = cases.compactMap { $0.payload as? GraphQLObject.Type }
-
-        guard objectMetaTypesTypes.count == cases.count else {
-            let invalidCases = cases.map { $0.payload }.filter { $0 as? GraphQLObject.Type == nil }
-            throw GraphQLUnionError.notAllCasesAreGraphQLObjects(type: Self.self,
-                                                                 valid: objectMetaTypesTypes,
-                                                                 invalid: invalidCases)
-        }
-
-        caseTypes[unsafeBitCast(Self.self, to: Int.self)] = objectMetaTypesTypes
-
-        let objects = try objectMetaTypesTypes.map { try context.resolve(object: $0) }
-
-        return try GraphQLUnionType(name: concreteTypeName,
-                                    resolveType: nil,
-                                    types: objects)
+        let types = try caseObjectTypes().map { try context.resolve(object: $0) }
+        return GraphQLNonNull(try GraphQLUnionType(name: concreteTypeName, resolveType: nil, types: types))
     }
 
     public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
-        guard let cases = caseTypes[unsafeBitCast(Self.self, to: Int.self)] else {
-            throw GraphQLUnionError.resolveOnObjectCalledBeforeRegisteringType(type: Self.self)
-        }
+        let cases = try Self.caseObjectTypes()
 
         let bits = Int(ceil(log2(Double(cases.count))))
         let caseIndex = withUnsafeBytes(of: self) { Int($0.last!.mostSignificant(bits)) }
@@ -57,6 +36,26 @@ extension GraphQLUnion {
         }
 
         return try object.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
+    }
+
+    private static func caseObjectTypes() throws -> [GraphQLObject.Type] {
+        return try caseTypes.getOrPut(unsafeBitCast(Self.self, to: Int.self)) {
+            let (kind, cases) = try typeInfo(of: Self.self, .kind, .cases)
+            guard case .enum = kind else {
+                throw Resolution.Error.unionTypeIsNotAnEnum(type: Self.self)
+            }
+
+            let objectMetatypesTypes = cases.compactMap { $0.payload as? GraphQLObject.Type }
+
+            guard objectMetatypesTypes.count == cases.count else {
+                let invalidCases = cases.map { $0.payload }.filter { $0 as? GraphQLObject.Type == nil }
+                throw Resolution.Error.notAllCasesOfUnionAreGraphQLObjects(type: Self.self,
+                                                                           valid: objectMetatypesTypes,
+                                                                           invalid: invalidCases)
+            }
+
+            return objectMetatypesTypes
+        }
     }
 
 }

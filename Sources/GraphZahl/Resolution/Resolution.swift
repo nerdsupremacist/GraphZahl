@@ -5,8 +5,13 @@ import GraphQL
 public enum Resolution {
 
     public enum Error: Swift.Error {
-        case nonStructInputObjectType(type: Any.Type)
-        case invalidPropertyInInputObject(name: String, type: Any.Type, ownerType: Any.Type)
+        // Input Object Errors
+        case inputObjectIsNotAStruct(type: GraphQLInputObject.Type)
+        case invalidPropertyInInputObject(name: String, type: Any.Type, ownerType: GraphQLInputObject.Type)
+
+        // Union Type Errors
+        case unionTypeIsNotAnEnum(type: GraphQLUnion.Type)
+        case notAllCasesOfUnionAreGraphQLObjects(type: GraphQLUnion.Type, valid: [GraphQLObject.Type], invalid: [Any.Type?])
     }
 
     public struct Context {
