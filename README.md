@@ -344,6 +344,10 @@ type B implements A {
 }
 ```
 
+### KeyPath Support
+
+If you take KeyPaths as an argument of a function, GraphZahl will create an enum mapping to all the properties with the same type.
+
 ## Extensions and Plugins
 
 There's also some extensions on top of GraphZahl to add support for different scenarios that are not necessarily the norm:
