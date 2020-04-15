@@ -30,8 +30,8 @@ class SchemaResolutionTests: XCTestCase {
 
         let expectedData: Map = [
             "union" : [
-                "__typename": "Foo",
-                "foo": "Foo"
+                "__typename": "Bar",
+                "bar": 42,
             ]
         ]
 
@@ -44,7 +44,7 @@ class Schema: GraphZahl.GraphQLSchema {
 
     class Query: QueryType {
         func union() -> Union {
-            return .foo(Foo(foo: "Foo"))
+            return .bar(Bar(bar: 42))
         }
 
         required init(viewerContext: ()) { }
