@@ -4,7 +4,7 @@ import GraphQL
 import NIO
 import ContextKit
 
-public protocol GraphQLEnum: OutputResolvable, InputResolvable, ConcreteResolvable {
+public protocol GraphQLEnum: OutputResolvable, InputResolvable, ConcreteResolvable, ValueResolvable {
     static func cases(using context: inout Resolution.Context) throws -> [String : Map]
 }
 
@@ -12,7 +12,7 @@ extension GraphQLEnum where Self: CaseIterable & RawRepresentable, RawValue == S
 
     public static func cases(using context: inout Resolution.Context) throws -> [String : Map] {
         let keysAndValues = try allCases.map { ($0.rawValue, try $0.map()) }
-        return Dictionary(uniqueKeysWithValues: keysAndValues).compactMapValues { $0 }
+        return Dictionary(uniqueKeysWithValues: keysAndValues)
     }
 
 }

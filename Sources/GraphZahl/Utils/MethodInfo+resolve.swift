@@ -19,11 +19,11 @@ extension MethodInfo {
 
                 let type = try context.resolve(type: argumentType)
                 
-                guard let defaultValue = try argument.defaultValue() as? ValueResolvable else {
+                guard let defaultValue = try argument.defaultValue() else {
                     return GraphQLArgument(type: type, defaultValue: nil)
                 }
 
-                guard let map = try defaultValue.map() else {
+                guard let valueResolvable = defaultValue as? ValueResolvable else {
                     switch type {
                     case let type as GraphQLNonNull:
                         return GraphQLArgument(type: type.ofType as! GraphQLInputType, defaultValue: nil)
@@ -32,7 +32,7 @@ extension MethodInfo {
                     }
                 }
 
-                return GraphQLArgument(type: type, defaultValue: map)
+                return GraphQLArgument(type: type, defaultValue: try valueResolvable.map())
             }
 
         guard arguments.count == relevantArguments.count else { return nil }

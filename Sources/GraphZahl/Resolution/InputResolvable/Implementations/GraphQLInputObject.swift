@@ -6,7 +6,7 @@ import Runtime
 
 private var propertiesForType = [Int : [String : PropertyInfo]]()
 
-public protocol GraphQLInputObject: InputResolvable, ConcreteResolvable, KeyPathListable { }
+public protocol GraphQLInputObject: InputResolvable, ConcreteResolvable, ValueResolvable, KeyPathListable { }
 
 extension GraphQLInputObject {
 

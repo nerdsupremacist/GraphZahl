@@ -2,7 +2,7 @@
 import Foundation
 import GraphQL
 
-public protocol GraphQLScalar: OutputResolvable, InputResolvable, ConcreteResolvable, KeyPathListable {
+public protocol GraphQLScalar: OutputResolvable, InputResolvable, ConcreteResolvable, ValueResolvable, KeyPathListable {
     static func resolve() throws -> GraphQLScalarType
 
     init(scalar: ScalarValue) throws
@@ -15,7 +15,7 @@ extension GraphQLScalar {
         return try GraphQLScalarType(name: concreteTypeName) { $0 as! Map }
     }
 
-    public func map() throws -> Map? {
+    public func map() throws -> Map {
         return try encodeScalar().graphql()
     }
 

@@ -4,7 +4,7 @@ import GraphQL
 
 extension RawRepresentable where Self: ValueResolvable, RawValue: ValueResolvable {
 
-    public func map() throws -> Map? {
+    public func map() throws -> Map {
         return try rawValue.map()
     }
 

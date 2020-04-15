@@ -4,8 +4,8 @@ import GraphQL
 
 extension Array: ValueResolvable where Element: ValueResolvable {
 
-    public func map() throws -> Map? {
-        return .array(try compactMap { try $0.map() })
+    public func map() throws -> Map {
+        return .array(try map { try $0.map() })
     }
 
 }

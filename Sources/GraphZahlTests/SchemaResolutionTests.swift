@@ -38,6 +38,26 @@ class SchemaResolutionTests: XCTestCase {
         XCTAssertEqual(expectedData, result.data)
     }
 
+    func testKeypaths() throws {
+        let query = """
+        {
+            foo(filter: Foo, equals: "Foo1") {
+                foo
+            }
+        }
+        """
+
+        let result = try Schema.perform(request: query).wait()
+
+        let expectedData: Map = [
+            "foo" : [
+                ["foo": "Foo1"]
+            ]
+        ]
+
+        XCTAssertEqual(expectedData, result.data)
+    }
+
 }
 
 class Schema: GraphZahl.GraphQLSchema {
@@ -45,6 +65,14 @@ class Schema: GraphZahl.GraphQLSchema {
     class Query: QueryType {
         func union() -> Union {
             return .bar(Bar(bar: 42))
+        }
+
+        func foo(filter: KeyPath<Foo, String>, equals: String) -> [Foo] {
+            return [
+                Foo(foo: "Foo"),
+                Foo(foo: "Foo1"),
+                Foo(foo: "Foo2"),
+            ].filter { $0[keyPath: filter] == equals }
         }
 
         required init(viewerContext: ()) { }
