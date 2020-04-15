@@ -41,9 +41,9 @@
         "package": "Runtime",
         "repositoryURL": "https://github.com/nerdsupremacist/Runtime.git",
         "state": {
-          "branch": "master",
-          "revision": "1171b44a800289e896a19ef46e9c0475047daf67",
-          "version": null
+          "branch": null,
+          "revision": "3c87a4e966baff36c8d0bc35620f833a55c6f201",
+          "version": "2.1.2-beta.10"
         }
       },
       {
