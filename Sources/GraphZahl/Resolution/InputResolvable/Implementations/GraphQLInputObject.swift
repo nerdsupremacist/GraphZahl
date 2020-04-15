@@ -4,17 +4,17 @@ import GraphQL
 import NIO
 import Runtime
 
+private var propertiesForType = [Int : [String : PropertyInfo]]()
+
 public protocol GraphQLInputObject: InputResolvable, ConcreteResolvable, KeyPathListable { }
 
 extension GraphQLInputObject {
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLInputType {
-        let (kind, properties) = try typeInfo(of: Self.self, .kind, .properties)
-
+        let kind = try typeInfo(of: Self.self, .kind)
         guard kind == .struct else { throw Resolution.Error.inputObjectIsNotAStruct(type: Self.self) }
 
-        let propertyMap = Dictionary(properties.map { ($0.name.deleting(prefix: "_"), $0) }) { first, _ in first }
-        let fields = try propertyMap.mapValues { property -> InputObjectField in
+        let fields = try properties().mapValues { property -> InputObjectField in
             guard let type = property.type as? InputResolvable.Type else {
                 throw Resolution.Error.invalidPropertyInInputObject(name: property.name, type: property.type, ownerType: Self.self)
             }
@@ -36,15 +36,20 @@ extension GraphQLInputObject {
     }
 
     public func map() throws -> Map {
-        let properties = try typeInfo(of: Self.self, .properties)
-        let propertyMap = Dictionary(properties.map { ($0.name.deleting(prefix: "_"), $0) }) { first, _ in first }
-        let dictionary = try propertyMap.mapValues { property -> Map in
+        let dictionary = try Self.properties().mapValues { property -> Map in
             guard let value = try property.get(from: self) as? ValueResolvable else {
                 throw Resolution.Error.invalidPropertyInInputObject(name: property.name, type: property.type, ownerType: Self.self)
             }
             return try value.map()
         }
         return .dictionary(dictionary)
+    }
+
+    private static func properties() throws -> [String : PropertyInfo] {
+        return try propertiesForType.getOrPut(unsafeBitCast(Self.self, to: Int.self)) {
+            let properties = try typeInfo(of: Self.self, .properties)
+            return Dictionary(properties.map { ($0.name.deleting(prefix: "_"), $0) }) { first, _ in first }
+        }
     }
 
 }
