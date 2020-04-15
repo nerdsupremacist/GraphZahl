@@ -267,7 +267,7 @@ If you want to compute your Enum Cases yourself you can implement the `cases` fu
 
 GraphZahl supports Union Types. To implement a Union Type you just have to implement an enum where every case has an associated type that is an Object
 
-```
+```swift
 enum SearchResult: GraphQLUnion {
     case user(User)
     case page(Page)
@@ -289,7 +289,7 @@ class Query: QueryType {
 
 If you want to take specific structs as arguments for functions you can make them conform to `GraphQLInputObject`
 
-```
+```swift
 enum Order: String, CaseIterable, GraphQLEnum {
     case ascending
     case descending
