@@ -348,6 +348,45 @@ type B implements A {
 
 If you take KeyPaths as an argument of a function, GraphZahl will create an enum mapping to all the properties with the same type.
 
+For example:
+
+```swift
+class SearchResult: GraphQLObject {
+    let relevance: Int
+    let popularity: Int
+    let name: String
+}
+
+class Schema: GraphQLSchema {
+    class Query: QueryType {
+        func search(term: String,
+                    sortBy: KeyPath<SearchResult, Int>) -> [SearchResult] {
+
+            return [SearchResult]().sort { $0[keyPath: sortBy] < $1[keyPath: sortBy] }
+        }
+    }
+}
+```
+
+And the outputed definition is:
+
+```graphql
+type Query {
+  search(sortBy: SearchResultField!, term: String!): [SearchResult!]!
+}
+
+type SearchResult {
+  name: String!
+  popularity: Int!
+  relevance: Int!
+}
+
+enum SearchResultField {
+  Relevance
+  Popularity
+}
+```
+
 ## Extensions and Plugins
 
 There's also some extensions on top of GraphZahl to add support for different scenarios that are not necessarily the norm:
