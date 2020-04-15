@@ -16,8 +16,8 @@ extension KeyPath: ConcreteResolvable where Root: ConcreteResolvable & KeyPathLi
 }
 
 extension KeyPath: ValueResolvable where Root: ConcreteResolvable & KeyPathListable {
-    public func map() throws -> Map {
-        return try "\(self)".map()
+    public func map() throws -> Map? {
+        return nil
     }
 }
 
@@ -39,6 +39,6 @@ extension KeyPath: GraphQLEnum where Root: ConcreteResolvable & KeyPathListable 
         let cases = try keyPaths
             .map { ($0.key, try $0.key.map()) }
 
-        return Dictionary(cases) { $1 }
+        return Dictionary(cases) { $1 }.compactMapValues { $0 }
     }
 }

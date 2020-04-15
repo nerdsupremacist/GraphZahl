@@ -4,8 +4,9 @@ import GraphQL
 
 extension Optional: ValueResolvable where Wrapped: ValueResolvable {
 
-    public func map() throws -> Map {
-        return try map { try $0.map() } ?? .null
+    public func map() throws -> Map? {
+        guard let self = self else { return .null }
+        return try self.map()
     }
 
 }

@@ -12,7 +12,7 @@ extension GraphQLEnum where Self: CaseIterable & RawRepresentable, RawValue == S
 
     public static func cases(using context: inout Resolution.Context) throws -> [String : Map] {
         let keysAndValues = try allCases.map { ($0.rawValue, try $0.map()) }
-        return Dictionary(uniqueKeysWithValues: keysAndValues)
+        return Dictionary(uniqueKeysWithValues: keysAndValues).compactMapValues { $0 }
     }
 
 }

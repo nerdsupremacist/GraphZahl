@@ -35,8 +35,8 @@ extension GraphQLInputObject {
         }
     }
 
-    public func map() throws -> Map {
-        let dictionary = try Self.properties().mapValues { property -> Map in
+    public func map() throws -> Map? {
+        let dictionary = try Self.properties().compactMapValues { property -> Map? in
             guard let value = try property.get(from: self) as? ValueResolvable else {
                 throw Resolution.Error.invalidPropertyInInputObject(name: property.name, type: property.type, ownerType: Self.self)
             }

@@ -15,7 +15,7 @@ extension GraphQLScalar {
         return try GraphQLScalarType(name: concreteTypeName) { $0 as! Map }
     }
 
-    public func map() throws -> Map {
+    public func map() throws -> Map? {
         return try encodeScalar().graphql()
     }
 
