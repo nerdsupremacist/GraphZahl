@@ -73,12 +73,14 @@ let package = Package(
 
 ## Usage
 
-Most users of GraphZahl need to understand the four main provided protocols:
+Most users of GraphZahl need to understand the six main provided protocols:
 
 - `GraphQLObject`:  A type that is composed from multiple properties and functions
 - `GraphQLSchema`:  The root of any API
 - `GraphQLScalar`:  A singular value
-- `GraphQLEnum`: An simple enum that is RawRepresentable with String (so no associated values, sadly)
+- `GraphQLEnum`: An simple enum that is RawRepresentable with String
+- `GraphQLUnion`: An enum where every case has an associated value that is a GraphQLObject
+- `GraphQLInputObject`: A struct that you expect as an argument to a funtion
 
 As well as the extensions that enable you to get the most of GraphZahl alongside other common server-side libraries like Vapor and Fluent.
 
@@ -91,16 +93,18 @@ And voila 😍 !!!! You don't have to implement anything. GraphZahl will do all 
 - Every property that is either:
     a. a GraphQL Object, 
     a. Scalar 
-    a. or Enum
+    a. Enum
+    a. or Union
 
 will be available via GraphQL. Zero hassle. Crazy!!!
 
 - Every method where:
-    a. every input is a Scalar or Enum
+    a. every input is a Scalar, Enum or Input Object
     a. the return type is either:
         a. a GraphQL Object, 
         a. Scalar 
-        a. or Enum
+        a. Enum
+        a. or Union
 
 is now also available! Just like that. Awesome!!!
 
@@ -247,28 +251,60 @@ You can do this with virtually all kinds of types: Dates in the format of your c
 
 The last one is the simplest case. If you want to support an enum in your API, it has to be RawRepresentable with String and implement `GraphQLEnum`.
 
+If your enum is `CaseIterable` that's it!
+
 ```swift
-enum Envirornment: String, GraphQLEnum {
+enum Envirornment: String, CaseIterable, GraphQLEnum {
     case production
     case development
     case testing
 }
 ```
 
-That's it!
+If you want to compute your Enum Cases yourself you can implement the `cases` function.
 
-### Union Types
+### GraphQLUnion
 
-GraphZahl supports Union Types via the UnionN types of up to 20 generic arguments. They're basically enums with N cases. One for each Type
+GraphZahl supports Union Types. To implement a Union Type you just have to implement an enum where every case has an associated type that is an Object
 
 ```
+enum SearchResult: GraphQLUnion {
+    case user(User)
+    case page(Page)
+    case group(Group)
+}
+
 class Query: QueryType {
-    func search(term: String) -> [Union3<User, Page, Group>] {
+    func search(term: String) -> [SearchResult] {
         return [
-            .a(user),
-            .b(page),
-            .c(group),
+            .user(user),
+            .page(page),
+            .group(group),
         ]
+    }
+}
+```
+
+### GraphQLInputObject
+
+If you want to take specific structs as arguments for functions you can make them conform to `GraphQLInputObject`
+
+```
+enum Order: String, CaseIterable, GraphQLEnum {
+    case ascending
+    case descending
+}
+
+struct Options: GraphQLInputObject {
+    let safeSearch: Bool
+    let order: Order
+}
+
+class Query: QueryType {
+    func search(term: String,
+                arguments: Options = Options(safeSearch: true, order: .ascending)) -> [SearchResult] {
+                
+        return [...]
     }
 }
 ```
