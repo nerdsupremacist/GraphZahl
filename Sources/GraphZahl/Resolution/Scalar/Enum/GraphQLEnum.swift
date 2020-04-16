@@ -5,14 +5,13 @@ import NIO
 import ContextKit
 
 public protocol GraphQLEnum: OutputResolvable, InputResolvable, ConcreteResolvable, ValueResolvable {
-    static func cases(using context: inout Resolution.Context) throws -> [String : Map]
+    static func cases(using context: inout Resolution.Context) throws -> [String : Self]
 }
 
 extension GraphQLEnum where Self: CaseIterable & RawRepresentable, RawValue == String  {
 
-    public static func cases(using context: inout Resolution.Context) throws -> [String : Map] {
-        let keysAndValues = try allCases.map { ($0.rawValue, try $0.map()) }
-        return Dictionary(uniqueKeysWithValues: keysAndValues)
+    public static func cases(using context: inout Resolution.Context) throws -> [String : Self] {
+        return Dictionary(uniqueKeysWithValues: allCases.map { ($0.rawValue, $0) })
     }
 
 }
@@ -24,7 +23,7 @@ extension GraphQLEnum {
     }
 
     static func resolveEnum(using context: inout Resolution.Context) throws -> GraphQLEnumType {
-        let keysAndValues = try cases(using: &context).map { ($0.key.upperCamelized, GraphQLEnumValue(value: $0.value)) }
+        let keysAndValues = try cases(using: &context).map { ($0.key.upperCamelized, GraphQLEnumValue(value: try $0.value.map())) }
         let values = Dictionary(uniqueKeysWithValues: keysAndValues)
         return try GraphQL.GraphQLEnumType(name: concreteTypeName, values: values)
     }
@@ -42,7 +41,7 @@ extension GraphQLEnum {
     }
 
     public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
-        return eventLoop.next().makeSucceededFuture(self)
+        return eventLoop.next().makeSucceededFuture(try map())
     }
 
 }
