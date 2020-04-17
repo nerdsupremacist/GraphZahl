@@ -9,13 +9,13 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Generate Documentation
-        uses: SwiftDocOrg/swift-doc@1.0.0-beta.2
+        uses: SwiftDocOrg/swift-doc@master
         with:
           module-name: GraphZahl
           format: html
-          output: "docs"
+          output: "./docs"
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: "docs"
+          publish_dir: "./docs"
