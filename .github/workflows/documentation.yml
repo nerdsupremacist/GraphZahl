@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Generate Documentation
-        uses: SwiftDocOrg/swift-doc@master
+        uses: SwiftDocOrg/swift-doc@1.0.0-beta.2
         with:
           inputs: "Source"
           module-name: GraphZahl
