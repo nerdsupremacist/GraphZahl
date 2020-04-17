@@ -1,0 +1,7 @@
+module: GraphZahl
+author: Mathias Quintero
+theme: fullwidth
+output: ./docs
+documentation: ./*.md
+author_url: https://github.com/nerdsupremacist
+github_url: https://github.com/nerdsupremacist/GraphZahl
