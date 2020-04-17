@@ -11,12 +11,11 @@ jobs:
       - name: Generate Documentation
         uses: SwiftDocOrg/swift-doc@1.0.0-beta.2
         with:
-          inputs: "Source"
           module-name: GraphZahl
           format: html
-          output: "Documentation"
+          output: "docs"
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: "Documentation"
+          publish_dir: "docs"
