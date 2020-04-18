@@ -2,6 +2,11 @@
 import Foundation
 import GraphQL
 
+/**
+ # Conditional Conformance
+
+ All optionals of values that can be translated to a GraphQL Value, can themselves be translated to a GraphQL Value
+ */
 extension Optional: ValueResolvable where Wrapped: ValueResolvable {
 
     public func map() throws -> Map {
@@ -10,6 +15,11 @@ extension Optional: ValueResolvable where Wrapped: ValueResolvable {
 
 }
 
+/**
+ # Conditional Conformance
+
+ All optionals of values that are GraphQL Inputs, can be Inputs themselves
+ */
 extension Optional: InputResolvable where Wrapped: InputResolvable {
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLInputType {

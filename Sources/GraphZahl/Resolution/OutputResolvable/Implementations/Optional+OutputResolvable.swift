@@ -4,6 +4,11 @@ import GraphQL
 import NIO
 import ContextKit
 
+/**
+ # Conditional Conformance
+
+ All optionals of values that are GraphQL Outputs, can be outputs themselves
+ */
 extension Optional: OutputResolvable where Wrapped: OutputResolvable {
 
     public static var additionalArguments: [String : InputResolvable.Type] {

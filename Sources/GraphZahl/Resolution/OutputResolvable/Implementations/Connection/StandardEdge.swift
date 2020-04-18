@@ -4,10 +4,22 @@ import NIO
 import GraphQL
 import ContextKit
 
+/**
+ # Standard Edge
+
+ This is the default implementation of an Edge. It has the node and cursor and nothing else.
+*/
 public struct StandardEdge<Node: OutputResolvable & ConcreteResolvable>: EdgeProtocol, ConcreteResolvable {
     public let node: Node?
     public let cursor: String
 
+    /**
+    Initializer for an Edge
+
+    - Parameters:
+        - node: Value the edge is pointing to
+        - cursor: Cursor for this Value
+    */
     public init(node: Node?, cursor: String) {
         self.node = node
         self.cursor = cursor

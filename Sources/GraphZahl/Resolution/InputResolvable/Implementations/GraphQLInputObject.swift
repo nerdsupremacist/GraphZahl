@@ -6,6 +6,43 @@ import Runtime
 
 private var propertiesForType = [Int : [String : PropertyInfo]]()
 
+/**
+ # GraphQLInputObject
+
+ A GraphQL Input Object is a Struct that can be used as an input for a method.
+
+ ## Example
+
+ If want to provide an API for sorting search results. We can create a struct for those options.
+
+ ```swift
+ enum Order: String, CaseIterable, GraphQLEnum {
+    case ascending
+    case descending
+ }
+
+ struct SortOptions: GraphQLInputType {
+    let field: KeyPath<SearchResult, Int>
+    let order: Order
+ }
+
+ class Query: QueryType {
+    func search(term: String, sortOptions: SortOptions?) -> [SearchResult] {
+        ...
+    }
+ }
+ ```
+
+ ## Note
+
+ Input types can be useful to group arguments. We can also use them to group arguments that should always be provided together. Like in out search example, we don't need the user to specify how to sort. But when the user wants the Results sorted by a field, we need to know if ascending or descending. That's why the Input Object makes sense in this scenario.
+
+ ## Details
+
+ - A GraphQL Input Object is Input Resolvable and can be used in any method that should be available in GraphQL
+ - An Input Object has to be a struct. If it's not a struct, an error will be thrown.
+ - All the properties in the struct have to be Input Resolvable as well. Otherwise an error will be thrown.
+ */
 public protocol GraphQLInputObject: InputResolvable, ConcreteResolvable, ValueResolvable, KeyPathListable { }
 
 extension GraphQLInputObject {

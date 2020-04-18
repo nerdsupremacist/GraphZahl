@@ -4,6 +4,11 @@ import GraphQL
 import NIO
 import ContextKit
 
+/**
+ # Conditional Conformance
+
+ All Futures of values that are GraphQL Outputs, can be outputs themselves
+ */
 extension EventLoopFuture: OutputResolvable where Value: OutputResolvable {
 
     public static var additionalArguments: [String : InputResolvable.Type] {

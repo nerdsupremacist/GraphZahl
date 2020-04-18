@@ -2,6 +2,11 @@
 import Foundation
 import GraphQL
 
+/**
+ # Conditional Conformance
+
+ All arrays of values that can be translated to a GraphQL Value, can themselves be translated to a GraphQL Value
+ */
 extension Array: ValueResolvable where Element: ValueResolvable {
 
     public func map() throws -> Map {
@@ -10,6 +15,11 @@ extension Array: ValueResolvable where Element: ValueResolvable {
 
 }
 
+/**
+ # Conditional Conformance
+
+ All arrays of values that are GraphQL Inputs, can be Inputs themselves
+*/
 extension Array: InputResolvable where Element: InputResolvable {
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLInputType {
