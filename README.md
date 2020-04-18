@@ -76,16 +76,16 @@ let package = Package(
 
 Most users of GraphZahl need to understand the six main provided protocols:
 
-- `GraphQLObject`:  A type that is composed from multiple properties and functions
-- `GraphQLSchema`:  The root of any API
-- `GraphQLScalar`:  A singular value
-- `GraphQLEnum`: An simple enum that is RawRepresentable with String
-- `GraphQLUnion`: An enum where every case has an associated value that is a GraphQLObject
-- `GraphQLInputObject`: A struct that you expect as an argument to a funtion
+- [GraphQLObject](https://quintero.io/GraphZahl/Protocols/GraphQLObject.html):  A type that is composed from multiple properties and functions
+- [GraphQLSchema](https://quintero.io/GraphZahl/Protocols/GraphQLSchema.html):  The root of any API
+- [GraphQLScalar](https://quintero.io/GraphZahl/Protocols/GraphQLScalar.html):  A singular value
+- [GraphQLEnum](https://quintero.io/GraphZahl/Protocols/GraphQLEnum.html): An simple enum that is RawRepresentable with String
+- [GraphQLUnion](https://quintero.io/GraphZahl/Protocols/GraphQLUnion.html): An enum where every case has an associated value that is a GraphQLObject
+- [GraphQLInputObject](https://quintero.io/GraphZahl/Protocols/GraphQLInputObject.html): A struct that you expect as an argument to a funtion
 
 As well as the extensions that enable you to get the most of GraphZahl alongside other common server-side libraries like Vapor and Fluent.
 
-### GraphQLObject
+### GraphQLObject - [Reference](https://quintero.io/GraphZahl/Protocols/GraphQLObject.html)
 
 You can provide any class you want by simply making it implement  `GraphQLObject`. 
 
@@ -154,7 +154,7 @@ And you can see the results immediately:
 
 ![](https://github.com/nerdsupremacist/GraphZahl/raw/master/demo/nestedobject.png)
 
-### GraphQLSchema
+### GraphQLSchema - [Reference](https://quintero.io/GraphZahl/Protocols/GraphQLSchema.html)
 
 A Schema is basically the namespace where you define two objects: A Query and a Mutation Type.
 The query and mutation behave like regular `GraphQLObject`s. All the features mentioned above will be included out of the box.
@@ -207,7 +207,7 @@ enum HelloWorld: GraphQLSchema {
 }
 ```
 
-### GraphQLScalar
+### GraphQLScalar - [Reference](https://quintero.io/GraphZahl/Protocols/GraphQLScalar.html)
 
 If you have a value that can be represented as a standard Scalar Value, you can return that value as well, with the added Type Safety benefit, of not mixing it with the standard types. 
 
@@ -248,7 +248,7 @@ enum HelloWorld: GraphQLSchema {
 
 You can do this with virtually all kinds of types: Dates in the format of your choice, Percentages, HTML Text, whatever you want.
 
-### GraphQLEnum
+### GraphQLEnum  - [Reference](https://quintero.io/GraphZahl/Protocols/GraphQLEnum.html)
 
 The last one is the simplest case. If you want to support an enum in your API, it has to be RawRepresentable with String and implement `GraphQLEnum`.
 
@@ -264,7 +264,7 @@ enum Envirornment: String, CaseIterable, GraphQLEnum {
 
 If you want to compute your Enum Cases yourself you can implement the `cases` function.
 
-### GraphQLUnion
+### GraphQLUnion  - [Reference](https://quintero.io/GraphZahl/Protocols/GraphQLUnion.html)
 
 GraphZahl supports Union Types. To implement a Union Type you just have to implement an enum where every case has an associated type that is an Object
 
@@ -286,7 +286,7 @@ class Query: QueryType {
 }
 ```
 
-### GraphQLInputObject
+### GraphQLInputObject - [Reference](https://quintero.io/GraphZahl/Protocols/GraphQLInputObject.html)
 
 If you want to take specific structs as arguments for functions you can make them conform to `GraphQLInputObject`
 

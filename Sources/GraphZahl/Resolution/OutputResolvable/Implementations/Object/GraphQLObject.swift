@@ -18,7 +18,7 @@ import Foundation
  class Author: GraphQLObject {
     var name: String
 
-    func store() { /* store object in DB */ }
+    func store() { ... }
 
     func todos() -> [Todo] { ... }
  }
@@ -27,7 +27,7 @@ import Foundation
     var title: String
     var completed: Bool
 
-    func store() { /* store object in DB */ }
+    func store() { ... }
 
     func author() -> User { ... }
  }
