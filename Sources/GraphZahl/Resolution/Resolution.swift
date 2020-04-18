@@ -5,6 +5,9 @@ import GraphQL
 public enum Resolution {
 
     public enum Error: Swift.Error {
+        // Input Resolvable Errors
+        case cannotInstantiateTypeFromRawValue(InputResolvable.Type, rawValue: Any)
+
         // Input Object Errors
         case inputObjectIsNotAStruct(type: GraphQLInputObject.Type)
         case invalidPropertyInInputObject(name: String, type: Any.Type, ownerType: GraphQLInputObject.Type)

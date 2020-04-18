@@ -3,10 +3,10 @@ import Foundation
 import GraphQL
 
 /**
-# Concrete Resolvable
+ # Concrete Resolvable
 
-A Resolvable that is required to have a type name
-*/
+ A Resolvable that is required to have a type name
+ */
 public protocol ConcreteResolvable: Resolvable {
     /**
      Name that should be used in GraphQL

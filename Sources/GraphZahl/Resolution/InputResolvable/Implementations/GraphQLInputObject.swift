@@ -47,6 +47,9 @@ public protocol GraphQLInputObject: InputResolvable, ConcreteResolvable, ValueRe
 
 extension GraphQLInputObject {
 
+    /**
+     - Warning: default implementation from `GraphZahl`. Do not override unless you know exactly what you are doing.
+     */
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLInputType {
         let kind = try typeInfo(of: Self.self, .kind)
         guard kind == .struct else { throw Resolution.Error.inputObjectIsNotAStruct(type: Self.self) }
@@ -61,6 +64,9 @@ extension GraphQLInputObject {
         return GraphQLNonNull(try GraphQLInputObjectType(name: concreteTypeName, fields: fields))
     }
 
+    /**
+     - Warning: default implementation from `GraphZahl`. Do not override unless you know exactly what you are doing.
+     */
     public init(map: Map) throws {
         let dictionary = try map.dictionaryValue()
         self = try createInstance { property in
@@ -72,6 +78,9 @@ extension GraphQLInputObject {
         }
     }
 
+    /**
+     - Warning: default implementation from `GraphZahl`. Do not override unless you know exactly what you are doing.
+     */
     public func map() throws -> Map? {
         let dictionary = try Self.properties().compactMapValues { property -> Map? in
             guard let value = try property.get(from: self) as? ValueResolvable else {

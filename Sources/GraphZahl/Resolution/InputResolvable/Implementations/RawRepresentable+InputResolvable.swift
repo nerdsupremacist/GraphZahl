@@ -9,6 +9,9 @@ import GraphQL
  */
 extension RawRepresentable where Self: ValueResolvable, RawValue: ValueResolvable {
 
+    /**
+     - Warning: default implementation from `GraphZahl`. Do not override unless you know exactly what you are doing.
+     */
     public func map() throws -> Map {
         return try rawValue.map()
     }
@@ -21,10 +24,14 @@ extension RawRepresentable where Self: ValueResolvable, RawValue: ValueResolvabl
  All raw representables of values that are GraphQL Inputs, can be Inputs themselves
  */
 extension RawRepresentable where Self: InputResolvable, RawValue: InputResolvable {
+    
+    /**
+     - Warning: default implementation from `GraphZahl`. Do not override unless you know exactly what you are doing.
+     */
     public static func create(from map: Map) throws -> Self {
         let rawValue = try RawValue.create(from: map)
         guard let value = Self(rawValue: rawValue) else {
-            throw InputResolutionError.cannotInstantiateTypeFromRawValue(Self.self, rawValue: rawValue)
+            throw Resolution.Error.cannotInstantiateTypeFromRawValue(Self.self, rawValue: rawValue)
         }
         return value
     }

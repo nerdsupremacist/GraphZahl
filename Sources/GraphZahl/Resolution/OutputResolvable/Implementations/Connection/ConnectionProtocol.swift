@@ -95,6 +95,7 @@ extension ConnectionProtocol {
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         return try context.resolve(type: ConnectionWrapper<Self>.self)
     }
+
     /**
      - Warning: default implementation from `GraphZahl`. Do not override unless you know exactly what you are doing.
      */

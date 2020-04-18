@@ -4,6 +4,11 @@ import Runtime
 
 private var keyPaths = [Int : [String : PropertyInfo]]()
 
+/**
+ # Key Path Listable
+
+ A type whose Key Paths can be used in GraphQL
+ */
 public protocol KeyPathListable { }
 
 extension KeyPathListable {

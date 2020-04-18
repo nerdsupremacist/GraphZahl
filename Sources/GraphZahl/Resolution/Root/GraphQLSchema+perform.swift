@@ -9,6 +9,17 @@ private var schemaCache = [String : GraphQL.GraphQLSchema]()
 
 extension GraphQLSchema {
 
+    /**
+     Performs a GraphQL Request
+
+     - Parameters:
+         - request: Query Text
+         - viewerContext: Viewer Context
+         - variableValues; Values that should be given as variables to the Query. (defaults to empty)
+         - eventLoop; Event Loop Group where the query should be resolved
+
+     - Returns: A future with the result with data and errors for the query
+     */
     public static func perform(request: String,
                                viewerContext: ViewerContext,
                                variableValues: [String : Map] = [:],
@@ -33,7 +44,19 @@ extension GraphQLSchema {
 
 extension GraphQLSchema where ViewerContext == Void {
 
-    public static func perform(request: String) throws -> Future<GraphQLResult> {
+    /**
+    Performs a GraphQL Request
+
+    - Parameters:
+        - request: Query Text
+        - variableValues; Values that should be given as variables to the Query. (defaults to empty)
+        - eventLoop; Event Loop Group where the query should be resolved
+
+    - Returns: A future with the result with data and errors for the query
+    */
+    public static func perform(request: String,
+                               variableValues: [String : Map] = [:],
+                               eventLoopGroup: EventLoopGroup? = nil) throws -> Future<GraphQLResult> {
         return try perform(request: request, viewerContext: ())
     }
 
