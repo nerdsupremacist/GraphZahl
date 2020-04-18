@@ -76,12 +76,12 @@ let package = Package(
 
 Most users of GraphZahl need to understand the six main provided protocols:
 
-- [GraphQLObject](https://quintero.io/GraphZahl/Protocols/GraphQLObject.html):  A type that is composed from multiple properties and functions
-- [GraphQLSchema](https://quintero.io/GraphZahl/Protocols/GraphQLSchema.html):  The root of any API
-- [GraphQLScalar](https://quintero.io/GraphZahl/Protocols/GraphQLScalar.html):  A singular value
-- [GraphQLEnum](https://quintero.io/GraphZahl/Protocols/GraphQLEnum.html): An simple enum that is RawRepresentable with String
-- [GraphQLUnion](https://quintero.io/GraphZahl/Protocols/GraphQLUnion.html): An enum where every case has an associated value that is a GraphQLObject
-- [GraphQLInputObject](https://quintero.io/GraphZahl/Protocols/GraphQLInputObject.html): A struct that you expect as an argument to a funtion
+- [GraphQLObject](#graphqlobject---reference):  A type that is composed from multiple properties and functions
+- [GraphQLSchema](#graphqlobject---reference):  The root of any API
+- [GraphQLScalar](#graphqlscalar---reference):  A singular value
+- [GraphQLEnum](#graphqlenum---reference): An simple enum that is RawRepresentable with String
+- [GraphQLUnion](#graphqlunion---reference): An enum where every case has an associated value that is a GraphQLObject
+- [GraphQLInputObject](#graphqlinputobject---reference): A struct that you expect as an argument to a funtion
 
 As well as the extensions that enable you to get the most of GraphZahl alongside other common server-side libraries like Vapor and Fluent.
 
