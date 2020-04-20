@@ -93,7 +93,7 @@ class CallingTests: XCTestCase {
         let info = try typeInfo(of: MyClass.self)
         let method = info.methods.first { $0.methodName == "doit" }!
 
-        var context = Resolution.Context.empty(viewerContext: Void.self)
+        var context = Resolution.Context.empty(viewerContextType: Void.self, viewerContext: ())
         let field = try method.resolve(for: MyClass.self, using: &context)!
 
         let instance = MyClass()

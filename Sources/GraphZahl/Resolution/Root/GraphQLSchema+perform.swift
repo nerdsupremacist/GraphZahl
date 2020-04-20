@@ -25,7 +25,7 @@ extension GraphQLSchema {
                                variableValues: [String : Map] = [:],
                                eventLoopGroup: EventLoopGroup? = nil) throws -> Future<GraphQLResult> {
 
-        let schema = try schemaCache.getOrPut(String(describing: Self.self), default: try resolve())
+        let schema = try schemaCache.getOrPut(String(describing: Self.self), default: try resolve(viewerContext: viewerContext))
 
         let context = MutableContext {
             Self.viewerContext ~> viewerContext;
