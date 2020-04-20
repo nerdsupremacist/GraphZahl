@@ -8,59 +8,65 @@ import ContextKit
 extension MethodInfo {
 
     func resolve(for receiverType: GraphQLObject.Type, using context: inout Resolution.Context) throws -> GraphQLField? {
-        guard let returnType = returnType as? OutputResolvable.Type else { return nil }
+        do {
+            guard let returnType = returnType as? OutputResolvable.Type else { return nil }
 
-        let viewerContext = context.viewerContextType
-        let relevantArguments = arguments.filter { $0.type != MutableContext.self && $0.type != viewerContext }
-        let mappedArguments = relevantArguments.compactMap { argument in argument.name.map { ($0, argument) } }
-        let arguments = try Dictionary(uniqueKeysWithValues: mappedArguments)
-            .compactMapValues { argument -> GraphQLArgument? in
-                guard let argumentType = argument.type as? InputResolvable.Type else { return nil }
+            let viewerContext = context.viewerContextType
+            let relevantArguments = arguments.filter { $0.type != MutableContext.self && $0.type != viewerContext }
+            let mappedArguments = relevantArguments.compactMap { argument in argument.name.map { ($0, argument) } }
+            let arguments = try Dictionary(uniqueKeysWithValues: mappedArguments)
+                .compactMapValues { argument -> GraphQLArgument? in
+                    guard let argumentType = argument.type as? InputResolvable.Type else { return nil }
 
-                let type = try context.resolve(type: argumentType)
-                
-                guard let defaultValue = try argument.defaultValue() else {
-                    return GraphQLArgument(type: type, defaultValue: nil)
-                }
+                    let type = try context.resolve(type: argumentType)
 
-                guard let valueResolvable = defaultValue as? ValueResolvable else {
-                    switch type {
-                    case let type as GraphQLNonNull:
-                        return GraphQLArgument(type: type.ofType as! GraphQLInputType, defaultValue: nil)
-                    default:
+                    guard let defaultValue = try argument.defaultValue() else {
                         return GraphQLArgument(type: type, defaultValue: nil)
                     }
+
+                    guard let valueResolvable = defaultValue as? ValueResolvable else {
+                        switch type {
+                        case let type as GraphQLNonNull:
+                            return GraphQLArgument(type: type.ofType as! GraphQLInputType, defaultValue: nil)
+                        default:
+                            return GraphQLArgument(type: type, defaultValue: nil)
+                        }
+                    }
+
+                    return GraphQLArgument(type: type, defaultValue: try valueResolvable.map())
                 }
 
-                return GraphQLArgument(type: type, defaultValue: try valueResolvable.map())
+            guard arguments.count == relevantArguments.count else { return nil }
+
+            guard arguments.count <= MethodInfo.maximumNumberOfArgumentsWithReflection else {
+                // Print a warning in such cases to make sure the developers catch it
+                print("Warning: Method \(receiverType).\(methodName) is technically abstractable to GraphQL but it has too many arguments.")
+                print("    Currently we don't support more than \(MethodInfo.maximumNumberOfArgumentsWithReflection) arguments when using reflection.")
+                print("    This is due to the limitations on reflection in swift. We had to draw a line regarding the number of arguments somewhere.")
+                print("    If this is really necessary please contact the mantainers to increase this limit.")
+
+                return nil
             }
 
-        guard arguments.count == relevantArguments.count else { return nil }
+            let completeArguments = try returnType
+                .additionalGraphqlArguments(using: &context)
+                .merging(arguments) { $1 }
 
-        guard arguments.count <= MethodInfo.maximumNumberOfArgumentsWithReflection else {
-            // Print a warning in such cases to make sure the developers catch it
-            print("Warning: Method \(receiverType).\(methodName) is technically abstractable to GraphQL but it has too many arguments.")
-            print("    Currently we don't support more than \(MethodInfo.maximumNumberOfArgumentsWithReflection) arguments when using reflection.")
-            print("    This is due to the limitations on reflection in swift. We had to draw a line regarding the number of arguments somewhere.")
-            print("    If this is really necessary please contact the mantainers to increase this limit.")
+            return GraphQLField(type: try context.reference(for: returnType),
+                                args: completeArguments) { (source, args, context, eventLoop, _) -> Future<Any?> in
 
+                let args = try args.dictionaryValue()
+                let object = receiverType.object(from: source)
+                return try self.call(receiver: object,
+                                     argumentMap: args,
+                                     context: context as! MutableContext,
+                                     eventLoop: eventLoop,
+                                     viewerContext: viewerContext)
+            }
+        } catch Resolution.Error.viewerContextDidNotMatchExpectedType {
             return nil
-        }
-
-        let completeArguments = try returnType
-            .additionalGraphqlArguments(using: &context)
-            .merging(arguments) { $1 }
-
-        return GraphQLField(type: try context.reference(for: returnType),
-                            args: completeArguments) { (source, args, context, eventLoop, _) -> Future<Any?> in
-
-            let args = try args.dictionaryValue()
-            let object = receiverType.object(from: source)
-            return try self.call(receiver: object,
-                                 argumentMap: args,
-                                 context: context as! MutableContext,
-                                 eventLoop: eventLoop,
-                                 viewerContext: viewerContext)
+        } catch {
+            throw error
         }
     }
 
