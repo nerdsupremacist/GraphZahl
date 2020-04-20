@@ -9,6 +9,14 @@ private var schemaCache = [String : GraphQL.GraphQLSchema]()
 
 extension GraphQLSchema {
 
+    public static func prepare(viewerContext: ViewerContext? = nil) throws {
+        _ = try schemaCache.getOrPut(String(describing: Self.self), default: try resolve(viewerContext: viewerContext))
+    }
+
+}
+
+extension GraphQLSchema {
+
     /**
      Performs a GraphQL Request
 

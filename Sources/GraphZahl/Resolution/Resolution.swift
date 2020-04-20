@@ -16,7 +16,7 @@ public enum Resolution {
         case unionTypeIsNotAnEnum(type: GraphQLUnion.Type)
         case notAllCasesOfUnionAreGraphQLObjects(type: GraphQLUnion.Type, valid: [GraphQLObject.Type], invalid: [Any.Type?])
 
-        case viewerContextDidNotMatchExpectedType(expectedType: Any.Type, viewerContext: Any)
+        case viewerContextDidNotMatchExpectedType(expectedType: Any.Type, viewerContext: Any?)
     }
 
     public struct Context {
@@ -24,9 +24,9 @@ public enum Resolution {
         let references: [String : GraphQLOutputType]
         let unresolvedReferences: [String : OutputResolvable.Type]
         let viewerContextType: Any.Type
-        let generatorViewerContext: Any
+        let generatorViewerContext: Any?
 
-        private init(resolved: [String : GraphQLType], references: [String : GraphQLOutputType], unresolvedReferences: [String : OutputResolvable.Type], viewerContextType: Any.Type, generatorViewerContext: Any) {
+        private init(resolved: [String : GraphQLType], references: [String : GraphQLOutputType], unresolvedReferences: [String : OutputResolvable.Type], viewerContextType: Any.Type, generatorViewerContext: Any?) {
             self.resolved = resolved
             self.references = references
             self.unresolvedReferences = unresolvedReferences
@@ -204,7 +204,7 @@ extension Resolution.Context {
 
 extension Resolution.Context {
 
-    static func empty(viewerContextType: Any.Type, viewerContext: Any) -> Resolution.Context {
+    static func empty(viewerContextType: Any.Type, viewerContext: Any?) -> Resolution.Context {
         return Resolution.Context(resolved: [:], references: [:], unresolvedReferences: [:], viewerContextType: viewerContextType, generatorViewerContext: viewerContext)
     }
 
