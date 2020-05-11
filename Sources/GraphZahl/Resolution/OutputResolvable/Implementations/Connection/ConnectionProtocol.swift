@@ -104,10 +104,10 @@ extension ConnectionProtocol {
                         context: MutableContext,
                         eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
 
-        let first = try arguments["first"]?.intValue(converting: true)
-        let after = try arguments["after"]?.stringValue(converting: true)
-        let last = try arguments["last"]?.intValue(converting: true)
-        let before = try arguments["before"]?.stringValue(converting: true)
+        let first = try Optional<Int>.create(from: arguments["first"] ?? .null)
+        let after = try Optional<String>.create(from: arguments["after"] ?? .null)
+        let last = try Optional<Int>.create(from: arguments["last"] ?? .null)
+        let before = try Optional<String>.create(from: arguments["before"] ?? .null)
 
         let connection = ConnectionWrapper(connection: self,
                                            eventLoop: eventLoop,
