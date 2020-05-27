@@ -11,12 +11,10 @@ import ContextKit
  This API is modeled after standards set by [Relay](https://relay.dev/docs/en/pagination-container) and [GraphQL](https://graphql.org/learn/pagination/).
 
  It relies on the usage of the arguments: `first`, `after`, `last` and `before`.
-
- - Parameters:
-     - first: Number of items that will be fetched at the start of the list
-     - after: Cursor of the last element in the page that comes before. Signals that all items in the requested page should be strictly after the element with that cursor. The element with the cursor should be excluded
-     - last: Number of items that will be fetched at the end of the list
-     - before: Cursor of the first element in the page that comes after. Signals that all items in the requested page should be strictly before the element with that cursor. The element with the cursor should be excluded
+    - `first`: Number of items that will be fetched at the start of the list
+    - `after`: Cursor of the last element in the page that comes before. Signals that all items in the requested page should be strictly after the element with that cursor. The element with the cursor should be excluded
+    - `last`: Number of items that will be fetched at the end of the list
+    - `before`: Cursor of the first element in the page that comes after. Signals that all items in the requested page should be strictly before the element with that cursor. The element with the cursor should be excluded
 
  ## Note
 

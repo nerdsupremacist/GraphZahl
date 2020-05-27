@@ -51,15 +51,15 @@ public protocol OutputResolvable: Resolvable {
 
     /**
     Resolves the value that can be outputed to GraphQL
-
+     
     - Parameters:
-     - source: Parent of this type
-     - arguments: Arguments given to the parent field
-     - context; Context, containing additional runtime data about the resuts. You may also include additional information here for other nested types to use
-     - eventLoop; Event Loop Group that can be used for creating futures
-
+       - source: Parent of this type
+       - arguments: Arguments given to the parent field
+       - context: Context, containing additional runtime data about the resuts. You may also include additional information here for other nested types to use
+       - eventLoop: Event Loop Group that can be used for creating futures
+     
     - Returns: A Future with a value that can be evaluated by GraphQL.
-    */
+     */
     func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> Future<Any?>
 }
 
