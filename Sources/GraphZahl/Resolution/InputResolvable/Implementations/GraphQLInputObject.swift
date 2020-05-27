@@ -35,7 +35,7 @@ private var propertiesForType = [Int : [String : PropertyInfo]]()
 
  ## Note
 
- Input types can be useful to group arguments. We can also use them to group arguments that should always be provided together. Like in out search example, we don't need the user to specify how to sort. But when the user wants the Results sorted by a field, we need to know if ascending or descending. That's why the Input Object makes sense in this scenario.
+ Input types can be useful to group arguments. We can also use them to group arguments that should always be provided together. Like in our search example, we don't need the user to specify how to sort. But when the user wants the Results sorted by a field, we need to know if the should be sorted in a ascending or descending order. That's why the Input Object makes sense in this scenario.
 
  ## Details
 
