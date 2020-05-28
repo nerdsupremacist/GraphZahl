@@ -10,6 +10,10 @@ private struct ConnectionIdentifier: Hashable {
 }
 
 struct IndexedConnectionWrapper<Connection: IndexedConnection>: ContextBasedConnection, ConcreteResolvable {
+    static var concreteTypeName: String {
+        return "\(Node.concreteTypeName)Connection"
+    }
+
     typealias Node = Connection.Node
 
     struct Context {
