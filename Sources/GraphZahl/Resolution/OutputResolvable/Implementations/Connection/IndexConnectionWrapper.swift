@@ -70,7 +70,7 @@ struct IndexedConnectionWrapper<Connection: IndexedConnection>: ContextBasedConn
                     start = max(start, end - last)
                 }
 
-                return Context(totalCount: totalCount, offset: start, size: end)
+                return Context(totalCount: totalCount, offset: start, size: max(end - start, 0))
             }
     }
 
