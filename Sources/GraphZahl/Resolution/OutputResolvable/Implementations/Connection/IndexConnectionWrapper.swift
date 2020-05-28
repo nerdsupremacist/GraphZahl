@@ -40,35 +40,38 @@ struct IndexedConnectionWrapper<Connection: IndexedConnection>: ContextBasedConn
     }
 
     func context(first: Int?, after: String?, last: Int?, before: String?, eventLoop: EventLoopGroup) -> EventLoopFuture<Context> {
-        return connection.totalCount(eventLoop: eventLoop).and(connection.defaultSize(eventLoop: eventLoop)).flatMapThrowing { totalCount, defaultSize in
-            let perPage = defaultSize ?? totalCount
+        return connection
+            .totalCount(eventLoop: eventLoop)
+            .and(connection.defaultPageSize(eventLoop: eventLoop))
+            .flatMapThrowing { totalCount, defaultPageSize in
+                let perPage = defaultPageSize ?? totalCount
 
-            if perPage == 0 {
-                return Context(totalCount: totalCount, offset: 0, size: 0)
+                if perPage == 0 {
+                    return Context(totalCount: totalCount, offset: 0, size: 0)
+                }
+
+                let first = first == nil && last == nil ? perPage : first
+                var start = 0
+                var end = totalCount
+
+                if let after = try after.map(self.index(for:)) {
+                    start = max(start, after + 1)
+                }
+
+                if let before = try before.map(self.index(for:)) {
+                    end = min(before, end)
+                }
+
+                if let first = first {
+                    end = min(start + first, end)
+                }
+
+                if let last = last {
+                    start = max(start, end - last)
+                }
+
+                return Context(totalCount: totalCount, offset: start, size: end)
             }
-
-            let first = first == nil && last == nil ? perPage : first
-            var start = 0
-            var end = totalCount
-
-            if let after = try after.map(self.index(for:)) {
-                start = max(start, after + 1)
-            }
-
-            if let before = try before.map(self.index(for:)) {
-                end = min(before, end)
-            }
-
-            if let first = first {
-                end = min(start + first, end)
-            }
-
-            if let last = last {
-                start = max(start, end - last)
-            }
-
-            return Context(totalCount: totalCount, offset: start, size: end)
-        }
     }
 
     func totalCount(context: Context, eventLoop: EventLoopGroup) -> EventLoopFuture<Int> {

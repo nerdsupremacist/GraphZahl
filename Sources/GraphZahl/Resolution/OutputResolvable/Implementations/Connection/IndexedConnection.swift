@@ -18,7 +18,7 @@ public protocol IndexedConnection: OutputResolvable, ConcreteResolvable {
 
 extension IndexedConnection {
 
-    public func defaultSize(eventLoop: EventLoopGroup) -> EventLoopFuture<Int?> {
+    public func defaultPageSize(eventLoop: EventLoopGroup) -> EventLoopFuture<Int?> {
         return eventLoop.next().makeSucceededFuture(nil)
     }
 
