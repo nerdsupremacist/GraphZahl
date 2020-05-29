@@ -27,6 +27,6 @@ let package = Package(
             name: "GraphZahlTests",
             dependencies: ["GraphZahl"]),
 
-        .systemLibrary(name: "CContext"),
+        .target(name: "CContext"),
     ]
 )
