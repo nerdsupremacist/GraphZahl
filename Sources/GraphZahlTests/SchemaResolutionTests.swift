@@ -38,6 +38,28 @@ class SchemaResolutionTests: XCTestCase {
         XCTAssertEqual(expectedData, result.data)
     }
 
+    func testDelegatedOutputs() throws {
+        struct SomeInt: DelegatedOutputResolvable {
+            let int: Int
+
+            func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> some OutputResolvable {
+                return int
+            }
+        }
+
+        var context = Resolution.Context.empty(viewerContextType: Int.self, viewerContext: 42)
+        let output = try SomeInt.resolve(using: &context)
+        guard let nonNull = output as? GraphQLNonNull else {
+            XCTFail("outptut of some int is nullable")
+            return
+        }
+        guard let scalar = nonNull.ofType as? GraphQLScalarType else {
+            XCTFail("outptut of some int is not a scalar")
+            return
+        }
+        XCTAssertEqual(scalar, GraphQLInt)
+    }
+
     func testKeypaths() throws {
         let query = """
         {
