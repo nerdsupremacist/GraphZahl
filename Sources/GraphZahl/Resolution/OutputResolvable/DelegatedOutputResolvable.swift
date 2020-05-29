@@ -4,7 +4,7 @@ import ContextKit
 import NIO
 import GraphQL
 
-protocol DelegatedOutputResolvable: OutputResolvable {
+public protocol DelegatedOutputResolvable: OutputResolvable {
     associatedtype Output: OutputResolvable
 
     func resolve(source: Any,
