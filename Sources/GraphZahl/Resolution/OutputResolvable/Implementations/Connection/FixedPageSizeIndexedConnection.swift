@@ -14,15 +14,19 @@ extension FixedPageSizeIndexedConnection {
     }
 
     public func nodes(offset: Int, size: Int, eventLoop: EventLoopGroup) -> EventLoopFuture<[Node?]?> {
-        return pageSize(eventLoop: eventLoop)
-            .flatMap { pageSize in
+        return totalCount(eventLoop: eventLoop)
+            .and(pageSize(eventLoop: eventLoop))
+            .flatMap { totalCount, pageSize in
                 let end = offset + size
                 let firstPage = offset / pageSize
                 let lastPage = (end - 1) / pageSize
                 let pages = firstPage...lastPage
 
                 let skipOnFirst = offset.quotientAndRemainder(dividingBy: pageSize).remainder
-                let skipOnLast = (pageSize - end.quotientAndRemainder(dividingBy: pageSize).remainder).quotientAndRemainder(dividingBy: pageSize).remainder
+                let skipOnLast = min(
+                    (pageSize - end.quotientAndRemainder(dividingBy: pageSize).remainder).quotientAndRemainder(dividingBy: pageSize).remainder,
+                    totalCount - end
+                )
 
                 let futures = pages
                     .map { self.page(at: $0, eventLoop: eventLoop) }
