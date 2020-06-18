@@ -79,6 +79,22 @@ class SchemaResolutionTests: XCTestCase {
 
         XCTAssertEqual(expectedData, result.data)
     }
+    
+    func testIdAndDateCombination() throws {
+        let query = """
+        {
+            thing(id: "1E9FF7FB-7424-4319-9BFA-470F4C6549FA", date: "2020-06-18T12:54:13Z")
+        }
+        """
+
+        let result = try Schema.perform(request: query).wait()
+
+        let expectedData: Map = [
+            "thing" : 42,
+        ]
+
+        XCTAssertEqual(expectedData, result.data)
+    }
 
 }
 
@@ -87,6 +103,10 @@ class Schema: GraphZahl.GraphQLSchema {
     class Query: QueryType {
         func union() -> Union {
             return .bar(Bar(bar: 42))
+        }
+        
+        func thing(id: UUID, date: Date) -> Int {
+            return 42
         }
 
         func foo(filter: KeyPath<Foo, String>, equals: String) -> [Foo] {
@@ -100,6 +120,20 @@ class Schema: GraphZahl.GraphQLSchema {
         required init(viewerContext: ()) { }
     }
 
+}
+
+private let dateFormatter = ISO8601DateFormatter()
+
+extension Date: GraphQLScalar {
+    public init(scalar: ScalarValue) throws {
+        guard let date = dateFormatter.date(from: try scalar.string()) else {
+            throw ScalarTypeError.valueFailedInnerTypeConstraints(scalar, forType: Date.self)
+        }
+        self = date
+    }
+    public func encodeScalar() throws -> ScalarValue {
+        return try dateFormatter.string(from: self).encodeScalar()
+    }
 }
 
 class Foo: GraphQLObject {
