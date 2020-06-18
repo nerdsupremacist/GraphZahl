@@ -57,7 +57,7 @@ extension String: SpecialCase { }
 
 extension Array: SpecialCase { }
 
-extension Date: SpecialCase { }
+extension Date: ReferenceConvertibleSpecialScase { }
 
 extension UUID: ReferenceConvertibleSpecialScase { }
 
