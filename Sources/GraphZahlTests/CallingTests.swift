@@ -16,7 +16,8 @@ class CallingTests: XCTestCase {
         ]
     }
 
-    func testURL() throws {
+    // TODO: Fix with https://github.com/nerdsupremacist/GraphZahl/issues/22
+    func ignore_testURL() throws {
         let info = try typeInfo(of: MyClass.self)
         let instance = MyClass()
         let method = info.methods.first { $0.methodName == "url" }!
