@@ -83,14 +83,34 @@ class SchemaResolutionTests: XCTestCase {
     func testIdAndDateCombination() throws {
         let query = """
         {
-            thing(id: "1E9FF7FB-7424-4319-9BFA-470F4C6549FA", date: "2020-06-18T12:54:13Z")
+            idAndDateCombination(id: "1E9FF7FB-7424-4319-9BFA-470F4C6549FA", date: "2020-06-18T12:54:13Z")
         }
         """
 
         let result = try Schema.perform(request: query).wait()
 
         let expectedData: Map = [
-            "thing" : 42,
+            "idAndDateCombination" : 42,
+        ]
+
+        XCTAssertEqual(expectedData, result.data)
+    }
+    
+    func testCombiningDoublesAndFloats() throws {
+        let query = """
+        {
+            combiningDoublesAndFloats(bool: true, float: 1.0) {
+                double
+            }
+        }
+        """
+
+        let result = try Schema.perform(request: query).wait()
+
+        let expectedData: Map = [
+            "combiningDoublesAndFloats" : [
+                "double" : 42
+            ],
         ]
 
         XCTAssertEqual(expectedData, result.data)
@@ -99,13 +119,16 @@ class SchemaResolutionTests: XCTestCase {
 }
 
 class Schema: GraphZahl.GraphQLSchema {
-
     class Query: QueryType {
+        func combiningDoublesAndFloats(bool: Bool, float: Float) -> ObjectWithDouble {
+            return ObjectWithDouble()
+        }
+        
         func union() -> Union {
             return .bar(Bar(bar: 42))
         }
-        
-        func thing(id: UUID, date: Date) -> Int {
+
+        func idAndDateCombination(id: UUID, date: Date) -> Int {
             return 42
         }
 
@@ -122,6 +145,44 @@ class Schema: GraphZahl.GraphQLSchema {
 
 }
 
+extension Schema {
+
+    class ObjectWithDouble: GraphQLObject {
+        let double: Double = 42
+    }
+
+    class Foo: GraphQLObject {
+        let foo: String
+
+        init(foo: String) {
+            self.foo = foo
+        }
+    }
+
+    class Bar: GraphQLObject {
+        let bar: Int
+
+        init(bar: Int) {
+            self.bar = bar
+        }
+    }
+
+    class Baz: GraphQLObject {
+        let baz: Bool
+
+        init(baz: Bool) {
+            self.baz = baz
+        }
+    }
+
+    enum Union: GraphQLUnion {
+        case foo(Foo)
+        case bar(Bar)
+        case baz(Baz)
+    }
+    
+}
+
 private let dateFormatter = ISO8601DateFormatter()
 
 extension Date: GraphQLScalar {
@@ -134,34 +195,4 @@ extension Date: GraphQLScalar {
     public func encodeScalar() throws -> ScalarValue {
         return try dateFormatter.string(from: self).encodeScalar()
     }
-}
-
-class Foo: GraphQLObject {
-    let foo: String
-
-    init(foo: String) {
-        self.foo = foo
-    }
-}
-
-class Bar: GraphQLObject {
-    let bar: Int
-
-    init(bar: Int) {
-        self.bar = bar
-    }
-}
-
-class Baz: GraphQLObject {
-    let baz: Bool
-
-    init(baz: Bool) {
-        self.baz = baz
-    }
-}
-
-enum Union: GraphQLUnion {
-    case foo(Foo)
-    case bar(Bar)
-    case baz(Baz)
 }
