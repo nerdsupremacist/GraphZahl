@@ -1,4 +1,4 @@
-![low effort logo](https://github.com/nerdsupremacist/GraphZahl/raw/master/logo.png)
+![low effort logo](https://github.com/nerdsupremacist/GraphZahl/raw/develop/logo.png)
 
 # GraphZahl (Alpha)
 ![Swift](https://github.com/nerdsupremacist/GraphZahl/workflows/Swift/badge.svg) ![Documentation](https://github.com/nerdsupremacist/GraphZahl/workflows/Documentation/badge.svg)
@@ -38,7 +38,7 @@ let result = HelloWorld.perform(request: "...")
 
 And you can even connect it to GraphiQL and test it:
 
-![graphiql](https://github.com/nerdsupremacist/GraphZahl/raw/master/demo/helloworld.png)
+![graphiql](https://github.com/nerdsupremacist/GraphZahl/raw/develop/demo/helloworld.png)
 *left: a query for data* **|** *middle: the returned json from our API*  **|** *right: our server API reference*
 
 **Let's break that down!**
@@ -128,7 +128,7 @@ class MyObject: GraphQLObject {
 
 And we can see it appear in our API:
 
-![](https://github.com/nerdsupremacist/GraphZahl/raw/master/demo/object.png)
+![](https://github.com/nerdsupremacist/GraphZahl/raw/develop/demo/object.png)
 *left: a query for the data of MyObject*  **|** *middle: the returned json from our API*  **|** *right: the type definition of MyObject*
 
 Your object can also return nested objects:
@@ -152,7 +152,7 @@ class MyObject: GraphQLObject {
 
 And you can see the results immediately:
 
-![](https://github.com/nerdsupremacist/GraphZahl/raw/master/demo/nestedobject.png)
+![](https://github.com/nerdsupremacist/GraphZahl/raw/develop/demo/nestedobject.png)
 
 ### GraphQLSchema - [Reference](https://quintero.io/GraphZahl/Protocols/GraphQLSchema.html)
 
@@ -244,7 +244,7 @@ enum HelloWorld: GraphQLSchema {
 }
 ```
 
-![](https://github.com/nerdsupremacist/GraphZahl/raw/master/demo/urlscalar.png)
+![](https://github.com/nerdsupremacist/GraphZahl/raw/develop/demo/urlscalar.png)
 
 You can do this with virtually all kinds of types: Dates in the format of your choice, Percentages, HTML Text, whatever you want.
 
@@ -495,7 +495,7 @@ Contributions are welcome and encouraged!
 
 ## Related Work
 
-![](https://github.com/nerdsupremacist/Graphaello/raw/master/logo.png)
+![](https://github.com/nerdsupremacist/Graphaello/raw/develop/logo.png)
 
 GraphZahl works best when coupled with [Graphaello](https://github.com/nerdsupremacist/Graphaello) on the Client Side. Graphaello enables you to use GraphQL directly from your SwiftUI Views.
 
