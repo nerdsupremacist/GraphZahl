@@ -21,11 +21,11 @@
       },
       {
         "package": "CwlDemangle",
-        "repositoryURL": "https://github.com/mattgallagher/CwlDemangle.git",
+        "repositoryURL": "https://github.com/nerdsupremacist/CwlDemangle.git",
         "state": {
           "branch": null,
-          "revision": "b268c08207d2990664605c49b2c71cbd0df3445b",
-          "version": "0.1.0"
+          "revision": "ca1ffdc206f76dc5f217f27ea2a0bbd2241a4a92",
+          "version": "0.1.1-beta.1"
         }
       },
       {
@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/nerdsupremacist/Runtime.git",
         "state": {
           "branch": null,
-          "revision": "dbd1fddfea69f3ed6f057146bb8433b461867d73",
-          "version": "2.1.2-beta.11"
+          "revision": "0fa308e65890216eeb1bb2c4b7bb87dd175b17f8",
+          "version": "2.1.2-beta.12"
         }
       },
       {
