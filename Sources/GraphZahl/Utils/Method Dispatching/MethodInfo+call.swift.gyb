@@ -38,7 +38,7 @@ import CContext
     allowedArgumentMap = { "int" : 6, "float" : 8 }
     allowedResultMap = { "int" : 4, "float" : 4 }
     
-    allowedStackSize = 40
+    allowedStackSize = 80
 }%
 
 extension MethodInfo {

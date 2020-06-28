@@ -48,6 +48,46 @@ enum StackValues {
     case ofSize38(function_argumemt_stack_38)
     case ofSize39(function_argumemt_stack_39)
     case ofSize40(function_argumemt_stack_40)
+    case ofSize41(function_argumemt_stack_41)
+    case ofSize42(function_argumemt_stack_42)
+    case ofSize43(function_argumemt_stack_43)
+    case ofSize44(function_argumemt_stack_44)
+    case ofSize45(function_argumemt_stack_45)
+    case ofSize46(function_argumemt_stack_46)
+    case ofSize47(function_argumemt_stack_47)
+    case ofSize48(function_argumemt_stack_48)
+    case ofSize49(function_argumemt_stack_49)
+    case ofSize50(function_argumemt_stack_50)
+    case ofSize51(function_argumemt_stack_51)
+    case ofSize52(function_argumemt_stack_52)
+    case ofSize53(function_argumemt_stack_53)
+    case ofSize54(function_argumemt_stack_54)
+    case ofSize55(function_argumemt_stack_55)
+    case ofSize56(function_argumemt_stack_56)
+    case ofSize57(function_argumemt_stack_57)
+    case ofSize58(function_argumemt_stack_58)
+    case ofSize59(function_argumemt_stack_59)
+    case ofSize60(function_argumemt_stack_60)
+    case ofSize61(function_argumemt_stack_61)
+    case ofSize62(function_argumemt_stack_62)
+    case ofSize63(function_argumemt_stack_63)
+    case ofSize64(function_argumemt_stack_64)
+    case ofSize65(function_argumemt_stack_65)
+    case ofSize66(function_argumemt_stack_66)
+    case ofSize67(function_argumemt_stack_67)
+    case ofSize68(function_argumemt_stack_68)
+    case ofSize69(function_argumemt_stack_69)
+    case ofSize70(function_argumemt_stack_70)
+    case ofSize71(function_argumemt_stack_71)
+    case ofSize72(function_argumemt_stack_72)
+    case ofSize73(function_argumemt_stack_73)
+    case ofSize74(function_argumemt_stack_74)
+    case ofSize75(function_argumemt_stack_75)
+    case ofSize76(function_argumemt_stack_76)
+    case ofSize77(function_argumemt_stack_77)
+    case ofSize78(function_argumemt_stack_78)
+    case ofSize79(function_argumemt_stack_79)
+    case ofSize80(function_argumemt_stack_80)
 }
 
 extension function_argumemt_stack_1: FunctionArgumentInstantiable { }
@@ -90,6 +130,46 @@ extension function_argumemt_stack_37: FunctionArgumentInstantiable { }
 extension function_argumemt_stack_38: FunctionArgumentInstantiable { }
 extension function_argumemt_stack_39: FunctionArgumentInstantiable { }
 extension function_argumemt_stack_40: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_41: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_42: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_43: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_44: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_45: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_46: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_47: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_48: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_49: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_50: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_51: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_52: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_53: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_54: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_55: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_56: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_57: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_58: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_59: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_60: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_61: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_62: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_63: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_64: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_65: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_66: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_67: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_68: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_69: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_70: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_71: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_72: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_73: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_74: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_75: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_76: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_77: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_78: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_79: FunctionArgumentInstantiable { }
+extension function_argumemt_stack_80: FunctionArgumentInstantiable { }
 
 extension Sequence where Element == FunctionArgument {
 
@@ -179,6 +259,86 @@ extension Sequence where Element == FunctionArgument {
             return .ofSize39(function_argumemt_stack_39.instantiate(from: Array(self)))
         case 40:
             return .ofSize40(function_argumemt_stack_40.instantiate(from: Array(self)))
+        case 41:
+            return .ofSize41(function_argumemt_stack_41.instantiate(from: Array(self)))
+        case 42:
+            return .ofSize42(function_argumemt_stack_42.instantiate(from: Array(self)))
+        case 43:
+            return .ofSize43(function_argumemt_stack_43.instantiate(from: Array(self)))
+        case 44:
+            return .ofSize44(function_argumemt_stack_44.instantiate(from: Array(self)))
+        case 45:
+            return .ofSize45(function_argumemt_stack_45.instantiate(from: Array(self)))
+        case 46:
+            return .ofSize46(function_argumemt_stack_46.instantiate(from: Array(self)))
+        case 47:
+            return .ofSize47(function_argumemt_stack_47.instantiate(from: Array(self)))
+        case 48:
+            return .ofSize48(function_argumemt_stack_48.instantiate(from: Array(self)))
+        case 49:
+            return .ofSize49(function_argumemt_stack_49.instantiate(from: Array(self)))
+        case 50:
+            return .ofSize50(function_argumemt_stack_50.instantiate(from: Array(self)))
+        case 51:
+            return .ofSize51(function_argumemt_stack_51.instantiate(from: Array(self)))
+        case 52:
+            return .ofSize52(function_argumemt_stack_52.instantiate(from: Array(self)))
+        case 53:
+            return .ofSize53(function_argumemt_stack_53.instantiate(from: Array(self)))
+        case 54:
+            return .ofSize54(function_argumemt_stack_54.instantiate(from: Array(self)))
+        case 55:
+            return .ofSize55(function_argumemt_stack_55.instantiate(from: Array(self)))
+        case 56:
+            return .ofSize56(function_argumemt_stack_56.instantiate(from: Array(self)))
+        case 57:
+            return .ofSize57(function_argumemt_stack_57.instantiate(from: Array(self)))
+        case 58:
+            return .ofSize58(function_argumemt_stack_58.instantiate(from: Array(self)))
+        case 59:
+            return .ofSize59(function_argumemt_stack_59.instantiate(from: Array(self)))
+        case 60:
+            return .ofSize60(function_argumemt_stack_60.instantiate(from: Array(self)))
+        case 61:
+            return .ofSize61(function_argumemt_stack_61.instantiate(from: Array(self)))
+        case 62:
+            return .ofSize62(function_argumemt_stack_62.instantiate(from: Array(self)))
+        case 63:
+            return .ofSize63(function_argumemt_stack_63.instantiate(from: Array(self)))
+        case 64:
+            return .ofSize64(function_argumemt_stack_64.instantiate(from: Array(self)))
+        case 65:
+            return .ofSize65(function_argumemt_stack_65.instantiate(from: Array(self)))
+        case 66:
+            return .ofSize66(function_argumemt_stack_66.instantiate(from: Array(self)))
+        case 67:
+            return .ofSize67(function_argumemt_stack_67.instantiate(from: Array(self)))
+        case 68:
+            return .ofSize68(function_argumemt_stack_68.instantiate(from: Array(self)))
+        case 69:
+            return .ofSize69(function_argumemt_stack_69.instantiate(from: Array(self)))
+        case 70:
+            return .ofSize70(function_argumemt_stack_70.instantiate(from: Array(self)))
+        case 71:
+            return .ofSize71(function_argumemt_stack_71.instantiate(from: Array(self)))
+        case 72:
+            return .ofSize72(function_argumemt_stack_72.instantiate(from: Array(self)))
+        case 73:
+            return .ofSize73(function_argumemt_stack_73.instantiate(from: Array(self)))
+        case 74:
+            return .ofSize74(function_argumemt_stack_74.instantiate(from: Array(self)))
+        case 75:
+            return .ofSize75(function_argumemt_stack_75.instantiate(from: Array(self)))
+        case 76:
+            return .ofSize76(function_argumemt_stack_76.instantiate(from: Array(self)))
+        case 77:
+            return .ofSize77(function_argumemt_stack_77.instantiate(from: Array(self)))
+        case 78:
+            return .ofSize78(function_argumemt_stack_78.instantiate(from: Array(self)))
+        case 79:
+            return .ofSize79(function_argumemt_stack_79.instantiate(from: Array(self)))
+        case 80:
+            return .ofSize80(function_argumemt_stack_80.instantiate(from: Array(self)))
         default:
             fatalError()
         }

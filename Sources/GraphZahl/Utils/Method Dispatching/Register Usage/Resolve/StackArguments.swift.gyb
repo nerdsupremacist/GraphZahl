@@ -5,7 +5,7 @@ import Foundation
 import CContext
 
 %{
-    allowedStackSize = 40
+    allowedStackSize = 80
 }%
 
 enum StackValues {

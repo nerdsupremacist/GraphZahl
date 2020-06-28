@@ -35,7 +35,7 @@
     allowedTypes = { "int" : "long", "float" : "double" }
     allowedResultMap = { "int" : 4, "float" : 4 }
     
-    allowedStackSize = 40
+    allowedStackSize = 80
 }%
 
 void set_self_pointer(void *pointer);
