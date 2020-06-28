@@ -38,15 +38,15 @@ extension MethodInfo {
 
             guard arguments.count == relevantArguments.count else { return nil }
 
-            guard arguments.count <= MethodInfo.maximumNumberOfArgumentsWithReflection else {
-                // Print a warning in such cases to make sure the developers catch it
-                print("Warning: Method \(receiverType).\(methodName) is technically abstractable to GraphQL but it has too many arguments.")
-                print("    Currently we don't support more than \(MethodInfo.maximumNumberOfArgumentsWithReflection) arguments when using reflection.")
-                print("    This is due to the limitations on reflection in swift. We had to draw a line regarding the number of arguments somewhere.")
-                print("    If this is really necessary please contact the mantainers to increase this limit.")
-
-                return nil
-            }
+//            guard arguments.count <= MethodInfo.maximumNumberOfArgumentsWithReflection else {
+//                // Print a warning in such cases to make sure the developers catch it
+//                print("Warning: Method \(receiverType).\(methodName) is technically abstractable to GraphQL but it has too many arguments.")
+//                print("    Currently we don't support more than \(MethodInfo.maximumNumberOfArgumentsWithReflection) arguments when using reflection.")
+//                print("    This is due to the limitations on reflection in swift. We had to draw a line regarding the number of arguments somewhere.")
+//                print("    If this is really necessary please contact the mantainers to increase this limit.")
+//
+//                return nil
+//            }
 
             let completeArguments = try returnType
                 .additionalGraphqlArguments(using: &context)
