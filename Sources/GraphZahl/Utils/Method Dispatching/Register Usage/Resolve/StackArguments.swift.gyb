@@ -1,0 +1,40 @@
+// swiftlint:disable all
+// This file was automatically generated and should not be edited.
+
+import Foundation
+import CContext
+
+%{
+    allowedStackSize = 40
+}%
+
+enum StackValues {
+    case empty
+    
+    % for stackSize in range(1, allowedStackSize + 1):
+    case ofSize${stackSize}(function_argumemt_stack_${stackSize})
+    % end
+}
+
+% for stackSize in range(1, allowedStackSize + 1):
+extension function_argumemt_stack_${stackSize}: FunctionArgumentInstantiable { }
+% end
+
+extension Sequence where Element == FunctionArgument {
+
+    func stackValues() -> StackValues {
+        let size = reduce(0) { $0 + $1.size }
+        
+        switch size {
+        case 0:
+            return .empty
+        % for stackSize in range(1, allowedStackSize + 1):
+        case ${stackSize}:
+            return .ofSize${stackSize}(function_argumemt_stack_${stackSize}.instantiate(from: Array(self)))
+        % end
+        default:
+            fatalError()
+        }
+    }
+
+}

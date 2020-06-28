@@ -1,3 +1,4 @@
+// swiftlint:disable all
 // This file was automatically generated and should not be edited.
 
 import Foundation
@@ -23,6 +24,36 @@ enum IntArgument {
             return Int(from: value)
         case .pointer(let value):
             return Int(from: value)
+        }
+    }
+    
+    var size: Int {
+        switch self {
+        case .int8:
+            return MemoryLayout<Int8>.size
+        case .int16:
+            return MemoryLayout<Int16>.size
+        case .int32:
+            return MemoryLayout<Int32>.size
+        case .int:
+            return MemoryLayout<Int>.size
+        case .pointer:
+            return MemoryLayout<UnsafeMutableRawPointer>.size
+        }
+    }
+    
+    func write(to pointer: UnsafeMutableRawPointer) {
+        switch self {
+        case .int8(let value):
+            pointer.storeBytes(of: value, as: Int8.self)
+        case .int16(let value):
+            pointer.storeBytes(of: value, as: Int16.self)
+        case .int32(let value):
+            pointer.storeBytes(of: value, as: Int32.self)
+        case .int(let value):
+            pointer.storeBytes(of: value, as: Int.self)
+        case .pointer(let value):
+            pointer.storeBytes(of: value, as: UnsafeMutableRawPointer.self)
         }
     }
 }
@@ -57,6 +88,24 @@ enum FloatArgument {
             return Double(from: value)
         case .double(let value):
             return Double(from: value)
+        }
+    }
+    
+    var size: Int {
+        switch self {
+        case .float:
+            return MemoryLayout<Float>.size
+        case .double:
+            return MemoryLayout<Double>.size
+        }
+    }
+    
+    func write(to pointer: UnsafeMutableRawPointer) {
+        switch self {
+        case .float(let value):
+            pointer.storeBytes(of: value, as: Float.self)
+        case .double(let value):
+            pointer.storeBytes(of: value, as: Double.self)
         }
     }
 }
@@ -104,6 +153,24 @@ extension FloatResult {
 enum FunctionArgument {
     case int(IntArgument)
     case float(FloatArgument)
+    
+    var size: Int {
+        switch self {
+        case .int(let int):
+            return int.size
+        case .float(let float):
+            return float.size
+        }
+    }
+    
+    func write(to pointer: UnsafeMutableRawPointer) {
+        switch self {
+        case .int(let int):
+            int.write(to: pointer)
+        case .float(let float):
+            float.write(to: pointer)
+        }
+    }
 }
 
 extension FunctionArgument {
@@ -132,21 +199,6 @@ extension FunctionResult {
             return self
         case .float(let float):
             return .int(float.intResult())
-        }
-    }
-
-}
-
-extension Sequence where Element == FunctionArgument {
-
-    func ordered() -> [FunctionArgument] {
-        return sorted { lhs, rhs in
-            switch (lhs, rhs) {
-            case (.int, .float):
-                return true
-            case (.int, .int), (.float, .float), (.float, .int):
-                return false
-            }
         }
     }
 
