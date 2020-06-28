@@ -29,7 +29,7 @@ class CallingTests: XCTestCase {
         let info = try typeInfo(of: MyClass.self)
         let instance = MyClass()
         let method = info.methods.first { $0.methodName == "manyArguments" }!
-        let arguments = ["One", "Two", "Three", "Four"]
+        let arguments = ["One", "Two", "Three", "Four", "Five"]
         let result = try method.call(receiver: instance, arguments: arguments) as! String
         XCTAssertEqual(result, arguments.joined(separator: " "))
     }
@@ -177,7 +177,7 @@ class MyClass: GraphQLObject {
         return cases.map(\.rawValue).joined()
     }
     
-    func manyArguments(first: String, second: String, third: String, fourth: String) -> String {
-        return [first, second, third, fourth].joined(separator: " ")
+    func manyArguments(first: String, second: String, third: String, fourth: String, fifth: String) -> String {
+        return [first, second, third, fourth, fifth].joined(separator: " ")
     }
 }
