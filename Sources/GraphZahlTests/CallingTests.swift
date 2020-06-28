@@ -24,6 +24,15 @@ class CallingTests: XCTestCase {
         let result = try method.call(receiver: instance, arguments: []) as! URL
         XCTAssertEqual(result, google)
     }
+    
+    func testManyArguments() throws {
+        let info = try typeInfo(of: MyClass.self)
+        let instance = MyClass()
+        let method = info.methods.first { $0.methodName == "manyArguments" }!
+        let arguments = ["One", "Two", "Three", "Four"]
+        let result = try method.call(receiver: instance, arguments: arguments) as! String
+        XCTAssertEqual(result, arguments.joined(separator: " "))
+    }
 
     func testEnumCase() throws {
         let info = try typeInfo(of: MyClass.self)
@@ -166,5 +175,9 @@ class MyClass: GraphQLObject {
 
     func doit(cases: [MyEnum] = MyEnum.mostCases) -> String {
         return cases.map(\.rawValue).joined()
+    }
+    
+    func manyArguments(first: String, second: String, third: String, fourth: String) -> String {
+        return [first, second, third, fourth].joined(separator: " ")
     }
 }
