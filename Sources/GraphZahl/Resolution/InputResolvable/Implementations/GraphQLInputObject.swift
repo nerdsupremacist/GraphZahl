@@ -81,7 +81,7 @@ extension GraphQLInputObject {
     /**
      - Warning: default implementation from `GraphZahl`. Do not override unless you know exactly what you are doing.
      */
-    public func map() throws -> Map? {
+    public func map() throws -> Map {
         let dictionary = try Self.properties().compactMapValues { property -> Map? in
             guard let value = try property.get(from: self) as? ValueResolvable else {
                 throw Resolution.Error.invalidPropertyInInputObject(name: property.name, type: property.type, ownerType: Self.self)
