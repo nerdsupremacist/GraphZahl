@@ -67,9 +67,9 @@ extension GraphQLInputObject {
     /**
      - Warning: default implementation from `GraphZahl`. Do not override unless you know exactly what you are doing.
      */
-    public init(map: Map) throws {
+    public static func create(from map: Map) throws -> Self {
         let dictionary = try map.dictionaryValue()
-        self = try createInstance { property in
+        return try createInstance { property in
             guard let type = property.type as? InputResolvable.Type else {
                 throw Resolution.Error.invalidPropertyInInputObject(name: property.name, type: property.type, ownerType: Self.self)
             }
