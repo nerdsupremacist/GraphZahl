@@ -73,8 +73,12 @@ extension GraphQLInputObject {
             guard let type = property.type as? InputResolvable.Type else {
                 throw Resolution.Error.invalidPropertyInInputObject(name: property.name, type: property.type, ownerType: Self.self)
             }
-            let value = dictionary[property.name.deleting(prefix: "_")] ?? .null
-            return try type.create(from: value)
+            let value = dictionary[property.name.deleting(prefix: "_")]
+            if let value = value {
+                return try type.create(from: value)
+            } else {
+                return try type.createFromMissingKey()
+            }
         }
     }
 

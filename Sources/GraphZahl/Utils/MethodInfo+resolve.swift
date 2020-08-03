@@ -100,8 +100,7 @@ extension MethodInfo {
                 return try argument.defaultValue()!
             }
 
-            // TODO: Figure out what to do here
-            return NSNull()
+            return try argumentType.createFromMissingKey()
         } as [Any]
         let result = try self.call(receiver: receiver, arguments: arguments)
 

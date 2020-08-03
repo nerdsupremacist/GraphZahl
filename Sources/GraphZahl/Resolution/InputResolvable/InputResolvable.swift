@@ -44,4 +44,14 @@ public protocol InputResolvable: Resolvable {
      This can't be an initializer, since required initializers can't be defined in an extension.
      */
     static func create(from map: Map) throws -> Self
+
+    static func createFromMissingKey() throws -> Self
+}
+
+extension InputResolvable {
+
+    public static func createFromMissingKey() throws -> Self {
+        return try create(from: .null)
+    }
+
 }
