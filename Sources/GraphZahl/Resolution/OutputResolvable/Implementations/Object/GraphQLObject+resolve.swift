@@ -11,7 +11,7 @@ extension GraphQLObject {
         let propertyMap = Dictionary(typeProperties.map { ($0.name.deleting(prefix: "_"), $0) }) { first, _ in first }
         let properties = try propertyMap.compactMapValues { try $0.resolve(for: Self.self, using: &context) }
 
-        let methodMap = Dictionary(typeMethods.map { ($0.methodName, $0) }) { first, _ in first }
+        let methodMap = Dictionary(typeMethods.map { ($0.methodName.deleting(prefix: "$"), $0) }) { first, _ in first }
         let methods = try methodMap.compactMapValues { try $0.resolve(for: Self.self, using: &context) }
 
         let fields = properties.merging(methods) { property, method in
