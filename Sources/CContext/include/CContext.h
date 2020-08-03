@@ -6,6 +6,7 @@
 
 void set_self_pointer(void *pointer);
 
+
 struct int_function_result {
     long res0;
 };
