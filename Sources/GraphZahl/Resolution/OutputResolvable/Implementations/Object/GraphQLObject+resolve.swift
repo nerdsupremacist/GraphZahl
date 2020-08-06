@@ -16,9 +16,7 @@ extension GraphQLObject {
 
         let fields = properties.merging(methods) { property, method in
             guard method.args.isEmpty,
-                let propertyType = property.type as? GraphQLNamedType,
-                let methodType = method.type as? GraphQLNamedType,
-                propertyType.name == methodType.name else { return method }
+                property.type.debugDescription == method.type.debugDescription else { return method }
 
             return property
         }
