@@ -16,12 +16,19 @@ extension PropertyInfo {
             return GraphQLField(type: try context.reference(for: type),
                                 args: arguments) { source, arguments, context, eventLoop, _ in
 
+                print("Accessing property \(name) of \(receiverType)")
+                print("Source=\(source)")
                 let object = receiverType.object(from: source)
+                print("Object=\(object)")
+
                 let result = try self.get(from: object)
+                print("Result=\(result)")
                 if let result = result as? OutputResolvable {
                     let arguments = try arguments.dictionaryValue()
                     return try result.resolve(source: object, arguments: arguments, context: context as! MutableContext, eventLoop: eventLoop).convert(eventLoopGroup: eventLoop)
                 }
+
+                print("Result is not Output Resolvable!")
                 return eventLoop.next().makeSucceededFuture(result)
             }
         } catch Resolution.Error.viewerContextDidNotMatchExpectedType {

@@ -55,8 +55,13 @@ extension MethodInfo {
             return GraphQLField(type: try context.reference(for: returnType),
                                 args: completeArguments) { (source, args, context, eventLoop, _) -> Future<Any?> in
 
+
+                print("Accessing method \(methodName) of \(receiverType)")
+                print("Source=\(source)")
+
                 let args = try args.dictionaryValue()
                 let object = receiverType.object(from: source)
+                print("Object=\(object)")
                 return try self.call(receiver: object,
                                      argumentMap: args,
                                      context: context as! MutableContext,
@@ -102,7 +107,10 @@ extension MethodInfo {
 
             return try argumentType.createFromMissingKey()
         } as [Any]
+
+        print("Args=\(arguments)")
         let result = try self.call(receiver: receiver, arguments: arguments)
+        print("Result=\(result)")
 
         if result is NSNull {
             return eventLoop.next().makeSucceededFuture(Optional<Int>.none)
@@ -113,6 +121,8 @@ extension MethodInfo {
         if let result = result as? OutputResolvable {
             return try result.resolve(source: receiver, arguments: argumentMap, context: context, eventLoop: eventLoop).convert(eventLoopGroup: eventLoop)
         }
+
+        print("Reuslt is not output resolvable")
         return eventLoop.next().makeSucceededFuture(result)
     }
 
