@@ -26,10 +26,9 @@ extension Array: OutputResolvable where Element: OutputResolvable {
     public func resolve(source: Any,
                         arguments: [String : Map],
                         context: MutableContext,
-                        eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+                        eventLoop: EventLoopGroup) throws -> Output {
 
-        let futures = try map { try $0.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop) }
-        return Future.whenAllSucceed(futures, on: eventLoop.next()).map { $0 as Any? }
+        return .array(try map { try $0.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop) })
     }
 
 }

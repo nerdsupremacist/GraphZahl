@@ -24,7 +24,7 @@ extension GraphQLUnion {
         return GraphQLNonNull(try GraphQLUnionType(name: concreteTypeName, resolveType: nil, types: types))
     }
 
-    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> Output {
         let cases = try Self.caseObjectTypes()
 
         let bits = Int(ceil(log2(Double(cases.count))))

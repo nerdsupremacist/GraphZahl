@@ -78,19 +78,22 @@ extension ContextBasedConnectionWrapper: OutputResolvable {
     static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
         let fields = [
             "pageInfo" : GraphQLField(type: try context.reference(for: PageInfo.self)) { (receiver, args, context, eventLoop, _) -> Future<Any?> in
-                return (receiver as! ContextBasedConnectionWrapper<Connection>)
+                return try (receiver as! ContextBasedConnectionWrapper<Connection>)
                     .pageInfo()
                     .resolve(source: receiver, arguments: try args.dictionaryValue(), context: context as! MutableContext, eventLoop: eventLoop)
+                    .convert(eventLoopGroup: eventLoop)
             },
             "edges" : GraphQLField(type: try context.reference(for: [Connection.Edge?]?.self)) { (receiver, args, context, eventLoop, _) -> Future<Any?> in
-                return (receiver as! ContextBasedConnectionWrapper<Connection>)
+                return try (receiver as! ContextBasedConnectionWrapper<Connection>)
                     .edges()
                     .resolve(source: receiver, arguments: try args.dictionaryValue(), context: context as! MutableContext, eventLoop: eventLoop)
+                    .convert(eventLoopGroup: eventLoop)
             },
             "totalCount" : GraphQLField(type: try context.reference(for: Int.self)) { (receiver, args, context, eventLoop, _) -> Future<Any?> in
-                return (receiver as! ContextBasedConnectionWrapper<Connection>)
+                return try (receiver as! ContextBasedConnectionWrapper<Connection>)
                     .totalCount()
                     .resolve(source: receiver, arguments: try args.dictionaryValue(), context: context as! MutableContext, eventLoop: eventLoop)
+                    .convert(eventLoopGroup: eventLoop)
             },
         ]
 
@@ -99,8 +102,8 @@ extension ContextBasedConnectionWrapper: OutputResolvable {
         )
     }
 
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
-        return eventLoop.next().makeSucceededFuture(self)
+    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> Output {
+        return .unsafeReceiver(self)
     }
 
 }

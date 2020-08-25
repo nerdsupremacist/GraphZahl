@@ -26,9 +26,9 @@ extension GraphQLObject {
     public func resolve(source: Any,
                         arguments: [String : Map],
                         context: MutableContext,
-                        eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
+                        eventLoop: EventLoopGroup) throws -> Output {
 
-        return eventLoop.next().makeSucceededFuture(self)
+        return .object(self)
     }
 
 }

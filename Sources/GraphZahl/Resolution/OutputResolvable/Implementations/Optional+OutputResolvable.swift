@@ -30,9 +30,9 @@ extension Optional: OutputResolvable where Wrapped: OutputResolvable {
     public func resolve(source: Any,
                         arguments: [String : Map],
                         context: MutableContext,
-                        eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+                        eventLoop: EventLoopGroup) throws -> Output {
 
-        guard let value = self else { return eventLoop.next().makeSucceededFuture(nil) }
+        guard let value = self else { return .map(.null) }
         return try value.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
     }
 

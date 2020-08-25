@@ -115,11 +115,7 @@ extension ContextBasedConnection {
     /**
      - Warning: default implementation from `GraphZahl`. Do not override unless you know exactly what you are doing.
      */
-    public func resolve(source: Any,
-                        arguments: [String : Map],
-                        context: MutableContext,
-                        eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
-
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> Output {
         let first = try Optional<Int>.create(from: arguments["first"] ?? .null)
         let after = try Optional<String>.create(from: arguments["after"] ?? .null)
         let last = try Optional<Int>.create(from: arguments["last"] ?? .null)
@@ -132,7 +128,7 @@ extension ContextBasedConnection {
                                                        last: last,
                                                        before: before)
 
-        return eventLoop.next().makeSucceededFuture(connection)
+        return .unsafeReceiver(connection)
     }
 
 }

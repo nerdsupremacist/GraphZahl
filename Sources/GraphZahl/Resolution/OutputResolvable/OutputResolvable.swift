@@ -60,7 +60,7 @@ public protocol OutputResolvable: Resolvable {
      
     - Returns: A Future with a value that can be evaluated by GraphQL.
      */
-    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> Future<Any?>
+    func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> Output
 }
 
 extension OutputResolvable {

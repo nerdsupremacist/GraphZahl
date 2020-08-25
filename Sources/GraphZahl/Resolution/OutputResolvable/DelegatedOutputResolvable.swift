@@ -42,11 +42,10 @@ extension DelegatedOutputResolvable {
     public func resolve(source: Any,
                         arguments: [String : Map],
                         context: MutableContext,
-                        eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
+                        eventLoop: EventLoopGroup) throws -> GraphZahl.Output {
 
         return try resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
             .resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
     }
-
 
 }

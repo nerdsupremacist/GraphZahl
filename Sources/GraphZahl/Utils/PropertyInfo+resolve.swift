@@ -20,7 +20,7 @@ extension PropertyInfo {
                 let result = try self.get(from: object)
                 if let result = result as? OutputResolvable {
                     let arguments = try arguments.dictionaryValue()
-                    return try result.resolve(source: object, arguments: arguments, context: context as! MutableContext, eventLoop: eventLoop)
+                    return try result.resolve(source: object, arguments: arguments, context: context as! MutableContext, eventLoop: eventLoop).convert(eventLoopGroup: eventLoop)
                 }
                 return eventLoop.next().makeSucceededFuture(result)
             }

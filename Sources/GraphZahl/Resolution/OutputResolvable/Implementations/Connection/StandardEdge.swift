@@ -44,11 +44,13 @@ extension StandardEdge {
                 return try (receiver as! StandardEdge<Node>)
                     .node
                     .resolve(source: receiver, arguments: try args.dictionaryValue(), context: context as! MutableContext, eventLoop: eventLoop)
+                    .convert(eventLoopGroup: eventLoop)
             },
             "cursor" : GraphQLField(type: try context.reference(for: String.self)) { (receiver, args, context, eventLoop, _) -> Future<Any?> in
-                return (receiver as! StandardEdge<Node>)
+                return try (receiver as! StandardEdge<Node>)
                     .cursor
                     .resolve(source: receiver, arguments: try args.dictionaryValue(), context: context as! MutableContext,eventLoop: eventLoop)
+                    .convert(eventLoopGroup: eventLoop)
             },
         ]
 
@@ -57,8 +59,8 @@ extension StandardEdge {
         )
     }
 
-    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
-        return eventLoop.next().makeSucceededFuture(self)
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> Output {
+        return .unsafeReceiver(self)
     }
 
 }

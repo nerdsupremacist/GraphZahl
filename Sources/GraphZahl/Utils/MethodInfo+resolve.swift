@@ -111,7 +111,7 @@ extension MethodInfo {
         // TODO: for some reason this breaks with arrays...
         // this will break the server if we ever return [Future<T>]
         if let result = result as? OutputResolvable {
-            return try result.resolve(source: receiver, arguments: argumentMap, context: context, eventLoop: eventLoop)
+            return try result.resolve(source: receiver, arguments: argumentMap, context: context, eventLoop: eventLoop).convert(eventLoopGroup: eventLoop)
         }
         return eventLoop.next().makeSucceededFuture(result)
     }

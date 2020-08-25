@@ -46,12 +46,8 @@ extension IndexedConnection {
     /**
      - Warning: default implementation from `GraphZahl`. Do not override unless you know exactly what you are doing.
      */
-    public func resolve(source: Any,
-                        arguments: [String : Map],
-                        context: MutableContext,
-                        eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
-
-        return try IndexedConnectionWrapper(connection: self).resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> Output {
+        try IndexedConnectionWrapper(connection: self).resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop)
     }
 
 }

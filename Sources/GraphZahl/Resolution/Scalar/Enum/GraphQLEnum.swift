@@ -40,8 +40,8 @@ extension GraphQLEnum {
         return GraphQLNonNull(try resolveEnum(using: &context))
     }
 
-    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> EventLoopFuture<Any?> {
-        return eventLoop.next().makeSucceededFuture(try map())
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> Output {
+        return .map(try map())
     }
 
 }

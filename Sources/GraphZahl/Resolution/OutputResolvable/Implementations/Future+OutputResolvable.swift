@@ -23,12 +23,9 @@ extension EventLoopFuture: OutputResolvable where Value: OutputResolvable {
         return try context.resolve(type: Value.self)
     }
 
-    public func resolve(source: Any,
-                        arguments: [String : Map],
-                        context: MutableContext,
-                        eventLoop: EventLoopGroup) -> EventLoopFuture<Any?> {
-
-        return flatMapThrowing { try $0.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop) }.flatMap { $0 }
+    public func resolve(source: Any, arguments: [String : Map], context: MutableContext, eventLoop: EventLoopGroup) throws -> Output {
+        let future = flatMapThrowing { try $0.resolve(source: source, arguments: arguments, context: context, eventLoop: eventLoop) }
+        return .future(future)
     }
 
 }
