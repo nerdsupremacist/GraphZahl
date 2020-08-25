@@ -15,10 +15,17 @@ extension GraphQLObject {
         let methods = try methodMap.compactMapValues { try $0.resolve(for: Self.self, using: &context) }
 
         let fields = properties.merging(methods) { property, method in
-            guard method.args.isEmpty,
-                property.type.debugDescription == method.type.debugDescription else { return method }
+            guard method.args.isEmpty else { return method }
 
-            return property
+            if property.type.debugDescription == method.type.debugDescription {
+                return property
+            }
+
+            if property.args.isEmpty {
+                return method
+            } else {
+                return property
+            }
         }
 
         let interfaces = try inheritance
