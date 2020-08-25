@@ -40,10 +40,16 @@ struct IndexedConnectionWrapper<Connection: IndexedConnection>: ContextBasedConn
     }
 
     func context(first: Int?, after: String?, last: Int?, before: String?, eventLoop: EventLoopGroup) -> EventLoopFuture<Context> {
+        print("Computing connection context")
+        fflush(stdout)
+
         return connection
             .totalCount(eventLoop: eventLoop)
             .and(connection.defaultPageSize(eventLoop: eventLoop))
             .flatMapThrowing { totalCount, defaultPageSize in
+                print("Computed total count and page size")
+                fflush(stdout)
+
                 let perPage = defaultPageSize ?? totalCount
 
                 if perPage == 0 {
@@ -69,6 +75,9 @@ struct IndexedConnectionWrapper<Connection: IndexedConnection>: ContextBasedConn
                 if let last = last {
                     start = max(start, end - last)
                 }
+
+                print("Computed connection range: \(start) to \(end)")
+                fflush(stdout)
 
                 return Context(totalCount: totalCount, offset: start, size: max(end - start, 0))
             }
