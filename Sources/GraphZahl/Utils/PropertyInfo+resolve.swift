@@ -16,7 +16,7 @@ extension PropertyInfo {
             return GraphQLField(type: try context.reference(for: type),
                                 args: arguments) { source, arguments, context, eventLoop, _ in
 
-                print("Accessing property \(name) of \(receiverType)")
+                print("Accessing property \(self.name) of \(receiverType)")
                 print("Source=\(source)")
                 let object = receiverType.object(from: source)
                 print("Object=\(object)")

@@ -56,7 +56,7 @@ extension MethodInfo {
                                 args: completeArguments) { (source, args, context, eventLoop, _) -> Future<Any?> in
 
 
-                print("Accessing method \(methodName) of \(receiverType)")
+                print("Accessing method \(self.methodName) of \(receiverType)")
                 print("Source=\(source)")
 
                 let args = try args.dictionaryValue()
