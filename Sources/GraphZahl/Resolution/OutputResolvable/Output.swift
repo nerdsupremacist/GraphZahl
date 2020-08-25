@@ -15,6 +15,8 @@ extension Output {
 
     func convert(eventLoopGroup: EventLoopGroup) -> EventLoopFuture<Any?> {
         switch self {
+        case .map(.null):
+            return eventLoopGroup.next().makeSucceededFuture(nil)
         case .map(let map):
             return eventLoopGroup.next().makeSucceededFuture(map)
         case .array(let array):
