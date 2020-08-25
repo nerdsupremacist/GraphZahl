@@ -18,17 +18,21 @@ extension PropertyInfo {
 
                 print("Accessing property \(self.name) of \(receiverType)")
                 print("Source=\(source)")
+                fflush(stdout)
                 let object = receiverType.object(from: source)
                 print("Object=\(object)")
+                fflush(stdout)
 
                 let result = try self.get(from: object)
                 print("Result=\(result)")
+                fflush(stdout)
                 if let result = result as? OutputResolvable {
                     let arguments = try arguments.dictionaryValue()
                     return try result.resolve(source: object, arguments: arguments, context: context as! MutableContext, eventLoop: eventLoop).convert(eventLoopGroup: eventLoop)
                 }
 
                 print("Result is not Output Resolvable!")
+                fflush(stdout)
                 return eventLoop.next().makeSucceededFuture(result)
             }
         } catch Resolution.Error.viewerContextDidNotMatchExpectedType {
