@@ -40,22 +40,22 @@ extension GraphQLSchema {
             .anyViewerContext ~> viewerContext
         }
 
-        let result = try graphql(schema: schema,
+        return try graphql(schema: schema,
                                  request: request,
                                  rootValue: viewerContext,
                                  context: context,
                                  eventLoopGroup: eventLoopGroup ?? defaultEventLoopGroup,
-                                 variableValues: variableValues)
+                                 variableValues: variableValues).always { result in
 
-        result.always { result in
             switch result {
             case .success(let result):
                 print("Successs=\(result)")
+                fflush(stdout)
             case .failure(let error):
                 print("Failure=\(error)")
+                fflush(stdout)
             }
         }
-        return result
     }
 
 }
