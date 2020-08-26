@@ -45,17 +45,7 @@ extension GraphQLSchema {
                                  rootValue: viewerContext,
                                  context: context,
                                  eventLoopGroup: eventLoopGroup ?? defaultEventLoopGroup,
-                                 variableValues: variableValues).always { result in
-
-            switch result {
-            case .success(let result):
-                print("Successs=\(result)")
-                fflush(stdout)
-            case .failure(let error):
-                print("Failure=\(error)")
-                fflush(stdout)
-            }
-        }
+                                 variableValues: variableValues)
     }
 
 }
