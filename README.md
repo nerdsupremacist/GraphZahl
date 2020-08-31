@@ -1,7 +1,7 @@
 ![low effort logo](https://github.com/nerdsupremacist/GraphZahl/raw/develop/logo.png)
 
 # GraphZahl (Alpha)
-![Swift](https://github.com/nerdsupremacist/GraphZahl/workflows/Swift/badge.svg) ![Documentation](https://github.com/nerdsupremacist/GraphZahl/workflows/Documentation/badge.svg)
+![Swift](https://github.com/nerdsupremacist/GraphZahl/workflows/Swift/badge.svg) ![Documentation](https://github.com/nerdsupremacist/GraphZahl/workflows/Documentation/badge.svg) [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fnerdsupremacist%2FGraphZahl%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/nerdsupremacist/GraphZahl) [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fnerdsupremacist%2FGraphZahl%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/nerdsupremacist/GraphZahl)
 
 Create the best GraphQL APIs ever using Swift. GraphZahl is a Swift Framework that let's you write your Server the simplest way possible! With a magic, Codable-like API.
 
