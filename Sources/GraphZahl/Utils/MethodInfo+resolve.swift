@@ -103,7 +103,13 @@ extension MethodInfo {
             return try argumentType.createFromMissingKey()
         } as [Any]
 
+        print("Calling: \(receiverType).\(methodName)")
+        print("Arguments: \(arguments)")
+        fflush(stdout)
+
         let result = try self.call(receiver: receiver, arguments: arguments)
+        print("Result")
+        fflush(stdout)
 
         if result is NSNull {
             return eventLoop.next().makeSucceededFuture(Optional<Int>.none)
