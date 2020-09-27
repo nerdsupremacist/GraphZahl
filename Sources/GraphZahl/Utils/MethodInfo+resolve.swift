@@ -108,7 +108,7 @@ extension MethodInfo {
         fflush(stdout)
 
         let result = try self.call(receiver: receiver, arguments: arguments)
-        print("Result")
+        print("Result: \(result)")
         fflush(stdout)
 
         if result is NSNull {
