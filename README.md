@@ -21,15 +21,14 @@ Let's cut the chase and write our Hello World!
 ```swift
 // Create a GraphQLSchema
 enum HelloWorld: GraphQLSchema {
-    
+
     // Describe the Query Type 
     class Query: QueryType {
         func greeting(name: String) -> String {
             return "Hello, \(name)"
         }
     }
-
-    typealias Mutation = None
+    
 }
 
 // Run a query using .perform
@@ -159,7 +158,7 @@ And you can see the results immediately:
 A Schema is basically the namespace where you define two objects: A Query and a Mutation Type.
 The query and mutation behave like regular `GraphQLObject`s. All the features mentioned above will be included out of the box.
 
-The QueryType is mandatory and always has to be defined! If your API doesn't need Mutations, just set it to `None` like we did before.
+The QueryType is mandatory and always has to be defined! If your API doesn't need Mutations, then you're done.
 
 **What if you want to make data user dependent?**
 
@@ -184,8 +183,18 @@ enum TodoApp: GraphQLSchema {
             self.user = user
         }
     }
+    
+    class Mutation: MutationType {
+        let user: LoggedInUser?
+        
+        func deleteTodo(id: UUID) -> Todo? {
+            return user?.todos.find(id: id).delete()
+        }
 
-    typealias Mutation = None
+        required init(viewerContext user: LoggedInUser?) {
+            self.user = user
+        }
+    }
 }
 ```
 
@@ -200,10 +209,8 @@ enum HelloWorld: GraphQLSchema {
             return "Hello, \(name)"
         }
 
-        required init(viewerContext: ViewerContext) { }
+        required init(viewerContext: Void) { }
     }
-
-    typealias Mutation = None
 }
 ```
 
@@ -239,8 +246,6 @@ enum HelloWorld: GraphQLSchema {
     class Query: QueryType {
         let url = URL(string: "https://github.com/nerdsupremacist/GraphZahl")
     }
-
-    typealias Mutation = None
 }
 ```
 
@@ -403,8 +408,6 @@ enum HelloWorld: GraphQLSchema {
             return "Hello, \(name)"
         }
     }
-
-    typealias Mutation = None
 }
 
 // Add the API to the Routes of your Vapor App
