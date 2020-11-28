@@ -2,7 +2,27 @@
 import Foundation
 import NIO
 
+private let lock = Lock()
 private var translators: [ConnectionIdentifier : IndexCursorTranslator] = [:]
+
+private func withTranslator<T>(for connectionIdentifier: ConnectionIdentifier,
+                               using type: IndexCursorTranslator.Type,
+                               perform: (inout IndexCursorTranslator) throws -> T) rethrows -> T {
+
+    return try lock.withLock {
+        return try perform(&translators[connectionIdentifier, default: type.init()])
+    }
+}
+
+private func withTranslator<T>(for connectionIdentifier: ConnectionIdentifier,
+                               using type: IndexCursorTranslator.Type,
+                               perform: (IndexCursorTranslator) throws -> T) rethrows -> T {
+
+    let translator = lock.withLock {
+        return translators[connectionIdentifier, default: type.init()]
+    }
+    return try perform(translator)
+}
 
 private struct ConnectionIdentifier: Hashable {
     let type: Int
@@ -32,11 +52,15 @@ struct IndexedConnectionWrapper<Connection: IndexedConnection>: ContextBasedConn
     }
 
     private func cursor(for index: Int) throws -> String {
-        return try translators[identifier, default: Connection.Translator()].cursor(for: index)
+        return try withTranslator(for: identifier, using: Connection.Translator.self) { translator in
+            return try translator.cursor(for: index)
+        }
     }
 
     private func index(for cursor: String) throws -> Int {
-        return try translators[identifier, default: Connection.Translator()].index(for: cursor)
+        return try withTranslator(for: identifier, using: Connection.Translator.self) { translator in
+            return try translator.index(for: cursor)
+        }
     }
 
     func context(first: Int?, after: String?, last: Int?, before: String?, eventLoop: EventLoopGroup) -> EventLoopFuture<Context> {
