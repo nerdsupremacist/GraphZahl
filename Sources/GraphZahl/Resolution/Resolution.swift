@@ -213,10 +213,10 @@ extension Resolution.Context {
         let interfaceReference = GraphQLTypeReference(interfaceName)
         let interface = try GraphQLInterfaceType(name: interfaceName, fields: interfaceFields) { (value, eventLoop, info: GraphQLResolveInfo) in
             let schema = info.schema
-            let interface = schema.getType(name: name) as! GraphQLInterfaceType
+            let interface = schema.getType(name: interfaceName) as! GraphQLInterfaceType
             let objects = schema.getPossibleTypes(abstractType: interface)
-            let sorted = objects.sorted { $0.interfaces.count > $1.interfaces.count }
-            return try sorted.first { try $0.isTypeOf.map { try $0(value, eventLoop, info) } ?? false } ?? "__\(name)"
+            let sorted = objects.sorted { $0.name != name && $0.interfaces.count > $1.interfaces.count }
+            return try sorted.first { try $0.isTypeOf.map { try $0(value, eventLoop, info) } ?? false } ?? name
         }
 
         let newObjectFields = object.fields.mapValues { field in
