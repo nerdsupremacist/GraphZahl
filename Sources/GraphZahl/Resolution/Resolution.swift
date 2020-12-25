@@ -193,7 +193,7 @@ extension Resolution.Context {
 
     public mutating func reference(for type: OutputResolvable.Type) throws -> GraphQLOutputType {
         if let interface = type.typeName.flatMap({ interfaces[$0] }) {
-            return interface
+            return GraphQLNonNull(interface)
         }
         
         if let type = type.typeName.flatMap({ references[$0] }) {
