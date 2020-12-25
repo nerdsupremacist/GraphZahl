@@ -22,14 +22,14 @@ public enum Resolution {
     public struct Context {
         let resolved: [String : GraphQLType]
         let references: [String : GraphQLOutputType]
-        let interfaces: [String : GraphQLInterfaceType]
+        let interfaces: [String : GraphQLNonNull]
         let unresolvedReferences: [String : OutputResolvable.Type]
         let viewerContextType: Any.Type
         let generatorViewerContext: Any?
 
         private init(resolved: [String : GraphQLType],
                      references: [String : GraphQLOutputType],
-                     interfaces: [String : GraphQLInterfaceType],
+                     interfaces: [String : GraphQLNonNull],
                      unresolvedReferences: [String : OutputResolvable.Type],
                      viewerContextType: Any.Type,
                      generatorViewerContext: Any?) {
@@ -94,17 +94,17 @@ extension Resolution.Context {
 
 extension Resolution.Context {
 
-    public func appending(interfaces type: GraphQLInterfaceType , as name: String) -> Resolution.Context {
+    public func appending(interface type: GraphQLTypeReference , as name: String) -> Resolution.Context {
         return Resolution.Context(resolved: resolved,
                                   references: references,
-                                  interfaces: interfaces.merging([name : type]) { $1 },
+                                  interfaces: interfaces.merging([name : GraphQLNonNull(type)]) { $1 },
                                   unresolvedReferences: unresolvedReferences,
                                   viewerContextType: viewerContextType,
                                   generatorViewerContext: generatorViewerContext)
     }
 
-    public mutating func append(interfaces type: GraphQLInterfaceType, as name: String) {
-        self = appending(interfaces: type, as: name)
+    public mutating func append(interface type: GraphQLTypeReference, as name: String) {
+        self = appending(interface: type, as: name)
     }
 
 }
@@ -193,7 +193,7 @@ extension Resolution.Context {
 
     public mutating func reference(for type: OutputResolvable.Type) throws -> GraphQLOutputType {
         if let interface = type.typeName.flatMap({ interfaces[$0] }) {
-            return GraphQLNonNull(interface)
+            return interface
         }
         
         if let type = type.typeName.flatMap({ references[$0] }) {
@@ -238,6 +238,8 @@ extension Resolution.Context {
                     .mapValues { GraphQLArgument(type: $0) }
                 )
             }
+
+        let interfaceReference = GraphQLTypeReference(interfaceName)
         let interface = try GraphQLInterfaceType(name: interfaceName, fields: interfaceFields) { (value, eventLoop, info: GraphQLResolveInfo) in
             let schema = info.schema
             let interface = schema.getType(name: name) as! GraphQLInterfaceType
@@ -263,9 +265,10 @@ extension Resolution.Context {
                                               interfaces: object.interfaces + [interface],
                                               isTypeOf: object.isTypeOf)
 
-        append(interfaces: interface, as: name)
+        append(interface: interfaceReference, as: name)
+        append(type: GraphQLNonNull(interface), as: interfaceName)
         append(type: GraphQLNonNull(newObject), as: name)
-        try replace(reference: name, with: interface)
+        try replace(reference: name, with: interfaceReference)
         return interface
     }
 
@@ -281,7 +284,7 @@ extension Resolution.Context {
 
 extension Resolution.Context {
 
-    func replacing(reference: String, with interface: GraphQLInterfaceType) throws -> Resolution.Context {
+    func replacing(reference: String, with interface: GraphQLTypeReference) throws -> Resolution.Context {
         let resolved = try self.resolved.mapValues { resolved -> GraphQLType in
             guard let nonNull = resolved as? GraphQLNonNull, let object = nonNull.ofType as? GraphQLObjectType else { return resolved }
 
@@ -299,7 +302,7 @@ extension Resolution.Context {
             let newObject = try GraphQLObjectType(name: object.name,
                                                   description: object.description,
                                                   fields: newObjectFields,
-                                                  interfaces: object.interfaces + [interface],
+                                                  interfaces: object.interfaces,
                                                   isTypeOf: object.isTypeOf)
 
             return GraphQLNonNull(newObject)
@@ -313,7 +316,7 @@ extension Resolution.Context {
                                   generatorViewerContext: generatorViewerContext)
     }
 
-    mutating func replace(reference: String, with interface: GraphQLInterfaceType) throws {
+    mutating func replace(reference: String, with interface: GraphQLTypeReference) throws {
         self = try replacing(reference: reference, with: interface)
     }
 
@@ -321,7 +324,7 @@ extension Resolution.Context {
 
 extension GraphQLOutputType {
 
-    fileprivate func replacing(reference name: String, with interface: GraphQLInterfaceType) -> GraphQLOutputType {
+    fileprivate func replacing(reference name: String, with interface: GraphQLTypeReference) -> GraphQLOutputType {
         switch self {
 
         case let reference as GraphQLTypeReference where reference.name == name:
