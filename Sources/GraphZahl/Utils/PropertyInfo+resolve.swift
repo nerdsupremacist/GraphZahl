@@ -7,13 +7,17 @@ import ContextKit
 
 extension PropertyInfo {
 
-    func resolve(for receiverType: GraphQLObject.Type, using context: inout Resolution.Context) throws -> GraphQLField? {
+    func resolve(for receiverType: GraphQLObject.Type, using context: inout Resolution.Context) throws -> PropertyResult? {
         do {
+            if let type = type as? CustomGraphQLProperty {
+                return try type.resolve(with: self, for: receiverType, using: &context)
+            }
+
             guard let type = type as? OutputResolvable.Type else { return nil }
 
             let arguments = try type.additionalGraphqlArguments(using: &context)
 
-            return GraphQLField(type: try context.reference(for: type),
+            let field = GraphQLField(type: try context.reference(for: type),
                                 args: arguments) { source, arguments, context, eventLoop, _ in
 
                 let object = receiverType.object(from: source)
@@ -26,6 +30,8 @@ extension PropertyInfo {
 
                 return eventLoop.next().makeSucceededFuture(result)
             }
+
+            return .field(name.deleting(prefix: "_"), field)
         } catch Resolution.Error.viewerContextDidNotMatchExpectedType {
             return nil
         } catch {
