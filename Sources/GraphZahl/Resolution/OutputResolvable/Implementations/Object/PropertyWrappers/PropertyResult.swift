@@ -4,6 +4,7 @@ import GraphQL
 enum PropertyResult {
     case field(String, GraphQLField)
     case interface(GraphQLInterfaceType, fields: [String : GraphQLField])
+    case ignore
 }
 
 extension PropertyResult {
@@ -14,6 +15,8 @@ extension PropertyResult {
             return [name : field]
         case .interface(_, let fields):
             return fields
+        case .ignore:
+            return [:]
         }
     }
 
