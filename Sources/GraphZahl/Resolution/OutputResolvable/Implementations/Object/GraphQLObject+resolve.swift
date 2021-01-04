@@ -20,7 +20,7 @@ extension GraphQLObject {
 
         let interfaces = try inheritance
             .compactMap { $0 as? GraphQLObject.Type }
-            .map { try context.resolveInterface(object: $0) } + propertyResults.compactMap(\.interface)
+            .map { try context.resolveInterface(object: $0) } + propertyResults.flatMap(\.interfaces)
 
         let type = try GraphQLObjectType(name: concreteTypeName, fields: fields, interfaces: interfaces) { value, _, _ in value is Self }
 

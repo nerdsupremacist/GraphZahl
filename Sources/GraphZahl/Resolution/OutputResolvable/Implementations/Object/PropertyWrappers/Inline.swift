@@ -38,7 +38,7 @@ extension Inline: CustomGraphQLProperty {
             }
         }
 
-        return .interface(interface, fields: fields)
+        return .interfaces([interface] + object.interfaces, fields: fields)
     }
 
 }
