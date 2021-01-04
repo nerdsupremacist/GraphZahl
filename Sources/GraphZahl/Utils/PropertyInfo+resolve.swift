@@ -9,7 +9,7 @@ extension PropertyInfo {
 
     func resolve(for receiverType: GraphQLObject.Type, using context: inout Resolution.Context) throws -> PropertyResult? {
         do {
-            if let type = type as? CustomGraphQLProperty {
+            if let type = type as? CustomGraphQLProperty.Type {
                 return try type.resolve(with: self, for: receiverType, using: &context)
             }
 

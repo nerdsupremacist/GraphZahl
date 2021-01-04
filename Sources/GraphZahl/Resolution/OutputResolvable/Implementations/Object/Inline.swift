@@ -14,10 +14,10 @@ public struct Inline<Wrapped : GraphQLObject> {
 
 extension Inline: CustomGraphQLProperty {
 
-    func resolve(with property: PropertyInfo,
+    static func resolve(with property: PropertyInfo,
                  for receiverType: GraphQLObject.Type,
                  using context: inout Resolution.Context) throws -> PropertyResult {
-        
+
         let object = try context.resolve(object: Wrapped.self)
         let interface = try context.resolveInterface(object: Wrapped.self)
 
