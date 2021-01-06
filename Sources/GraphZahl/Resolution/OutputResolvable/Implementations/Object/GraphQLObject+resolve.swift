@@ -22,9 +22,26 @@ extension GraphQLObject {
             .compactMap { $0 as? GraphQLObject.Type }
             .map { try context.resolveInterface(object: $0) } + propertyResults.flatMap(\.interfaces)
 
-        let type = try GraphQLObjectType(name: concreteTypeName, fields: fields, interfaces: interfaces) { value, _, _ in value is Self }
+        let type = try GraphQLObjectType(name: concreteTypeName, fields: fields, interfaces: interfaces.distinct(by: \.name)) { value, _, _ in value is Self }
 
         return type
     }
     
+}
+
+extension Sequence {
+
+    fileprivate func distinct<T : Hashable>(by id: (Element) -> T) -> [Element] {
+        var set = Set<T>()
+        var result = [Element]()
+        for element in self {
+            let elementId = id(element)
+            if !set.contains(elementId) {
+                set.formUnion([elementId])
+                result.append(element)
+            }
+        }
+        return result
+    }
+
 }
