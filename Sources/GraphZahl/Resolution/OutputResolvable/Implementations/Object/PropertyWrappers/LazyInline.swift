@@ -2,17 +2,25 @@
 import Foundation
 import GraphQL
 import Runtime
+import NIO
 
 @propertyWrapper
-public struct Inline<Wrapped : GraphQLObject> {
-    public var wrappedValue: Wrapped
+public class LazyInline<Wrapped : GraphQLObject> {
+    private let load: () -> EventLoopFuture<Wrapped>
+    fileprivate lazy var future: EventLoopFuture<Wrapped> = {
+        return load()
+    }()
 
-    public init(wrappedValue: Wrapped) {
-        self.wrappedValue = wrappedValue
+    public var wrappedValue: Wrapped {
+        return try! future.wait()
+    }
+
+    public init(_ load: @escaping () -> EventLoopFuture<Wrapped>) {
+        self.load = load
     }
 }
 
-extension Inline: CustomGraphQLProperty {
+extension LazyInline: CustomGraphQLProperty {
 
     static func resolve(with property: PropertyInfo,
                         for receiverType: GraphQLObject.Type,
@@ -33,7 +41,10 @@ extension Inline: CustomGraphQLProperty {
 
                 let object = receiverType.object(from: source)
                 let result = try property.get(from: object) as! Self
-                return try field.resolve!(result.wrappedValue, arguments, context, eventLoop, info)
+                return result
+                    .future
+                    .flatMapThrowing { try field.resolve!($0, arguments, context, eventLoop, info) }
+                    .flatMap { $0 }
             }
         }
 

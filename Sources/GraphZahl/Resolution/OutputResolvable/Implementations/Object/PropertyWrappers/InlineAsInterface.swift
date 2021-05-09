@@ -4,7 +4,7 @@ import GraphQL
 import Runtime
 
 @propertyWrapper
-public struct Inline<Wrapped : GraphQLObject> {
+public struct InlineAsInterface<Wrapped : GraphQLObject> {
     public var wrappedValue: Wrapped
 
     public init(wrappedValue: Wrapped) {
@@ -12,13 +12,14 @@ public struct Inline<Wrapped : GraphQLObject> {
     }
 }
 
-extension Inline: CustomGraphQLProperty {
+extension InlineAsInterface: CustomGraphQLProperty {
 
     static func resolve(with property: PropertyInfo,
                         for receiverType: GraphQLObject.Type,
                         using context: inout Resolution.Context) throws -> PropertyResult {
 
-        let object = try Wrapped.resolveObject(using: &context)
+        let object = try context.resolve(object: Wrapped.self)
+        let interface = try context.resolveInterface(object: Wrapped.self)
 
         let fields = object.fields.mapValues { field in
             return GraphQLField(
@@ -37,7 +38,7 @@ extension Inline: CustomGraphQLProperty {
             }
         }
 
-        return .interfaces([], fields: fields)
+        return .interfaces([interface] + object.interfaces, fields: fields)
     }
 
 }

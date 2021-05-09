@@ -2,23 +2,32 @@
 import Foundation
 import GraphQL
 import Runtime
+import NIO
 
 @propertyWrapper
-public struct Inline<Wrapped : GraphQLObject> {
-    public var wrappedValue: Wrapped
+public class LazyInlineAsInterface<Wrapped : GraphQLObject> {
+    private let load: () -> EventLoopFuture<Wrapped>
+    fileprivate lazy var future: EventLoopFuture<Wrapped> = {
+        return load()
+    }()
 
-    public init(wrappedValue: Wrapped) {
-        self.wrappedValue = wrappedValue
+    public var wrappedValue: Wrapped {
+        return try! future.wait()
+    }
+
+    public init(_ load: @escaping () -> EventLoopFuture<Wrapped>) {
+        self.load = load
     }
 }
 
-extension Inline: CustomGraphQLProperty {
+extension LazyInlineAsInterface: CustomGraphQLProperty {
 
     static func resolve(with property: PropertyInfo,
                         for receiverType: GraphQLObject.Type,
                         using context: inout Resolution.Context) throws -> PropertyResult {
 
-        let object = try Wrapped.resolveObject(using: &context)
+        let object = try context.resolve(object: Wrapped.self)
+        let interface = try context.resolveInterface(object: Wrapped.self)
 
         let fields = object.fields.mapValues { field in
             return GraphQLField(
@@ -33,11 +42,14 @@ extension Inline: CustomGraphQLProperty {
 
                 let object = receiverType.object(from: source)
                 let result = try property.get(from: object) as! Self
-                return try field.resolve!(result.wrappedValue, arguments, context, eventLoop, info)
+                return result
+                    .future
+                    .flatMapThrowing { try field.resolve!($0, arguments, context, eventLoop, info) }
+                    .flatMap { $0 }
             }
         }
 
-        return .interfaces([], fields: fields)
+        return .interfaces([interface] + object.interfaces, fields: fields)
     }
 
 }
