@@ -11,6 +11,15 @@ extension GraphQLSchema {
 
         var query = try context.resolve(object: Query.self)
 
+        let mutation: GraphQLObjectType?
+        if Mutation.self != None.self {
+            mutation = try context.resolve(object: Mutation.self)
+        } else {
+            mutation = nil
+        }
+
+        let types = try context.types().filter { $0.name != query.name }
+
         if !context.nodeTypes.isEmpty {
             let newFields = [
                 "node" : nodeField(types: context.nodeTypes)
@@ -32,7 +41,7 @@ extension GraphQLSchema {
                                     resolve: definition.resolve)
             }
             .merging(newFields) { $1 }
-            
+
             query = try GraphQLObjectType(name: query.name,
                                           description: query.description,
                                           fields: fields,
@@ -40,17 +49,10 @@ extension GraphQLSchema {
                                           isTypeOf: query.isTypeOf)
         }
 
-        let mutation: GraphQLObjectType?
-        if Mutation.self != None.self {
-            mutation = try context.resolve(object: Mutation.self)
-        } else {
-            mutation = nil
-        }
-
         return try GraphQL.GraphQLSchema(query: query,
                                          mutation: mutation,
                                          subscription: nil,
-                                         types: try context.types(),
+                                         types: types + [query],
                                          directives: [])
     }
 
