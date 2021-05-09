@@ -25,18 +25,21 @@ public enum Resolution {
         let unresolvedReferences: [String : OutputResolvable.Type]
         let viewerContextType: Any.Type
         let generatorViewerContext: Any?
+        let nodeTypes: [Node.Type]
 
         private init(resolved: [String : GraphQLType],
                      references: [String : GraphQLOutputType],
                      unresolvedReferences: [String : OutputResolvable.Type],
                      viewerContextType: Any.Type,
-                     generatorViewerContext: Any?) {
+                     generatorViewerContext: Any?,
+                     nodeTypes: [Node.Type]) {
 
             self.resolved = resolved
             self.references = references
             self.unresolvedReferences = unresolvedReferences
             self.viewerContextType = viewerContextType
             self.generatorViewerContext = generatorViewerContext
+            self.nodeTypes = nodeTypes
         }
     }
     
@@ -57,12 +60,26 @@ extension Resolution.Context {
 
 extension Resolution.Context {
 
+    public mutating func append(type: Node.Type) {
+        self = Resolution.Context(resolved: resolved,
+                                  references: references,
+                                  unresolvedReferences: unresolvedReferences,
+                                  viewerContextType: viewerContextType,
+                                  generatorViewerContext: generatorViewerContext,
+                                  nodeTypes: nodeTypes + [type])
+    }
+
+}
+
+extension Resolution.Context {
+
     public func appending(type: GraphQLType, as name: String) -> Resolution.Context {
         return Resolution.Context(resolved: resolved.merging([name : type]) { $1 },
                                   references: references,
                                   unresolvedReferences: unresolvedReferences,
                                   viewerContextType: viewerContextType,
-                                  generatorViewerContext: generatorViewerContext)
+                                  generatorViewerContext: generatorViewerContext,
+                                  nodeTypes: nodeTypes)
     }
 
     public mutating func append(type: GraphQLType, as name: String) {
@@ -78,7 +95,8 @@ extension Resolution.Context {
                                   references: references.merging([name : type]) { $1 },
                                   unresolvedReferences: unresolvedReferences,
                                   viewerContextType: viewerContextType,
-                                  generatorViewerContext: generatorViewerContext)
+                                  generatorViewerContext: generatorViewerContext,
+                                  nodeTypes: nodeTypes)
     }
 
     public mutating func append(reference type: GraphQLOutputType, as name: String) {
@@ -94,7 +112,8 @@ extension Resolution.Context {
                                   references: references,
                                   unresolvedReferences: unresolvedReferences.merging([name : type]) { $1 },
                                   viewerContextType: viewerContextType,
-                                  generatorViewerContext: generatorViewerContext)
+                                  generatorViewerContext: generatorViewerContext,
+                                  nodeTypes: nodeTypes)
     }
 
     public mutating func append(unresolved type: OutputResolvable.Type, as name: String) {
@@ -112,7 +131,8 @@ extension Resolution.Context {
                                   references: references,
                                   unresolvedReferences: unresolvedReferences,
                                   viewerContextType: viewerContextType,
-                                  generatorViewerContext: generatorViewerContext)
+                                  generatorViewerContext: generatorViewerContext,
+                                  nodeTypes: nodeTypes)
     }
 
     public mutating func removeUnresolved(with name: String) {
@@ -249,7 +269,12 @@ extension Resolution.Context {
 extension Resolution.Context {
 
     static func empty(viewerContextType: Any.Type, viewerContext: Any?) -> Resolution.Context {
-        return Resolution.Context(resolved: [:], references: [:], unresolvedReferences: [:], viewerContextType: viewerContextType, generatorViewerContext: viewerContext)
+        return Resolution.Context(resolved: [:],
+                                  references: [:],
+                                  unresolvedReferences: [:],
+                                  viewerContextType: viewerContextType,
+                                  generatorViewerContext: viewerContext,
+                                  nodeTypes: [])
     }
 
 }

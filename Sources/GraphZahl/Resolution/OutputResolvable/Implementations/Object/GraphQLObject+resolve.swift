@@ -2,11 +2,21 @@
 import Foundation
 import GraphQL
 import Runtime
+import NIO
 
 extension GraphQLObject {
 
     static func resolveObject(using context: inout Resolution.Context) throws -> GraphQLObjectType {
         let (typeProperties, typeMethods, inheritance) = try typeInfo(of: Self.self, .properties, .methods, .inheritance)
+
+        let isNode: Bool
+        if let type = Self.self as? Node.Type {
+            context.append(type: type)
+            isNode = true
+        } else {
+            isNode = false
+        }
+        let nodeFields = isNode ? ["id" : GraphQLNodeIdField] : [:]
 
         let gettersThatShouldBeIgnored = Set(typeProperties.filter { $0.type is CustomGraphQLProperty.Type }.map { $0.name.deleting(prefix: "_") })
         let propertyResults = try typeProperties.compactMap { try $0.resolve(for: Self.self, using: &context) }
@@ -16,11 +26,14 @@ extension GraphQLObject {
 
         let methodMap = Dictionary(typeMethods.map { ($0.methodName.deleting(prefix: "$"), $0) }) { first, _ in first }
         let methods = try methodMap.filter { !gettersThatShouldBeIgnored.contains($0.key) }.compactMapValues { try $0.resolve(for: Self.self, using: &context) }
-        let fields = properties.merging(methods) { $1 }
+
+        let fields = properties
+            .merging(methods) { $1 }
+            .merging(nodeFields) { $1 }
 
         let interfaces = try inheritance
             .compactMap { $0 as? GraphQLObject.Type }
-            .map { try context.resolveInterface(object: $0) } + propertyResults.flatMap(\.interfaces)
+            .map { try context.resolveInterface(object: $0) } + propertyResults.flatMap(\.interfaces) + [isNode ? GraphQLNode : nil].compactMap { $0 }
 
         let type = try GraphQLObjectType(name: concreteTypeName, fields: fields, interfaces: interfaces.distinct(by: \.name)) { value, _, _ in value is Self }
 

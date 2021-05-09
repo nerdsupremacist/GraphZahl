@@ -54,7 +54,7 @@ import Foundation
  - And all the functions that return GraphQL Values are also included
  - The store functions return `Void`, which is not a GraphQL Output. These methods are therefore not included.
  */
-public protocol GraphQLObject : class, OutputResolvable, ConcreteResolvable, KeyPathListable {
+public protocol GraphQLObject : AnyObject, OutputResolvable, ConcreteResolvable, KeyPathListable {
     /**
      Loads object from source.
 
