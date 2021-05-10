@@ -26,17 +26,12 @@ extension LazyInline: CustomGraphQLProperty {
                         for receiverType: GraphQLObject.Type,
                         using context: inout Resolution.Context) throws -> PropertyResult {
 
-        let object = try Wrapped.resolveObject(using: &context)
-
-        let fields = object.fields.mapValues { field in
+        let fields = try Wrapped.fieldsAndInterfaces(using: &context).fields.mapValues { field in
             return GraphQLField(
                 type: field.type,
                 description: field.description,
                 deprecationReason: field.deprecationReason,
-                args: Dictionary(
-                    uniqueKeysWithValues: field.args.map { ($0.name, $0.type) }
-                )
-                .mapValues { GraphQLArgument(type: $0) }
+                args: field.args
             ) { source, arguments, context, eventLoop, info in
 
                 let object = receiverType.object(from: source)

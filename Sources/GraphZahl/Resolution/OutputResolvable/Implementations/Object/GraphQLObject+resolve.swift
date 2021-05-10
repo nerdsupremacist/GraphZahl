@@ -7,7 +7,22 @@ import NIO
 extension GraphQLObject {
 
     static func resolveObject(using context: inout Resolution.Context) throws -> GraphQLObjectType {
-        let (typeProperties, typeMethods, inheritance) = try typeInfo(of: Self.self, .properties, .methods, .inheritance)
+        let inheritance = try typeInfo(of: Self.self, .inheritance)
+        let fieldsAndInterfaces = try self.fieldsAndInterfaces(using: &context)
+
+        let interfaces = try inheritance
+            .compactMap { $0 as? GraphQLObject.Type }
+            .map { try context.resolveInterface(object: $0) } + fieldsAndInterfaces.interfaces
+
+        let type = try GraphQLObjectType(name: concreteTypeName,
+                                         fields: fieldsAndInterfaces.fields,
+                                         interfaces: interfaces.distinct(by: \.name)) { value, _, _ in value is Self }
+
+        return type
+    }
+
+    static func fieldsAndInterfaces(using context: inout Resolution.Context) throws -> FieldsAndInterfaces {
+        let (typeProperties, typeMethods) = try typeInfo(of: Self.self, .properties, .methods)
 
         let isNode: Bool
         if let type = Self.self as? Node.Type {
@@ -31,15 +46,14 @@ extension GraphQLObject {
             .merging(methods) { $1 }
             .merging(nodeFields) { $1 }
 
-        let interfaces = try inheritance
-            .compactMap { $0 as? GraphQLObject.Type }
-            .map { try context.resolveInterface(object: $0) } + propertyResults.flatMap(\.interfaces) + [isNode ? GraphQLNode : nil].compactMap { $0 }
-
-        let type = try GraphQLObjectType(name: concreteTypeName, fields: fields, interfaces: interfaces.distinct(by: \.name)) { value, _, _ in value is Self }
-
-        return type
+        return FieldsAndInterfaces(interfaces:  propertyResults.flatMap(\.interfaces) + [isNode ? GraphQLNode : nil].compactMap { $0 }, fields: fields)
     }
     
+}
+
+struct FieldsAndInterfaces {
+    let interfaces: [GraphQLInterfaceType]
+    let fields: GraphQLFieldMap
 }
 
 extension Sequence {
