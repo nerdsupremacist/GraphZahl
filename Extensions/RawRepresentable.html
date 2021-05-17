@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>RawRepresentable Extension Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Extension/RawRepresentable" class="dashAnchor"></a>
+
+    <a title="RawRepresentable Extension Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          GraphZahl Docs
+        </a>
+         (50% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/nerdsupremacist/GraphZahl">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">GraphZahl Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      RawRepresentable Extension Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Guides.html">Guides</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../readme.html">README</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/EmptyRootType.html">EmptyRootType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LazyInline.html">LazyInline</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LazyInlineAsInterface.html">LazyInlineAsInterface</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/PageInfo.html">PageInfo</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/IDValue.html">IDValue</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/JSONOptional.html">JSONOptional</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Output.html">Output</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Resolution.html">Resolution</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Resolution/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Resolution/Context.html">– Context</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ScalarType.html">ScalarType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ScalarTypeError.html">ScalarTypeError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ScalarValue.html">ScalarValue</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Bool.html">Bool</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Context.html">Context</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Context/Key.html">– Key</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/ContextKeyPaths.html">ContextKeyPaths</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Double.html">Double</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/EventLoopFuture.html">EventLoopFuture</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Float.html">Float</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Int.html">Int</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/KeyPath.html">KeyPath</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Optional.html">Optional</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/RawRepresentable.html">RawRepresentable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UUID.html">UUID</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ConcreteResolvable.html">ConcreteResolvable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ConnectionProtocol.html">ConnectionProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ContextBasedConnection.html">ContextBasedConnection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/DelegatedOutputResolvable.html">DelegatedOutputResolvable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/EdgeProtocol.html">EdgeProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/FixedPageSizeIndexedConnection.html">FixedPageSizeIndexedConnection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GraphQLEnum.html">GraphQLEnum</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GraphQLInputObject.html">GraphQLInputObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GraphQLObject.html">GraphQLObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GraphQLRootType.html">GraphQLRootType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GraphQLScalar.html">GraphQLScalar</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GraphQLSchema.html">GraphQLSchema</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GraphQLUnion.html">GraphQLUnion</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/IndexCursorTranslator.html">IndexCursorTranslator</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/IndexedConnection.html">IndexedConnection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/InputResolvable.html">InputResolvable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols.html#/s:9GraphZahl15KeyPathListableP">KeyPathListable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols.html#/s:9GraphZahl17MandatoryRootTypeP">MandatoryRootType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Node.html">Node</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/OutputResolvable.html">OutputResolvable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Resolvable.html">Resolvable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ValueResolvable.html">ValueResolvable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Ignore.html">Ignore</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Inline.html">Inline</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/InlineAsInterface.html">InlineAsInterface</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/StandardEdge.html">StandardEdge</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/StandardIndexCursorTranslator.html">StandardIndexCursorTranslator</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9GraphZahl12MutationTypea">MutationType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9GraphZahl9QueryTypea">QueryType</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>RawRepresentable</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RawRepresentable</span> <span class="k">where</span> <span class="k">Self</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ValueResolvable.html">ValueResolvable</a></span><span class="p">,</span> <span class="kt">RawValue</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ValueResolvable.html">ValueResolvable</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RawRepresentable</span> <span class="k">where</span> <span class="k">Self</span><span class="p">:</span> <span class="kt"><a href="../Protocols/InputResolvable.html">InputResolvable</a></span><span class="p">,</span> <span class="kt">RawValue</span><span class="p">:</span> <span class="kt"><a href="../Protocols/InputResolvable.html">InputResolvable</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RawRepresentable</span> <span class="k">where</span> <span class="kt">RawValue</span><span class="p">:</span> <span class="kt"><a href="../Protocols/GraphQLScalar.html">GraphQLScalar</a></span><span class="p">,</span> <span class="k">Self</span><span class="p">:</span> <span class="kt"><a href="../Protocols/GraphQLScalar.html">GraphQLScalar</a></span></code></pre>
+
+                </div>
+              </div>
+            <h1 id='conditional-conformance' class='heading'>Conditional Conformance</h1>
+
+<p>All raw representables of values that can be translated to a GraphQL Value, can themselves be translated to a GraphQL Value</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Self%60%3A%20%60ValueResolvable%60%2C%20%60RawValue%60%3A%20%60ValueResolvable%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Self`: `ValueResolvable`, `RawValue`: `ValueResolvable`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Self%60%3A%20%60ValueResolvable%60%2C%20%60RawValue%60%3A%20%60ValueResolvable%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Self</code>: <code><a href="../Protocols/ValueResolvable.html">ValueResolvable</a></code>, <code>RawValue</code>: <code><a href="../Protocols/ValueResolvable.html">ValueResolvable</a></code></p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SY9GraphZahlAA15ValueResolvableRzAaB03RawC0SYRpzrlE3map0A2QL3MapOyKF"></a>
+                    <a name="//apple_ref/swift/Method/map()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SY9GraphZahlAA15ValueResolvableRzAaB03RawC0SYRpzrlE3map0A2QL3MapOyKF">map()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    default implementation from <code>GraphZahl</code>. Do not override unless you know exactly what you are doing.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">map</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Map</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Self%60%3A%20%60InputResolvable%60%2C%20%60RawValue%60%3A%20%60InputResolvable%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Self`: `InputResolvable`, `RawValue`: `InputResolvable`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Self%60%3A%20%60InputResolvable%60%2C%20%60RawValue%60%3A%20%60InputResolvable%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Self</code>: <code><a href="../Protocols/InputResolvable.html">InputResolvable</a></code>, <code>RawValue</code>: <code><a href="../Protocols/InputResolvable.html">InputResolvable</a></code></p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SY9GraphZahlAA15InputResolvableRzAaB8RawValueSYRpzrlE6create4fromx0A2QL3MapO_tKFZ"></a>
+                    <a name="//apple_ref/swift/Method/create(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SY9GraphZahlAA15InputResolvableRzAaB8RawValueSYRpzrlE6create4fromx0A2QL3MapO_tKFZ">create(from:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    default implementation from <code>GraphZahl</code>. Do not override unless you know exactly what you are doing.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">create</span><span class="p">(</span><span class="n">from</span> <span class="nv">map</span><span class="p">:</span> <span class="kt">Map</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60RawValue%60%3A%20%60GraphQLScalar%60%2C%20%60Self%60%3A%20%60GraphQLScalar%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `RawValue`: `GraphQLScalar`, `Self`: `GraphQLScalar`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60RawValue%60%3A%20%60GraphQLScalar%60%2C%20%60Self%60%3A%20%60GraphQLScalar%60"></a>
+                  <h3 class="section-name"><p>Available where <code>RawValue</code>: <code><a href="../Protocols/GraphQLScalar.html">GraphQLScalar</a></code>, <code>Self</code>: <code><a href="../Protocols/GraphQLScalar.html">GraphQLScalar</a></code></p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SY9GraphZahlAA0A8QLScalarRzAaB8RawValueSYRpzrlE6scalarxAA06ScalarE0O_tKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(scalar:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SY9GraphZahlAA0A8QLScalarRzAaB8RawValueSYRpzrlE6scalarxAA06ScalarE0O_tKcfc">init(scalar:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">scalar</span><span class="p">:</span> <span class="kt"><a href="../Enums/ScalarValue.html">ScalarValue</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SY9GraphZahlAA0A8QLScalarRzAaB8RawValueSYRpzrlE12encodeScalarAA0gE0OyKF"></a>
+                    <a name="//apple_ref/swift/Method/encodeScalar()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SY9GraphZahlAA0A8QLScalarRzAaB8RawValueSYRpzrlE12encodeScalarAA0gE0OyKF">encodeScalar()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encodeScalar</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/ScalarValue.html">ScalarValue</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2021 <a class="link" href="https://github.com/nerdsupremacist" target="_blank" rel="external">Mathias Quintero</a>. All rights reserved. (Last updated: 2021-05-17)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.7</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

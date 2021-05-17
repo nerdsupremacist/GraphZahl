@@ -1,0 +1,1209 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/InputResolvable/Implementations/Array+InputResolvable.swift",
+      "line": 12,
+      "symbol": "Array.map()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/InputResolvable/Implementations/JSONOptional.swift",
+      "line": 5,
+      "symbol": "JSONOptional",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/InputResolvable/Implementations/JSONOptional.swift",
+      "line": 6,
+      "symbol": "JSONOptional.missingKey",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/InputResolvable/Implementations/JSONOptional.swift",
+      "line": 7,
+      "symbol": "JSONOptional.null",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/InputResolvable/Implementations/JSONOptional.swift",
+      "line": 8,
+      "symbol": "JSONOptional.some(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/InputResolvable/Implementations/JSONOptional.swift",
+      "line": 11,
+      "symbol": "JSONOptional",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/InputResolvable/Implementations/JSONOptional.swift",
+      "line": 13,
+      "symbol": "JSONOptional.map(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/InputResolvable/Implementations/JSONOptional.swift",
+      "line": 24,
+      "symbol": "JSONOptional.flatMap(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/InputResolvable/Implementations/JSONOptional.swift",
+      "line": 37,
+      "symbol": "JSONOptional",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/InputResolvable/Implementations/JSONOptional.swift",
+      "line": 39,
+      "symbol": "JSONOptional",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/InputResolvable/Implementations/JSONOptional.swift",
+      "line": 53,
+      "symbol": "JSONOptional.createFromMissingKey()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/InputResolvable/Implementations/Optional+InputResolvable.swift",
+      "line": 12,
+      "symbol": "Optional.map()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/InputResolvable/InputResolvable.swift",
+      "line": 48,
+      "symbol": "InputResolvable.createFromMissingKey()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/InputResolvable/InputResolvable.swift",
+      "line": 53,
+      "symbol": "InputResolvable.createFromMissingKey()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/DelegatedOutputResolvable.swift",
+      "line": 7,
+      "symbol": "DelegatedOutputResolvable",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/DelegatedOutputResolvable.swift",
+      "line": 8,
+      "symbol": "DelegatedOutputResolvable.Output",
+      "symbol_kind": "source.lang.swift.decl.associatedtype",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/DelegatedOutputResolvable.swift",
+      "line": 10,
+      "symbol": "DelegatedOutputResolvable.resolve(source:arguments:context:eventLoop:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/DelegatedOutputResolvable.swift",
+      "line": 16,
+      "symbol": "DelegatedOutputResolvable",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/EdgeProtocol.swift",
+      "line": 15,
+      "symbol": "EdgeProtocol.Node",
+      "symbol_kind": "source.lang.swift.decl.associatedtype",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/FixedPageSizeIndexedConnection.swift",
+      "line": 5,
+      "symbol": "FixedPageSizeIndexedConnection",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/FixedPageSizeIndexedConnection.swift",
+      "line": 6,
+      "symbol": "FixedPageSizeIndexedConnection.pageSize(eventLoop:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/FixedPageSizeIndexedConnection.swift",
+      "line": 7,
+      "symbol": "FixedPageSizeIndexedConnection.page(at:eventLoop:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/FixedPageSizeIndexedConnection.swift",
+      "line": 10,
+      "symbol": "FixedPageSizeIndexedConnection",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/FixedPageSizeIndexedConnection.swift",
+      "line": 12,
+      "symbol": "FixedPageSizeIndexedConnection.defaultPageSize(eventLoop:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/FixedPageSizeIndexedConnection.swift",
+      "line": 16,
+      "symbol": "FixedPageSizeIndexedConnection.nodes(offset:size:eventLoop:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/IndexCursorTranslator.swift",
+      "line": 4,
+      "symbol": "IndexCursorTranslator",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/IndexCursorTranslator.swift",
+      "line": 5,
+      "symbol": "IndexCursorTranslator.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/IndexCursorTranslator.swift",
+      "line": 6,
+      "symbol": "IndexCursorTranslator.cursor(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/IndexCursorTranslator.swift",
+      "line": 7,
+      "symbol": "IndexCursorTranslator.index(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/IndexCursorTranslator.swift",
+      "line": 10,
+      "symbol": "StandardIndexCursorTranslator",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/IndexCursorTranslator.swift",
+      "line": 17,
+      "symbol": "StandardIndexCursorTranslator.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/IndexCursorTranslator.swift",
+      "line": 19,
+      "symbol": "StandardIndexCursorTranslator.cursor(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/IndexCursorTranslator.swift",
+      "line": 34,
+      "symbol": "StandardIndexCursorTranslator.index(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/IndexedConnection.swift",
+      "line": 7,
+      "symbol": "IndexedConnection",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/IndexedConnection.swift",
+      "line": 8,
+      "symbol": "IndexedConnection.Node",
+      "symbol_kind": "source.lang.swift.decl.associatedtype",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/IndexedConnection.swift",
+      "line": 9,
+      "symbol": "IndexedConnection.Identifier",
+      "symbol_kind": "source.lang.swift.decl.associatedtype",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/IndexedConnection.swift",
+      "line": 10,
+      "symbol": "IndexedConnection.Translator",
+      "symbol_kind": "source.lang.swift.decl.associatedtype",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/IndexedConnection.swift",
+      "line": 12,
+      "symbol": "IndexedConnection.identifier",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/IndexedConnection.swift",
+      "line": 14,
+      "symbol": "IndexedConnection.totalCount(eventLoop:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/IndexedConnection.swift",
+      "line": 15,
+      "symbol": "IndexedConnection.defaultPageSize(eventLoop:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/IndexedConnection.swift",
+      "line": 16,
+      "symbol": "IndexedConnection.nodes(offset:size:eventLoop:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/IndexedConnection.swift",
+      "line": 19,
+      "symbol": "IndexedConnection",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/IndexedConnection.swift",
+      "line": 21,
+      "symbol": "IndexedConnection.defaultPageSize(eventLoop:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Connection/IndexedConnection.swift",
+      "line": 27,
+      "symbol": "IndexedConnection",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Object/PropertyWrappers/Ignore.swift",
+      "line": 6,
+      "symbol": "Ignore",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Object/PropertyWrappers/Ignore.swift",
+      "line": 7,
+      "symbol": "Ignore.wrappedValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Object/PropertyWrappers/Ignore.swift",
+      "line": 9,
+      "symbol": "Ignore.init(wrappedValue:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Object/PropertyWrappers/Ignore.swift",
+      "line": 24,
+      "symbol": "Ignore",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Object/PropertyWrappers/Ignore.swift",
+      "line": 32,
+      "symbol": "Ignore",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Object/PropertyWrappers/Inline.swift",
+      "line": 7,
+      "symbol": "Inline",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Object/PropertyWrappers/Inline.swift",
+      "line": 8,
+      "symbol": "Inline.wrappedValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Object/PropertyWrappers/Inline.swift",
+      "line": 10,
+      "symbol": "Inline.init(wrappedValue:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Object/PropertyWrappers/InlineAsInterface.swift",
+      "line": 7,
+      "symbol": "InlineAsInterface",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Object/PropertyWrappers/InlineAsInterface.swift",
+      "line": 8,
+      "symbol": "InlineAsInterface.wrappedValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Object/PropertyWrappers/InlineAsInterface.swift",
+      "line": 10,
+      "symbol": "InlineAsInterface.init(wrappedValue:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Object/PropertyWrappers/LazyInline.swift",
+      "line": 8,
+      "symbol": "LazyInline",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Object/PropertyWrappers/LazyInline.swift",
+      "line": 14,
+      "symbol": "LazyInline.wrappedValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Object/PropertyWrappers/LazyInline.swift",
+      "line": 18,
+      "symbol": "LazyInline.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Object/PropertyWrappers/LazyInlineAsInterface.swift",
+      "line": 8,
+      "symbol": "LazyInlineAsInterface",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Object/PropertyWrappers/LazyInlineAsInterface.swift",
+      "line": 14,
+      "symbol": "LazyInlineAsInterface.wrappedValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Implementations/Object/PropertyWrappers/LazyInlineAsInterface.swift",
+      "line": 18,
+      "symbol": "LazyInlineAsInterface.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Node.swift",
+      "line": 7,
+      "symbol": "Node",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Node.swift",
+      "line": 8,
+      "symbol": "Node.id(context:eventLoop:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Node.swift",
+      "line": 10,
+      "symbol": "Node.find(id:context:eventLoop:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Output.swift",
+      "line": 6,
+      "symbol": "Output",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Output.swift",
+      "line": 7,
+      "symbol": "Output.map(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Output.swift",
+      "line": 8,
+      "symbol": "Output.array(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Output.swift",
+      "line": 9,
+      "symbol": "Output.future(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Output.swift",
+      "line": 10,
+      "symbol": "Output.object(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/OutputResolvable/Output.swift",
+      "line": 11,
+      "symbol": "Output.unsafeReceiver(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 5,
+      "symbol": "Resolution",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 7,
+      "symbol": "Resolution.Error",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 9,
+      "symbol": "Resolution.Error.cannotInstantiateTypeFromRawValue(_:rawValue:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 12,
+      "symbol": "Resolution.Error.inputObjectIsNotAStruct(type:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 13,
+      "symbol": "Resolution.Error.invalidPropertyInInputObject(name:type:ownerType:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 16,
+      "symbol": "Resolution.Error.unionTypeIsNotAnEnum(type:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 17,
+      "symbol": "Resolution.Error.notAllCasesOfUnionAreGraphQLObjects(type:valid:invalid:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 19,
+      "symbol": "Resolution.Error.viewerContextDidNotMatchExpectedType(expectedType:viewerContext:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 22,
+      "symbol": "Resolution.Context",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 48,
+      "symbol": "Resolution.Context",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 50,
+      "symbol": "Resolution.Context.viewerContext()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 61,
+      "symbol": "Resolution.Context",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 63,
+      "symbol": "Resolution.Context.append(type:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 74,
+      "symbol": "Resolution.Context",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 76,
+      "symbol": "Resolution.Context.appending(type:as:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 85,
+      "symbol": "Resolution.Context.append(type:as:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 91,
+      "symbol": "Resolution.Context",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 93,
+      "symbol": "Resolution.Context.appending(reference:as:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 102,
+      "symbol": "Resolution.Context.append(reference:as:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 108,
+      "symbol": "Resolution.Context",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 110,
+      "symbol": "Resolution.Context.appending(unresolved:as:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 119,
+      "symbol": "Resolution.Context.append(unresolved:as:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 125,
+      "symbol": "Resolution.Context",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 127,
+      "symbol": "Resolution.Context.removingUnresolved(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 138,
+      "symbol": "Resolution.Context.removeUnresolved(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 144,
+      "symbol": "Resolution.Context",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 147,
+      "symbol": "Resolution.Context.resolve(type:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 161,
+      "symbol": "Resolution.Context.resolve(type:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 188,
+      "symbol": "Resolution.Context",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 190,
+      "symbol": "Resolution.Context.reference(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 210,
+      "symbol": "Resolution.Context",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolution.swift",
+      "line": 212,
+      "symbol": "Resolution.Context.resolveInterface(object:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Resolvable/ValueResolvable.swift",
+      "line": 12,
+      "symbol": "ValueResolvable.map()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Root/EmptyRootType.swift",
+      "line": 12,
+      "symbol": "EmptyRootType.resolve(source:arguments:eventLoop:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Root/GraphQLSchema+perform.swift",
+      "line": 12,
+      "symbol": "GraphQLSchema.prepare(viewerContext:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Root/GraphQLSchema+perform.swift",
+      "line": 75,
+      "symbol": "GraphQLSchema.viewerContext",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Enum/GraphQLEnum.swift",
+      "line": 7,
+      "symbol": "GraphQLEnum",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Enum/GraphQLEnum.swift",
+      "line": 8,
+      "symbol": "GraphQLEnum.cases(using:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Enum/GraphQLEnum.swift",
+      "line": 11,
+      "symbol": "GraphQLEnum",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Enum/GraphQLEnum.swift",
+      "line": 13,
+      "symbol": "GraphQLEnum.cases(using:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Enum/GraphQLEnum.swift",
+      "line": 19,
+      "symbol": "GraphQLEnum",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Enum/GraphQLEnum.swift",
+      "line": 35,
+      "symbol": "GraphQLEnum.resolve(using:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Enum/GraphQLEnum.swift",
+      "line": 39,
+      "symbol": "GraphQLEnum.resolve(using:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/GraphQLScalar+InputResolvable.swift",
+      "line": 7,
+      "symbol": "GraphQLScalar.resolve(using:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/GraphQLScalar+OutputResolvable.swift",
+      "line": 13,
+      "symbol": "GraphQLScalar.resolve(using:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/GraphQLScalar.swift",
+      "line": 5,
+      "symbol": "GraphQLScalar",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/GraphQLScalar.swift",
+      "line": 5,
+      "symbol": "GraphQLScalar",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/GraphQLScalar.swift",
+      "line": 6,
+      "symbol": "GraphQLScalar.resolve()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/GraphQLScalar.swift",
+      "line": 7,
+      "symbol": "GraphQLScalar",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/GraphQLScalar.swift",
+      "line": 8,
+      "symbol": "GraphQLScalar.init(scalar:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/GraphQLScalar.swift",
+      "line": 9,
+      "symbol": "GraphQLScalar.encodeScalar()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/GraphQLScalar.swift",
+      "line": 12,
+      "symbol": "GraphQLScalar",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/GraphQLScalar.swift",
+      "line": 14,
+      "symbol": "GraphQLScalar.resolve()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/GraphQLScalar.swift",
+      "line": 21,
+      "symbol": "GraphQLScalar.map()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/Implementations/Bool+Scalar.swift",
+      "line": 9,
+      "symbol": "Bool.init(scalar:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/Implementations/Bool+Scalar.swift",
+      "line": 13,
+      "symbol": "Bool.encodeScalar()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/Implementations/Bool+Scalar.swift",
+      "line": 17,
+      "symbol": "Bool.resolve()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/Implementations/Double+Scalar.swift",
+      "line": 9,
+      "symbol": "Double.init(scalar:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/Implementations/Double+Scalar.swift",
+      "line": 13,
+      "symbol": "Double.encodeScalar()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/Implementations/Double+Scalar.swift",
+      "line": 17,
+      "symbol": "Double.resolve()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/Implementations/Float+Scalar.swift",
+      "line": 7,
+      "symbol": "Float.init(scalar:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/Implementations/Float+Scalar.swift",
+      "line": 11,
+      "symbol": "Float.encodeScalar()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/Implementations/Float+Scalar.swift",
+      "line": 15,
+      "symbol": "Float.resolve()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/Implementations/Int+Scalar.swift",
+      "line": 7,
+      "symbol": "Int.init(scalar:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/Implementations/Int+Scalar.swift",
+      "line": 11,
+      "symbol": "Int.encodeScalar()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/Implementations/Int+Scalar.swift",
+      "line": 15,
+      "symbol": "Int.resolve()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/Implementations/String+Scalar.swift",
+      "line": 7,
+      "symbol": "String.init(scalar:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/Implementations/String+Scalar.swift",
+      "line": 11,
+      "symbol": "String.encodeScalar()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/Implementations/String+Scalar.swift",
+      "line": 15,
+      "symbol": "String.resolve()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/Implementations/UUID+Scalar.swift",
+      "line": 11,
+      "symbol": "UUID.init(scalar:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/Implementations/UUID+Scalar.swift",
+      "line": 16,
+      "symbol": "UUID.encodeScalar()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/Implementations/UUID+Scalar.swift",
+      "line": 20,
+      "symbol": "UUID.resolve()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/RawRepresentable+GraphQLScalar.swift",
+      "line": 6,
+      "symbol": "RawRepresentable.init(scalar:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Scalar/RawRepresentable+GraphQLScalar.swift",
+      "line": 15,
+      "symbol": "RawRepresentable.encodeScalar()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/ScalarTypeError.swift",
+      "line": 5,
+      "symbol": "ScalarTypeError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/ScalarTypeError.swift",
+      "line": 6,
+      "symbol": "ScalarTypeError.unexpectedValue(_:expected:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/ScalarTypeError.swift",
+      "line": 7,
+      "symbol": "ScalarTypeError.valueFailedInnerTypeConstraints(_:forType:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/ScalarTypeError.swift",
+      "line": 8,
+      "symbol": "ScalarTypeError.valueNotScalar(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Type/ScalarType.swift",
+      "line": 4,
+      "symbol": "ScalarType",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Type/ScalarType.swift",
+      "line": 5,
+      "symbol": "ScalarType.string",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Type/ScalarType.swift",
+      "line": 6,
+      "symbol": "ScalarType.float",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Type/ScalarType.swift",
+      "line": 7,
+      "symbol": "ScalarType.int",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Type/ScalarType.swift",
+      "line": 8,
+      "symbol": "ScalarType.bool",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Type/ScalarType.swift",
+      "line": 9,
+      "symbol": "ScalarType.id",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Value/IDValue.swift",
+      "line": 4,
+      "symbol": "IDValue",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Value/IDValue.swift",
+      "line": 5,
+      "symbol": "IDValue.string(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Value/IDValue.swift",
+      "line": 6,
+      "symbol": "IDValue.int(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Value/ScalarValue+decode.swift",
+      "line": 6,
+      "symbol": "ScalarValue.string()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Value/ScalarValue+decode.swift",
+      "line": 11,
+      "symbol": "ScalarValue.int()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Value/ScalarValue+decode.swift",
+      "line": 16,
+      "symbol": "ScalarValue.float()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Value/ScalarValue+decode.swift",
+      "line": 21,
+      "symbol": "ScalarValue.bool()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Value/ScalarValue+decode.swift",
+      "line": 26,
+      "symbol": "ScalarValue.id()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Value/ScalarValue.swift",
+      "line": 4,
+      "symbol": "ScalarValue",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Value/ScalarValue.swift",
+      "line": 5,
+      "symbol": "ScalarValue",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Value/ScalarValue.swift",
+      "line": 6,
+      "symbol": "ScalarValue.string(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Value/ScalarValue.swift",
+      "line": 7,
+      "symbol": "ScalarValue.number(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Scalar/Value/ScalarValue.swift",
+      "line": 8,
+      "symbol": "ScalarValue.bool(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Union/GraphQLUnionType.swift",
+      "line": 10,
+      "symbol": "GraphQLUnion",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Resolution/Union/GraphQLUnionType.swift",
+      "line": 12,
+      "symbol": "GraphQLUnion",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Utils/ContextKey+ViewerContext.swift",
+      "line": 8,
+      "symbol": "Context.Key.viewerContext",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Utils/ContextKey+ViewerContext.swift",
+      "line": 16,
+      "symbol": "Context.Key.anyViewerContext",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/GraphZahl/GraphZahl/Sources/GraphZahl/Utils/ContextKey+ViewerContext.swift",
+      "line": 21,
+      "symbol": "ContextKeyPaths.anyViewerContext",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/runner/work/GraphZahl/GraphZahl"
+}

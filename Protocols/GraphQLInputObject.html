@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>GraphQLInputObject Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Protocol/GraphQLInputObject" class="dashAnchor"></a>
+
+    <a title="GraphQLInputObject Protocol Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          GraphZahl Docs
+        </a>
+         (50% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/nerdsupremacist/GraphZahl">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">GraphZahl Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      GraphQLInputObject Protocol Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Guides.html">Guides</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../readme.html">README</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/EmptyRootType.html">EmptyRootType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LazyInline.html">LazyInline</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LazyInlineAsInterface.html">LazyInlineAsInterface</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/PageInfo.html">PageInfo</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/IDValue.html">IDValue</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/JSONOptional.html">JSONOptional</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Output.html">Output</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Resolution.html">Resolution</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Resolution/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Resolution/Context.html">– Context</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ScalarType.html">ScalarType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ScalarTypeError.html">ScalarTypeError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ScalarValue.html">ScalarValue</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Bool.html">Bool</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Context.html">Context</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Context/Key.html">– Key</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/ContextKeyPaths.html">ContextKeyPaths</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Double.html">Double</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/EventLoopFuture.html">EventLoopFuture</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Float.html">Float</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Int.html">Int</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/KeyPath.html">KeyPath</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Optional.html">Optional</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/RawRepresentable.html">RawRepresentable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UUID.html">UUID</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ConcreteResolvable.html">ConcreteResolvable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ConnectionProtocol.html">ConnectionProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ContextBasedConnection.html">ContextBasedConnection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/DelegatedOutputResolvable.html">DelegatedOutputResolvable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/EdgeProtocol.html">EdgeProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/FixedPageSizeIndexedConnection.html">FixedPageSizeIndexedConnection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GraphQLEnum.html">GraphQLEnum</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GraphQLInputObject.html">GraphQLInputObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GraphQLObject.html">GraphQLObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GraphQLRootType.html">GraphQLRootType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GraphQLScalar.html">GraphQLScalar</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GraphQLSchema.html">GraphQLSchema</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GraphQLUnion.html">GraphQLUnion</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/IndexCursorTranslator.html">IndexCursorTranslator</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/IndexedConnection.html">IndexedConnection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/InputResolvable.html">InputResolvable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols.html#/s:9GraphZahl15KeyPathListableP">KeyPathListable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols.html#/s:9GraphZahl17MandatoryRootTypeP">MandatoryRootType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Node.html">Node</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/OutputResolvable.html">OutputResolvable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Resolvable.html">Resolvable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ValueResolvable.html">ValueResolvable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Ignore.html">Ignore</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Inline.html">Inline</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/InlineAsInterface.html">InlineAsInterface</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/StandardEdge.html">StandardEdge</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/StandardIndexCursorTranslator.html">StandardIndexCursorTranslator</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9GraphZahl12MutationTypea">MutationType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9GraphZahl9QueryTypea">QueryType</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>GraphQLInputObject</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">GraphQLInputObject</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/ConcreteResolvable.html">ConcreteResolvable</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/InputResolvable.html">InputResolvable</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols.html#/s:9GraphZahl15KeyPathListableP">KeyPathListable</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/ValueResolvable.html">ValueResolvable</a></span></code></pre>
+
+                </div>
+              </div>
+            <h1 id='graphqlinputobject' class='heading'>GraphQLInputObject</h1>
+
+<p>A GraphQL Input Object is a Struct that can be used as an input for a method.</p>
+<h2 id='example' class='heading'>Example</h2>
+
+<p>If want to provide an API for sorting search results. We can create a struct for those options.</p>
+<pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">Order</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">CaseIterable</span><span class="p">,</span> <span class="kt">GraphQLEnum</span> <span class="p">{</span>
+   <span class="k">case</span> <span class="n">ascending</span>
+   <span class="k">case</span> <span class="n">descending</span>
+<span class="p">}</span>
+
+<span class="kd">struct</span> <span class="kt">SortOptions</span><span class="p">:</span> <span class="kt">GraphQLInputType</span> <span class="p">{</span>
+   <span class="k">let</span> <span class="nv">field</span><span class="p">:</span> <span class="kt">KeyPath</span><span class="o">&lt;</span><span class="kt">SearchResult</span><span class="p">,</span> <span class="kt">Int</span><span class="o">&gt;</span>
+   <span class="k">let</span> <span class="nv">order</span><span class="p">:</span> <span class="kt">Order</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">Query</span><span class="p">:</span> <span class="kt">QueryType</span> <span class="p">{</span>
+   <span class="kd">func</span> <span class="nf">search</span><span class="p">(</span><span class="nv">term</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">sortOptions</span><span class="p">:</span> <span class="kt">SortOptions</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">SearchResult</span><span class="p">]</span> <span class="p">{</span>
+       <span class="o">...</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h2 id='note' class='heading'>Note</h2>
+
+<p>Input types can be useful to group arguments. We can also use them to group arguments that should always be provided together. Like in our search example, we don&rsquo;t need the user to specify how to sort. But when the user wants the Results sorted by a field, we need to know if they should be sorted in an ascending or descending order. That&rsquo;s why the Input Object makes sense in this scenario.</p>
+<h2 id='details' class='heading'>Details</h2>
+
+<ul>
+<li>A GraphQL Input Object is Input Resolvable and can be used in any method that should be available in GraphQL</li>
+<li>An Input Object has to be a struct. If it&rsquo;s not a struct, an error will be thrown.</li>
+<li>All the properties in the struct have to be Input Resolvable as well. Otherwise an error will be thrown.</li>
+</ul>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GraphZahl0A13QLInputObjectPAAE7resolve5using0A2QL0aC4Type_pAA10ResolutionO7ContextVz_tKFZ"></a>
+                    <a name="//apple_ref/swift/Method/resolve(using:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GraphZahl0A13QLInputObjectPAAE7resolve5using0A2QL0aC4Type_pAA10ResolutionO7ContextVz_tKFZ">resolve(using:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    default implementation from <code>GraphZahl</code>. Do not override unless you know exactly what you are doing.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">resolve</span><span class="p">(</span><span class="n">using</span> <span class="nv">context</span><span class="p">:</span> <span class="k">inout</span> <span class="kt"><a href="../Enums/Resolution.html">Resolution</a></span><span class="o">.</span><span class="kt">Context</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">GraphQLInputType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GraphZahl0A13QLInputObjectPAAE6create4fromx0A2QL3MapO_tKFZ"></a>
+                    <a name="//apple_ref/swift/Method/create(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GraphZahl0A13QLInputObjectPAAE6create4fromx0A2QL3MapO_tKFZ">create(from:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    default implementation from <code>GraphZahl</code>. Do not override unless you know exactly what you are doing.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">create</span><span class="p">(</span><span class="n">from</span> <span class="nv">map</span><span class="p">:</span> <span class="kt">Map</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GraphZahl0A13QLInputObjectPAAE3map0A2QL3MapOyKF"></a>
+                    <a name="//apple_ref/swift/Method/map()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GraphZahl0A13QLInputObjectPAAE3map0A2QL3MapOyKF">map()</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    default implementation from <code>GraphZahl</code>. Do not override unless you know exactly what you are doing.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">map</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Map</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2021 <a class="link" href="https://github.com/nerdsupremacist" target="_blank" rel="external">Mathias Quintero</a>. All rights reserved. (Last updated: 2021-05-17)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.7</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>GraphQLSchema Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Protocol/GraphQLSchema" class="dashAnchor"></a>
+
+    <a title="GraphQLSchema Protocol Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          GraphZahl Docs
+        </a>
+         (50% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/nerdsupremacist/GraphZahl">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">GraphZahl Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      GraphQLSchema Protocol Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Guides.html">Guides</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../readme.html">README</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/EmptyRootType.html">EmptyRootType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LazyInline.html">LazyInline</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LazyInlineAsInterface.html">LazyInlineAsInterface</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/PageInfo.html">PageInfo</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/IDValue.html">IDValue</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/JSONOptional.html">JSONOptional</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Output.html">Output</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Resolution.html">Resolution</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Resolution/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Resolution/Context.html">– Context</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ScalarType.html">ScalarType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ScalarTypeError.html">ScalarTypeError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ScalarValue.html">ScalarValue</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Bool.html">Bool</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Context.html">Context</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Context/Key.html">– Key</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/ContextKeyPaths.html">ContextKeyPaths</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Double.html">Double</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/EventLoopFuture.html">EventLoopFuture</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Float.html">Float</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Int.html">Int</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/KeyPath.html">KeyPath</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Optional.html">Optional</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/RawRepresentable.html">RawRepresentable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UUID.html">UUID</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ConcreteResolvable.html">ConcreteResolvable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ConnectionProtocol.html">ConnectionProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ContextBasedConnection.html">ContextBasedConnection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/DelegatedOutputResolvable.html">DelegatedOutputResolvable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/EdgeProtocol.html">EdgeProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/FixedPageSizeIndexedConnection.html">FixedPageSizeIndexedConnection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GraphQLEnum.html">GraphQLEnum</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GraphQLInputObject.html">GraphQLInputObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GraphQLObject.html">GraphQLObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GraphQLRootType.html">GraphQLRootType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GraphQLScalar.html">GraphQLScalar</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GraphQLSchema.html">GraphQLSchema</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GraphQLUnion.html">GraphQLUnion</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/IndexCursorTranslator.html">IndexCursorTranslator</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/IndexedConnection.html">IndexedConnection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/InputResolvable.html">InputResolvable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols.html#/s:9GraphZahl15KeyPathListableP">KeyPathListable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols.html#/s:9GraphZahl17MandatoryRootTypeP">MandatoryRootType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Node.html">Node</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/OutputResolvable.html">OutputResolvable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Resolvable.html">Resolvable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ValueResolvable.html">ValueResolvable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Ignore.html">Ignore</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Inline.html">Inline</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/InlineAsInterface.html">InlineAsInterface</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/StandardEdge.html">StandardEdge</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/StandardIndexCursorTranslator.html">StandardIndexCursorTranslator</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9GraphZahl12MutationTypea">MutationType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9GraphZahl9QueryTypea">QueryType</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>GraphQLSchema</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">GraphQLSchema</span></code></pre>
+
+                </div>
+              </div>
+            <h1 id='graphql-schema' class='heading'>GraphQL Schema</h1>
+
+<p>A GraphQL Schema describes the entire API that is available.
+It&rsquo;s basically only a name space for your Query and Mutation Types.</p>
+
+<p>Your Query and Mutation Types have to be Root Types with the same Viewer Context.</p>
+
+<ul>
+<li>A Query Type is mandatory.</li>
+<li>A Mutation Type is optional.</li>
+</ul>
+<h2 id='examples' class='heading'>Examples</h2>
+
+<p>If you only want to offer a Query Type, you only need to implement that class:</p>
+<pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">MySchema</span> <span class="p">{</span>
+
+   <span class="kd">class</span> <span class="kt">Query</span><span class="p">:</span> <span class="kt">QueryType</span> <span class="p">{</span>
+       <span class="kd">func</span> <span class="nf">greeting</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"World"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="p">{</span>
+           <span class="k">return</span> <span class="s">"Hello, </span><span class="se">\(</span><span class="n">name</span><span class="se">)</span><span class="s">!"</span>
+       <span class="p">}</span>
+
+       <span class="nf">init</span><span class="p">(</span><span class="nv">viewerContext</span><span class="p">:</span> <span class="p">())</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+   <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre>
+
+<p>that gets translated to the following schema:</p>
+<pre class="highlight plaintext"><code>type Query {
+   greeting(name: String! = "World"): String!
+}
+</code></pre>
+
+<p>Alternatively you can also specify a Mutation Type:</p>
+<pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">MySchema</span> <span class="p">{</span>
+   <span class="kd">class</span> <span class="kt">Query</span><span class="p">:</span> <span class="kt">QueryType</span> <span class="p">{</span>
+       <span class="kd">func</span> <span class="nf">greeting</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"World"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="p">{</span>
+           <span class="k">return</span> <span class="s">"Hello, </span><span class="se">\(</span><span class="n">name</span><span class="se">)</span><span class="s">!"</span>
+       <span class="p">}</span>
+
+       <span class="nf">init</span><span class="p">(</span><span class="nv">viewerContext</span><span class="p">:</span> <span class="p">())</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+   <span class="p">}</span>
+
+   <span class="kd">class</span> <span class="kt">Mutation</span><span class="p">:</span> <span class="kt">MutationType</span> <span class="p">{</span>
+       <span class="kd">func</span> <span class="nf">store</span><span class="p">(</span><span class="nv">status</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+
+       <span class="nf">init</span><span class="p">(</span><span class="nv">viewerContext</span><span class="p">:</span> <span class="p">())</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Which would generate this Schema:</p>
+<pre class="highlight plaintext"><code>type Query {
+   greeting(name: String! = "World"): String!
+}
+
+type Mutation {
+   store(status: String!): String!
+}
+</code></pre>
+
+<p>If your types need to have a context for the current user, they need to use the exact same <code>ViewerContext</code>:</p>
+<pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">MySchema</span> <span class="p">{</span>
+   <span class="kd">typealias</span> <span class="kt">ViewerContext</span> <span class="o">=</span> <span class="kt">User</span>
+
+   <span class="kd">class</span> <span class="kt">Query</span><span class="p">:</span> <span class="kt">QueryType</span> <span class="p">{</span>
+       <span class="k">let</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">User</span>
+
+       <span class="k">var</span> <span class="nv">greeting</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span>
+           <span class="k">return</span> <span class="s">"Hello, </span><span class="se">\(</span><span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="se">)</span><span class="s">!"</span>
+       <span class="p">}</span>
+
+       <span class="nf">init</span><span class="p">(</span><span class="nv">viewerContext</span><span class="p">:</span> <span class="kt">User</span><span class="p">)</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+   <span class="p">}</span>
+
+   <span class="kd">class</span> <span class="kt">Mutation</span><span class="p">:</span> <span class="kt">MutationType</span> <span class="p">{</span>
+       <span class="k">let</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">User</span>
+
+       <span class="kd">func</span> <span class="nf">store</span><span class="p">(</span><span class="nv">status</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+
+       <span class="nf">init</span><span class="p">(</span><span class="nv">viewerContext</span><span class="p">:</span> <span class="kt">User</span><span class="p">)</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GraphZahl0A8QLSchemaP6Resulta"></a>
+                    <a name="//apple_ref/swift/Alias/Result" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GraphZahl0A8QLSchemaP6Resulta">Result</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Type of the Response of the Schema</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">Result</span> <span class="o">=</span> <span class="kt">GraphQLResult</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GraphZahl0A8QLSchemaP4Nonea"></a>
+                    <a name="//apple_ref/swift/Alias/None" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GraphZahl0A8QLSchemaP4Nonea">None</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Type of an Empty Mutation Type. Signals GraphZahl that no mutations are allowed</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">None</span> <span class="o">=</span> <span class="kt"><a href="../Classes/EmptyRootType.html">EmptyRootType</a></span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/GraphQLSchema.html#/s:9GraphZahl0A8QLSchemaP13ViewerContextQa">ViewerContext</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GraphZahl0A8QLSchemaP13ViewerContextQa"></a>
+                    <a name="//apple_ref/swift/Alias/ViewerContext" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GraphZahl0A8QLSchemaP13ViewerContextQa">ViewerContext</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Type that tells the Query/Mutation type everything about the User.
+This defaults to Void, to signal that all requests are treated the same, and this API does not compute anything different on a by user basis.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">ViewerContext</span> <span class="o">=</span> <span class="kt">Void</span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">ViewerContext</span> <span class="o">==</span> <span class="k">Self</span><span class="o">.</span><span class="kt"><a href="../Protocols/GraphQLSchema.html#/s:9GraphZahl0A8QLSchemaP8MutationQa">Mutation</a></span><span class="o">.</span><span class="kt">ViewerContext</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GraphZahl0A8QLSchemaP5QueryQa"></a>
+                    <a name="//apple_ref/swift/Alias/Query" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GraphZahl0A8QLSchemaP5QueryQa">Query</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Type of the Query for this Schema. Should conform to <code><a href="../Typealiases.html#/s:9GraphZahl9QueryTypea">QueryType</a></code>. And should have the same Viewer Context as the Schema</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">Query</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9GraphZahl17MandatoryRootTypeP">MandatoryRootType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GraphZahl0A8QLSchemaP8MutationQa"></a>
+                    <a name="//apple_ref/swift/Alias/Mutation" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GraphZahl0A8QLSchemaP8MutationQa">Mutation</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Type of the Mutation for this Schema. Should conform to <code><a href="../Typealiases.html#/s:9GraphZahl12MutationTypea">MutationType</a></code>. And should have the same Viewer Context as the Schema.
+Defaults to <code><a href="../Protocols/GraphQLSchema.html#/s:9GraphZahl0A8QLSchemaP4Nonea">None</a></code> signalling GraphZahl that no mutations are allowed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">Mutation</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/GraphQLRootType.html">GraphQLRootType</a></span> <span class="o">=</span> <span class="k">Self</span><span class="o">.</span><span class="kt"><a href="../Protocols/GraphQLSchema.html#/s:9GraphZahl0A8QLSchemaP4Nonea">None</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Mutation</span><span class="o">.</span><span class="kt"><a href="../Protocols/GraphQLSchema.html#/s:9GraphZahl0A8QLSchemaP13ViewerContextQa">ViewerContext</a></span> <span class="o">==</span> <span class="k">Self</span><span class="o">.</span><span class="kt"><a href="../Protocols/GraphQLSchema.html#/s:9GraphZahl0A8QLSchemaP5QueryQa">Query</a></span><span class="o">.</span><span class="kt"><a href="../Protocols/GraphQLSchema.html#/s:9GraphZahl0A8QLSchemaP13ViewerContextQa">ViewerContext</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GraphZahl0A8QLSchemaPAAE7prepare13viewerContexty06ViewerF0QzSg_tKFZ"></a>
+                    <a name="//apple_ref/swift/Method/prepare(viewerContext:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GraphZahl0A8QLSchemaPAAE7prepare13viewerContexty06ViewerF0QzSg_tKFZ">prepare(viewerContext:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">prepare</span><span class="p">(</span><span class="nv">viewerContext</span><span class="p">:</span> <span class="kt"><a href="../Protocols/GraphQLSchema.html#/s:9GraphZahl0A8QLSchemaP13ViewerContextQa">ViewerContext</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GraphZahl0A8QLSchemaPAAE7perform7request13viewerContext14variableValues14eventLoopGroup3NIO05EventK6FutureCy0A2QL0A8QLResultVGSS_06ViewerG0QzSDySSAL3MapOGAI0nkL0_pSgtKFZ"></a>
+                    <a name="//apple_ref/swift/Method/perform(request:viewerContext:variableValues:eventLoopGroup:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GraphZahl0A8QLSchemaPAAE7perform7request13viewerContext14variableValues14eventLoopGroup3NIO05EventK6FutureCy0A2QL0A8QLResultVGSS_06ViewerG0QzSDySSAL3MapOGAI0nkL0_pSgtKFZ">perform(request:<wbr>viewerContext:<wbr>variableValues:<wbr>eventLoopGroup:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Performs a GraphQL Request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">perform</span><span class="p">(</span><span class="nv">request</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                           <span class="nv">viewerContext</span><span class="p">:</span> <span class="kt"><a href="../Protocols/GraphQLSchema.html#/s:9GraphZahl0A8QLSchemaP13ViewerContextQa">ViewerContext</a></span><span class="p">,</span>
+                           <span class="nv">variableValues</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Map</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:],</span>
+                           <span class="nv">eventLoopGroup</span><span class="p">:</span> <span class="kt">EventLoopGroup</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt">GraphQLResult</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>request</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Query Text</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>viewerContext</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Viewer Context</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A future with the result with data and errors for the query</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GraphZahl0A8QLSchemaPAAE13viewerContext0E3Kit0E0V3KeyCy_06ViewerE0QzGvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/viewerContext" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GraphZahl0A8QLSchemaPAAE13viewerContext0E3Kit0E0V3KeyCy_06ViewerE0QzGvpZ">viewerContext</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">viewerContext</span><span class="p">:</span> <span class="kt">Context</span><span class="o">.</span><span class="kt">Key</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/GraphQLSchema.html#/s:9GraphZahl0A8QLSchemaP13ViewerContextQa">ViewerContext</a></span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60ViewerContext%60%20%3D%3D%20%60Void%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `ViewerContext` == `Void`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60ViewerContext%60%20%3D%3D%20%60Void%60"></a>
+                  <h3 class="section-name"><p>Available where <code><a href="../Protocols/GraphQLSchema.html#/s:9GraphZahl0A8QLSchemaP13ViewerContextQa">ViewerContext</a></code> == <code>Void</code></p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GraphZahl0A8QLSchemaPAAyt13ViewerContextRtzrlE7perform7request14variableValues14eventLoopGroup3NIO05EventK6FutureCy0A2QL0A8QLResultVGSS_SDySSAM3MapOGAJ0nkL0_pSgtKFZ"></a>
+                    <a name="//apple_ref/swift/Method/perform(request:variableValues:eventLoopGroup:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GraphZahl0A8QLSchemaPAAyt13ViewerContextRtzrlE7perform7request14variableValues14eventLoopGroup3NIO05EventK6FutureCy0A2QL0A8QLResultVGSS_SDySSAM3MapOGAJ0nkL0_pSgtKFZ">perform(request:<wbr>variableValues:<wbr>eventLoopGroup:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Performs a GraphQL Request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">perform</span><span class="p">(</span><span class="nv">request</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                           <span class="nv">variableValues</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Map</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:],</span>
+                           <span class="nv">eventLoopGroup</span><span class="p">:</span> <span class="kt">EventLoopGroup</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt">GraphQLResult</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>request</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Query Text</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A future with the result with data and errors for the query</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2021 <a class="link" href="https://github.com/nerdsupremacist" target="_blank" rel="external">Mathias Quintero</a>. All rights reserved. (Last updated: 2021-05-17)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.7</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
