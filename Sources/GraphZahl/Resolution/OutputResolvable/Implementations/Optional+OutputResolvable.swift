@@ -16,15 +16,23 @@ extension Optional: OutputResolvable where Wrapped: OutputResolvable {
     }
 
     public static func reference(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        guard let resolved = try context.reference(for: Wrapped.self) as? GraphQLNonNull else { fatalError() }
-        guard let type = resolved.ofType as? GraphQLOutputType else { fatalError() }
-        return type
+        switch try context.reference(for: Wrapped.self) {
+        case let resolved as GraphQLNonNull:
+            guard let type = resolved.ofType as? GraphQLOutputType else { fatalError() }
+            return type
+        case let type:
+            return type
+        }
     }
 
     public static func resolve(using context: inout Resolution.Context) throws -> GraphQLOutputType {
-        guard let resolved = try context.resolve(type: Wrapped.self) as? GraphQLNonNull else { fatalError() }
-        guard let type = resolved.ofType as? GraphQLOutputType else { fatalError() }
-        return type
+        switch try context.resolve(type: Wrapped.self) {
+        case let resolved as GraphQLNonNull:
+            guard let type = resolved.ofType as? GraphQLOutputType else { fatalError() }
+            return type
+        case let type:
+            return type
+        }
     }
 
     public func resolve(source: Any,
