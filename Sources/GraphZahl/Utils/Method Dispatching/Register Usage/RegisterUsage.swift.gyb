@@ -1,3 +1,4 @@
+// swiftlint:disable all
 // This file was automatically generated and should not be edited.
 
 import Foundation
@@ -20,6 +21,28 @@ enum IntArgument {
         % end
         case .pointer(let value):
             return Int(from: value)
+        }
+    }
+    
+    var size: Int {
+        switch self {
+        % for swiftType in int_types:
+        case .${swiftType.lower()}:
+            return MemoryLayout<${swiftType}>.size
+        % end
+        case .pointer:
+            return MemoryLayout<UnsafeMutableRawPointer>.size
+        }
+    }
+    
+    func write(to pointer: UnsafeMutableRawPointer) {
+        switch self {
+        % for swiftType in int_types:
+        case .${swiftType.lower()}(let value):
+            pointer.storeBytes(of: value, as: ${swiftType}.self)
+        % end
+        case .pointer(let value):
+            pointer.storeBytes(of: value, as: UnsafeMutableRawPointer.self)
         }
     }
 }
@@ -49,6 +72,24 @@ enum FloatArgument {
         % for swiftType in float_types:
         case .${swiftType.lower()}(let value):
             return Double(from: value)
+        % end
+        }
+    }
+    
+    var size: Int {
+        switch self {
+        % for swiftType in float_types:
+        case .${swiftType.lower()}:
+            return MemoryLayout<${swiftType}>.size
+        % end
+        }
+    }
+    
+    func write(to pointer: UnsafeMutableRawPointer) {
+        switch self {
+        % for swiftType in float_types:
+        case .${swiftType.lower()}(let value):
+            pointer.storeBytes(of: value, as: ${swiftType}.self)
         % end
         }
     }
@@ -98,6 +139,24 @@ extension FloatResult {
 enum FunctionArgument {
     case int(IntArgument)
     case float(FloatArgument)
+    
+    var size: Int {
+        switch self {
+        case .int(let int):
+            return int.size
+        case .float(let float):
+            return float.size
+        }
+    }
+    
+    func write(to pointer: UnsafeMutableRawPointer) {
+        switch self {
+        case .int(let int):
+            int.write(to: pointer)
+        case .float(let float):
+            float.write(to: pointer)
+        }
+    }
 }
 
 extension FunctionArgument {
@@ -126,21 +185,6 @@ extension FunctionResult {
             return self
         case .float(let float):
             return .int(float.intResult())
-        }
-    }
-
-}
-
-extension Sequence where Element == FunctionArgument {
-
-    func ordered() -> [FunctionArgument] {
-        return sorted { lhs, rhs in
-            switch (lhs, rhs) {
-            case (.int, .float):
-                return true
-            case (.int, .int), (.float, .float), (.float, .int):
-                return false
-            }
         }
     }
 

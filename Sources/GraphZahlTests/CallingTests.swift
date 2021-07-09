@@ -3,6 +3,7 @@ import XCTest
 import Runtime
 import NIO
 import ContextKit
+import CContext
 @testable import GraphQL
 @testable import GraphZahl
 
@@ -23,6 +24,35 @@ class CallingTests: XCTestCase {
         let method = info.methods.first { $0.methodName == "url" }!
         let result = try method.call(receiver: instance, arguments: []) as! URL
         XCTAssertEqual(result, google)
+    }
+    
+    func testManyArguments() throws {
+        let info = try typeInfo(of: MyClass.self)
+        let instance = MyClass()
+        let method = info.methods.first { $0.methodName == "manyArguments" }!
+        let arguments = ["One", "Two", "Three", "Four", "Five"]
+        
+        let argumentsList = try arguments.flatMap { try resolveArguments(for: $0, using: String.self) }.argumentList()
+        let registerArguments = argumentsList.intRegisterArguments
+        guard case .ofSize32(let stackArguments) = argumentsList.stackArguments.stackValues() else { fatalError() }
+        
+        let function = unsafeBitCast(method.address, to: (@convention(thin) (Int, Int, Int, Int, Int, Int, function_argumemt_stack_32, UInt8) -> String).self)
+        let pointer = Unmanaged.passUnretained(instance).toOpaque()
+        let offset = withUnsafeBytes(of: pointer) { $0.last! }
+        set_self_pointer(pointer)
+        let result = function(
+            registerArguments[0].value,
+            registerArguments[1].value,
+            registerArguments[2].value,
+            registerArguments[3].value,
+            registerArguments[4].value,
+            registerArguments[5].value,
+            stackArguments,
+            offset
+        )
+        
+//        let result = try method.call(receiver: instance, arguments: arguments) as! String
+        XCTAssertEqual(result, arguments.joined(separator: " "))
     }
 
     func testEnumCase() throws {
@@ -128,6 +158,8 @@ enum MyEnum: String, CaseIterable, GraphQLEnum {
 }
 
 class MyClass: GraphQLObject {
+    private let thing = 42
+    
     var url: URL {
         return google
     }
@@ -166,5 +198,10 @@ class MyClass: GraphQLObject {
 
     func doit(cases: [MyEnum] = MyEnum.mostCases) -> String {
         return cases.map(\.rawValue).joined()
+    }
+    
+    func manyArguments(first: String, second: String, third: String, fourth: String, fifth: String) -> String {
+        print(self)
+        return [first, second, third, fourth, fifth].joined(separator: " ")
     }
 }

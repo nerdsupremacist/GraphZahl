@@ -1,3 +1,4 @@
+// swiftlint:disable all
 // This file was automatically generated and should not be edited.
 
 import Runtime
@@ -36,6 +37,8 @@ import CContext
     allowedTypes = { "int" : "Int", "float" : "Double" }
     allowedArgumentMap = { "int" : 6, "float" : 8 }
     allowedResultMap = { "int" : 4, "float" : 4 }
+    
+    allowedStackSize = 80
 }%
 
 extension MethodInfo {
@@ -43,14 +46,16 @@ extension MethodInfo {
     func call(receiver: AnyObject, arguments: [Any]) throws -> Any {
         assert(arguments.count == self.arguments.count, "Argument count must correspond to original argument count")
 
-        let arguments = try zip(arguments, self.arguments).flatMap { try resolveArguments(for: $0.0, using: $0.1.type) }.ordered()
+        let argumentList = try zip(arguments, self.arguments).flatMap { try resolveArguments(for: $0.0, using: $0.1.type) }.argumentList()
+        let registerArguments = argumentList.registerArguments
+        let stackArguments = argumentList.stackArguments.stackValues()
         let resultDecoder = try resolveDecoder(for: returnType)
 
-        switch (arguments.count, resultDecoder.results.count) {
+        switch (registerArguments.count, resultDecoder.results.count) {
         % for numberOfArguments in range(allowedArguments + 1):
         % for numberOfResults in range(allowedResults + 1):
         case (${numberOfArguments}, ${numberOfResults}):
-            return try callWith${numberOfArguments}ArgumentsTo${numberOfResults}(receiver: receiver, arguments: arguments, decoder: resultDecoder)
+            return try callWith${numberOfArguments}ArgumentsTo${numberOfResults}(receiver: receiver, registerArguments: registerArguments, stackArguments: stackArguments, decoder: resultDecoder)
         % end
         % end
         default:
@@ -64,12 +69,13 @@ extension MethodInfo {
 
     % for numberOfArguments in range(allowedArguments + 1):
         % for numberOfResults in range(allowedResults + 1):
-        private func callWith${numberOfArguments}ArgumentsTo${numberOfResults}(receiver: AnyObject, arguments: [FunctionArgument], decoder: FunctionResultDecoder) throws -> Any {
+        private func callWith${numberOfArguments}ArgumentsTo${numberOfResults}(receiver: AnyObject, registerArguments: [FunctionArgument], stackArguments: StackValues, decoder: FunctionResultDecoder) throws -> Any {
             switch (
                 receiver
                 % for index in range(numberOfArguments):
-                , arguments[${index}]
+                , registerArguments[${index}]
                 % end
+                , stackArguments
                 % for index in range(numberOfResults):
                 , decoder.results[${index}]
                 % end
@@ -78,46 +84,71 @@ extension MethodInfo {
             %{ argumentCombinations = list(combos(allowedArgumentMap, numberOfArguments)) }%
             %{ resultCombinations = list(combos(allowedResultMap, numberOfResults)) }%
             % for arguments in argumentCombinations:
-                % for results in resultCombinations:
+                %{ needsStackValues = arguments.count("int") >= 6 or arguments.count("float") >= 8 }%
+                %{ maximumStackValueSize = allowedStackSize if (needsStackValues) else 0 }%
+                % for stackSize in range(0, maximumStackValueSize + 1):
+                    % for results in resultCombinations:
 
                 case (
                     _
-                    % for index, type in enumerate(arguments):
+                        % for index, type in enumerate(arguments):
                     , .${type}(let arg${index})
-                    % end
-                    % for index, type in enumerate(results):
+                        % end
+                        % if stackSize == 0:
+                    , .empty
+                        % else:
+                    , .ofSize${stackSize}(let stack)
+                        % end
+                        % for index, type in enumerate(results):
                     , .${type}(let res${index})
-                    % end
+                        % end
                 ):
-                    %{ types = ", ".join([allowedTypes[x] for x in arguments]) }%
-                    % if numberOfResults != 0:
-                    %{ result_prefix = "_".join(results) }%
+                        %{ types = ", ".join([allowedTypes[x] for x in arguments]) }%
+                        % if stackSize == 0:
+                            % if numberOfResults != 0:
+                            %{ result_prefix = "_".join(results) }%
                     let function = unsafeBitCast(address, to: (@convention(c) (${types}) -> (${result_prefix}_function_result)).self)
-                    % else:
+                            % else:
                     let function = unsafeBitCast(address, to: (@convention(c) (${types}) -> (Void)).self)
-                    % end
+                            % end
+                        % else:
+                            % if numberOfResults != 0:
+                            %{ result_prefix = "_".join(results) }%
+                    let function = unsafeBitCast(address, to: (@convention(c) (${types}, function_argumemt_stack_${stackSize}) -> (${result_prefix}_function_result)).self)
+                                % else:
+                    let function = unsafeBitCast(address, to: (@convention(c) (${types}, function_argumemt_stack_${stackSize}) -> (Void)).self)
+                            % end
+                        % end
 
-                    % for index, type in enumerate(arguments):
+                        % for index, type in enumerate(arguments):
                     let arg${index}Casted = arg${index}.value
-                    % end
+                        % end
 
                     let selfPointer = Unmanaged.passUnretained(self).toOpaque()
                     let receiverPointer = Unmanaged.passUnretained(receiver).toOpaque()
                     set_self_pointer(receiverPointer)
 
-                    %{ argumentString = ", ".join(["arg" + str(i) + "Casted"  for i in range(numberOfArguments)]) }%
-                    % if numberOfResults != 0:
+                        %{ argumentString = ", ".join(["arg" + str(i) + "Casted"  for i in range(numberOfArguments)]) }%
+                        % if stackSize == 0:
+                            % if numberOfResults != 0:
                     let result = function(${argumentString})
-                    % else:
+                            % else:
                     function(${argumentString})
-                    % end
+                            % end
+                        % else:
+                            % if numberOfResults != 0:
+                    let result = function(${argumentString}, stack)
+                            % else:
+                    function(${argumentString}, stack)
+                            % end
+                        % end
 
                     set_self_pointer(selfPointer)
-                    % for index in range(numberOfResults):
+                        % for index in range(numberOfResults):
                     res${index}.decode(result.res${index})
-                    % end
+                        % end
                     return try decoder.decode()
-
+                    % end
                 % end
             % end
 

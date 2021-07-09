@@ -34,6 +34,8 @@
 
     allowedTypes = { "int" : "long", "float" : "double" }
     allowedResultMap = { "int" : 4, "float" : 4 }
+    
+    allowedStackSize = 80
 }%
 
 void set_self_pointer(void *pointer);
@@ -50,5 +52,12 @@ struct ${name}_function_result {
 
 % end
 % end
+% for stackSize in range(1, allowedStackSize + 1):
+struct function_argumemt_stack_${stackSize} {
+    % for index in range(stackSize):
+    char byte${index};
+    % end
+};
 
+% end
 #endif
